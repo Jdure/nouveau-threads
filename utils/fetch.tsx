@@ -7,8 +7,10 @@ export default async function FetchStoreData (domain: string, api: string, confi
         url: api,
         headers: config,
         data: query
-    }).
-    then((result: { data: any; }) => {
+    }).then(async (result: { data: any; }) =>  {
         console.log(result.data)
-    });
+        return await result.data
+    }).catch(async (error: { response: any; }) => {
+        console.log(error.response)
+    })
 }
