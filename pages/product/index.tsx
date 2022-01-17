@@ -2,10 +2,8 @@ import Head from 'next/head'
 import FetchStoreData from '../../utils/fetch'
 import { queryData, header } from '../../utils/shopify'
 
-// FIXME: Unable to fetch data and display it on page
-// Assumptions:
-// Fetch function works but is not returning data to front end
-// FIXME: Typescript is causing issues with object deconstructing 
+
+// TODO: Need to deconstruct object, Typescript is causing issues with object deconstructing 
 
 interface Data {
   data: object
@@ -13,9 +11,6 @@ interface Data {
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
-
-// let fetchedData = FetchStoreData(storeDomain, storeApi, header, queryData)
-// console.log(fetchedData);
 
 const staticProducts = [
   {
@@ -104,11 +99,12 @@ return (
 
 export async function getStaticProps(){
 
-  const { data } : Data = FetchStoreData(storeDomain, storeApi, header, queryData)
+  const  {data} : {data: object, products: object, edges: [] } =  await FetchStoreData(storeDomain, storeApi, header, queryData)
   console.log(data);
 
   return {
     props: {
+      products: JSON.parse(JSON.stringify(data))
     },
   }
 }
