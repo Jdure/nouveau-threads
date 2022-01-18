@@ -6,21 +6,24 @@ export const header = {
 }
 
 export const queryData = `
-    query Products {
-        products(first:9){
-          edges {
-            node {
-              title
-              featuredImage {
-                url
-              }
-              priceRange{
-                minVariantPrice{
-                  amount
-                }
-              }
-            }
+query Products {
+  products(first:9){
+    edges {
+      node {
+        id
+        handle
+        title
+        featuredImage {
+          url
+          altText
+        }
+        priceRange{
+          minVariantPrice{
+            amount
           }
         }
       }
+    }
+  }
+}
             `
