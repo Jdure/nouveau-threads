@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import FetchStoreData from '../../utils/fetch'
@@ -51,7 +51,7 @@ const staticProducts = [
   // More products...
 ]
 
-export default function Products (storeData: object){
+export default function Products (storeData: Array<object>){
   console.log(storeData);
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -60,12 +60,13 @@ return (
     <title>Products</title>
     <link rel="icon" href="/favicon.ico" />
   </Head>
-
-  <ul>
-      {storeData.map((item) => (
-        <li>{post.title}</li>
-      ))}
-    </ul>
+{/* FIXME: Cannot map array of objects */}
+  {/* <ul>
+      {storeData.map((item) =>  { 
+        return (
+        <li>{item}</li>
+      )})}
+    </ul> */}
 
   {/* <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <div className="bg-white">
@@ -114,7 +115,7 @@ return (
 export const getStaticProps: GetStaticProps = async () => {
 
   const response: Data = await FetchStoreData(storeDomain, storeApi, header, queryData)
-  const products = await response.data.products
+  const products = await response.data.products.edges
 
   return {
     props: {
