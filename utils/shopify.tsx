@@ -7,7 +7,7 @@ export const header = {
 
 export const queryData = `
 query Products {
-  products(first:9){
+  products(first:12){
     edges {
       node {
         id

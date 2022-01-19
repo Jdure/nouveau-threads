@@ -9,7 +9,6 @@ const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
 export default function StoreProducts ({products}: Data){
-  console.log(products.edges);
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
 
@@ -17,42 +16,34 @@ return (
     <title>Products</title>
     <link rel="icon" href="/favicon.ico" />
   </Head>
-{/* FIXME: Cannot map array of objects */}
-  <ul>
-      {products.edges.map((item: Edge, idx) =>  { 
-        return (
-        <li key={idx}>{item.node.title}</li>
-      )})}
-    </ul>
-
-  {/* <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+  <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {storeData.map((item: { node: any }, idx: number) => { 
+          {products.edges.map((item: Edge) => { 
             const product = item.node
-            // const image = product.featuredImage
-            // const price = product.priceRange.minVariantPrice
+            const image = product.featuredImage
+            const price = product.priceRange.minVariantPrice
             return (
             <Link key={product.handle} href={`/product/${product.handle}`}>
             <a  className="group">
               <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                 <img
                   src={image.url}
-                  alt={image.altText}
+                  alt={product.title}
                   className="w-full h-full object-center object-cover group-hover:opacity-75"
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">{price.price}</p>
+              <p className="mt-1 text-lg font-medium text-gray-900">{price.amount}</p>
             </a>
             </Link>
           )})}
         </div>
       </div>
     </div>
-  </main> */}
+  </main>
  
 
   <footer className="flex items-center justify-center w-full h-24 border-t">
