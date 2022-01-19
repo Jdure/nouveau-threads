@@ -1,58 +1,15 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Data, Edge, Products } from '../../storefront'
 import FetchStoreData from '../../utils/fetch'
 import { queryData, header } from '../../utils/shopify'
-
-interface Data {
-    data: {
-      products: {
-        edges: Array<object>
-      }
-    }
-}
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
-const staticProducts = [
-  {
-    id: 1,
-    name: 'Earthen Bottle',
-    href: '#',
-    price: '$48',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-  },
-  {
-    id: 2,
-    name: 'Nomad Tumbler',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
-    imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-  },
-  {
-    id: 3,
-    name: 'Focus Paper Refill',
-    href: '#',
-    price: '$89',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-    imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-  },
-  {
-    id: 4,
-    name: 'Machined Mechanical Pencil',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
-    imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-  },
-  // More products...
-]
-
-export default function Products (storeData: Array<object>){
-  console.log(storeData);
+export default function StoreProducts ({products}: Data){
+  console.log(products.edges);
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
 
@@ -61,12 +18,12 @@ return (
     <link rel="icon" href="/favicon.ico" />
   </Head>
 {/* FIXME: Cannot map array of objects */}
-  {/* <ul>
-      {storeData.map((item) =>  { 
+  <ul>
+      {products.edges.map((item: Edge, idx) =>  { 
         return (
-        <li>{item}</li>
+        <li key={idx}>{item.node.title}</li>
       )})}
-    </ul> */}
+    </ul>
 
   {/* <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <div className="bg-white">
@@ -114,12 +71,12 @@ return (
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const response: Data = await FetchStoreData(storeDomain, storeApi, header, queryData)
-  const products = await response.data.products.edges
+  const response= await FetchStoreData(storeDomain, storeApi, header, queryData)
+  const  { products } : Data  = await response.data
 
   return {
     props: {
-      storeData: products
+      products
     }
   }
 }
