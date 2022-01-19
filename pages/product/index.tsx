@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Data, Edge, Products } from '../../storefront'
+import { Data, Edge, } from '../../storefront'
 import FetchStoreData from '../../utils/fetch'
-import { queryData, header } from '../../utils/shopify'
+import { queryData, header, formatPrice } from '../../utils/shopify'
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
@@ -16,6 +16,10 @@ return (
     <title>Products</title>
     <link rel="icon" href="/favicon.ico" />
   </Head>
+  <section className= "flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+  <h1 className="text-6xl font-bold mb-4">Products</h1>
+  <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit!</p>
+  </section>
   <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -36,7 +40,7 @@ return (
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">{price.amount}</p>
+              <p className="mt-1 text-lg font-medium text-gray-900">{formatPrice(price.amount)}</p>
             </a>
             </Link>
           )})}
