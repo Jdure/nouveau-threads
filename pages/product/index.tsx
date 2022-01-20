@@ -16,11 +16,9 @@ return (
     <title>Products</title>
     <link rel="icon" href="/favicon.ico" />
   </Head>
-  <section className= "flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+  <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <h1 className="text-6xl font-bold mb-4">Products</h1>
   <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit!</p>
-  </section>
-  <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
   <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
