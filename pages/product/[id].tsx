@@ -1,6 +1,15 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
+import { Data, Edge, } from '../../storefront'
+import { Product, ProductData } from '../../detail'
+import FetchStoreData from '../../utils/fetch'
+import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
 
-export default function ProductDetail (){
+const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
+const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
+
+export default function ProductDetail ({product}: ProductData ){
+  console.log(product);
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
@@ -43,4 +52,34 @@ export default function ProductDetail (){
       </footer>
     </div>
     )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await FetchStoreData(storeDomain, storeApi, header, productsQuery)
+  const  { products } : Data  = await response.data
+
+  const paths = products.edges.map(value => {
+    return {
+      params: {id: value.node.handle}
+    }
+  });
+
+  return {
+    paths, 
+    fallback: false
+  }
+
+}
+
+// FIXME: Cannot fetch single product item:
+export const getStaticProps: GetStaticProps = async ({params} : {params: {id: string}}) => {
+
+  const response= await FetchStoreData(storeDomain, storeApi, header, productDetailQuery, params.id)
+  const {product} : ProductData = await response.data
+
+  return {
+    props: {
+      product
+    }
+  }
 }
