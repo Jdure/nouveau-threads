@@ -5,7 +5,7 @@ export const header = {
     'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 }
 
-export function formatPrice(num: number | bigint){
+export function formatPrice(num: number | string){
   return Intl.NumberFormat("en-CA", { style : "currency", currency: "CAD", minimumFractionDigits: 0}).format(num)
 }
 
