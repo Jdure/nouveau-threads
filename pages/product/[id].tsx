@@ -68,7 +68,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: {id: value.node.handle}
     }
   });
-  // console.log(paths);
 
   return {
     paths, 
@@ -77,13 +76,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 }
 
-// FIXME: Params are working but can't add variable to query
 export const getStaticProps : GetStaticProps = async (context) => {
   const params = context.params as IParams
-  console.log(params);
   const response = await FetchStoreData(storeDomain, storeApi, header, productDetailQuery, {handle: params.id})
-  // console.log(response);
-  const product = await response
+  const { product }: ProductData  = await response.data
 
   return {
     props: {
