@@ -1,5 +1,6 @@
 const axios = require("axios")
 
+
 export default async function FetchStoreData(domain: string, api: string, config: object, query: object | string, variable?: object | string) {
 
     try {
@@ -9,7 +10,7 @@ export default async function FetchStoreData(domain: string, api: string, config
             url: api,
             headers: config,
             data: query, 
-            params: variable
+            variable
         });
         console.log(response.data)
          return response.data

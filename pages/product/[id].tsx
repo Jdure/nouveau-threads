@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { Data, Edge, } from '../../storefront'
 import { Product, ProductData } from '../../detail'
@@ -8,7 +9,11 @@ import { productsQuery, header, formatPrice, productDetailQuery } from '../../ut
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
-export default function ProductDetail ({product}: ProductData ){
+interface IParams extends ParsedUrlQuery {
+  id: string
+}
+
+export default function ProductDetail ({product}: ProductData){
   console.log(product);
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -58,11 +63,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const response = await FetchStoreData(storeDomain, storeApi, header, productsQuery)
   const  { products } : Data  = await response.data
 
-  const paths = products.edges.map(value => {
+  const paths = products.edges.map((value) => {
     return {
       params: {id: value.node.handle}
     }
   });
+  // console.log(paths);
 
   return {
     paths, 
@@ -72,10 +78,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 // FIXME: Cannot fetch single product item:
-export const getStaticProps: GetStaticProps = async ({params} : {params: {id: string}}) => {
-
-  const response= await FetchStoreData(storeDomain, storeApi, header, productDetailQuery, params.id)
-  const {product} : ProductData = await response.data
+export const getStaticProps : GetStaticProps = async (context) => {
+  const params = context.params as IParams
+  console.log(params);
+  const response = await FetchStoreData(storeDomain, storeApi, header, productDetailQuery, {handle: params.id})
+  // console.log(response);
+  const product = await response
 
   return {
     props: {

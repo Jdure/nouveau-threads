@@ -1,3 +1,5 @@
+const gql = String.raw
+
 export const header = {
     'Content-Type': 'application/graphql',
     'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
@@ -7,7 +9,9 @@ export function formatPrice(num: number | string){
   return Intl.NumberFormat("en-CA", { style : "currency", currency: "CAD", minimumFractionDigits: 0}).format(num)
 }
 
-export const productDetailQuery = `
+
+
+export const productDetailQuery = gql`
 query SingleProduct($handle: String) {
   product(handle: $handle) {
     id
@@ -25,7 +29,7 @@ query SingleProduct($handle: String) {
   }
 }`
 
-export const productsQuery = `
+export const productsQuery = gql`
 query Products {
   products(first:12){
     edges {
