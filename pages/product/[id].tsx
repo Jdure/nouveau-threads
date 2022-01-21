@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 }
 
-// FIXME: Cannot fetch single product item:
+// FIXME: Params are working but can't add variable to query
 export const getStaticProps : GetStaticProps = async (context) => {
   const params = context.params as IParams
   console.log(params);
