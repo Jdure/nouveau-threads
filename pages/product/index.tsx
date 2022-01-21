@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { Data, Edge, } from '../../storefront'
 import FetchStoreData from '../../utils/fetch'
 import { productsQuery, header, formatPrice } from '../../utils/shopify'
-
+import { useEffect, useState } from 'react'
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
+
 
 export default function StoreProducts ({products}: Data){
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
-
   <Head>
     <title>Products</title>
     <link rel="icon" href="/favicon.ico" />
@@ -38,7 +38,7 @@ return (
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">{formatPrice(price.amount)}</p>
+              <p className="mt-1 text-lg font-medium text-gray-900">{formatPrice(parseInt(price.amount))}</p>
             </a>
             </Link>
           )})}
