@@ -9,8 +9,6 @@ export function formatPrice(num: number | string){
   return Intl.NumberFormat("en-CA", { style : "currency", currency: "CAD", minimumFractionDigits: 0}).format(num)
 }
 
-
-
 export const productDetailQuery = gql`
 query SingleProduct($handle: String) {
   product(handle: $handle) {
