@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Data, Edge, } from '../../storefront'
 import FetchStoreData from '../../utils/fetch'
 import { productsQuery, header, formatPrice } from '../../utils/shopify'
-import { useEffect, useState } from 'react'
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
