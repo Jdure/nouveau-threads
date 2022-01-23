@@ -5,6 +5,7 @@ import { Data} from '../../storefront'
 import {ProductData } from '../../detail'
 import FetchStoreData from '../../utils/fetch'
 import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
+import { useState } from 'react'
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
@@ -17,6 +18,7 @@ export default function ProductDetail ({product}: ProductData){
 const {priceRange, featuredImage} = product
 const image = featuredImage.url
 const price = priceRange.minVariantPrice
+const [quantity, setQuantity] = useState(1);
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
 
@@ -36,15 +38,15 @@ return (
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title}</h1>
             <p className="leading-relaxed">{product.description}</p>
             <div className="flex justify-center mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-              <div className="w-auto"  ><span className="m-auto pr-2">Quantity</span></div>
-              <div className="w-auto h-10"><input readOnly type="number" value="1" max="20"
+              <div className="w-auto"  ><span className="m-auto pr-2 font-medium">Quantity</span></div>
+              <div className="w-auto h-10"><input readOnly type="number" value={quantity}
                   className="text-center  rounded border appearance-none border-gray-300 py-2 focus:outline-none text-base" />
               </div>
               <div className="w-auto flex flex-col">
-                <button className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded">
+                <button onClick={() => (quantity < 20) ? setQuantity(quantity + 1) : quantity} className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded">
                 <span className="m-auto text-xl">+</span>
                 </button>
-                <button className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded">
+              <button onClick={() => (quantity > 1) ? setQuantity(quantity - 1) : quantity } className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded">
                 <span className="m-auto text-xl">-</span>
                 </button>
               </div>
