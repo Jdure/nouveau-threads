@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { Data} from '../../storefront'
 import {ProductData } from '../../detail'
-import FetchStoreData from '../../utils/fetch'
+import FetchStoreData from '../../utils/helpers'
 import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
 import { useState } from 'react'
 
