@@ -26,3 +26,15 @@ export interface ProductPriceRange {
 export interface MinVariantPrice {
     amount: string;
 }
+
+export interface Variants {
+    edges: Edge[];
+}
+
+export interface Edge {
+    node: Node;
+}
+
+export interface Node {
+    id: string;
+}

@@ -24,6 +24,13 @@ query SingleProduct($handle: String) {
       url
       altText
     }
+    variants(first: 1){
+      edges {
+        node{
+          id
+        }
+      }
+    }
   }
 }`
 
