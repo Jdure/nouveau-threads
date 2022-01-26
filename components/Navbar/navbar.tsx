@@ -9,7 +9,7 @@ interface NavProps {
 
 export default function Navbar ({prevState} : NavProps){
     const [isCartOpen, setCart] = useState(prevState);
-
+    console.log(prevState);
     return (
     // Nav title
 <div data-theme="wireframe" className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">

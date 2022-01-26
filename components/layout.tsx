@@ -2,8 +2,6 @@ import { useState } from "react";
 import CartSideDrawer from "./Cart/cartsidedrawer";
 import Navbar from "./Navbar/navbar";
 
-
-//TODO: Set up layout properly
 interface LayoutProps {
     children: React.ReactNode
     prevState?: boolean
