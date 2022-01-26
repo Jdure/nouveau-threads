@@ -1,7 +1,14 @@
 import Link from "next/link"
+import { useState } from "react";
 import CartToggleBtn from "../Cart/carttogglebtn"
 
-export default function Navbar (){
+interface NavProps {
+    children?: React.ReactNode
+    prevState: boolean
+}
+
+export default function Navbar ({prevState} : NavProps){
+    const [isCartOpen, setCart] = useState(prevState);
 
     return (
     // Nav title
@@ -38,7 +45,7 @@ export default function Navbar (){
     </div>
     {/* Cart Btn */}
     <div className="flex-none navbar-end">
-            <CartToggleBtn />
+            <CartToggleBtn onCartToggle={() => {setCart(prevState)}} />
     </div>
 </div>
 )

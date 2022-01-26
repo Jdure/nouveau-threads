@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 export default function CartSideDrawer (){
     return (
-        <nav className="drawer drawer-end h-screen z-50 ">
+        <nav className="drawer z-50 justify-end">
             <ul>
                 <li>Testing</li>
                 <li>Testing 2</li>
