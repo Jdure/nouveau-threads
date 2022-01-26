@@ -4,13 +4,21 @@ import Navbar from "./Navbar/navbar";
 
 interface LayoutProps {
     children: React.ReactNode
-    prevState?: boolean
 }
 
-export default function Layout ({children, prevState} : LayoutProps){
-
+export default function Layout ({children} : LayoutProps){
+    const [isCartOpen, setCart] = useState(false);
+    const handleCartToggle = () => { setCart(!isCartOpen)}
+    console.log(isCartOpen);
 
     return (
-        <><Navbar prevState={false} /><CartSideDrawer /><main>{children}</main></>
+        <><Navbar toggleFunc={handleCartToggle} />
+        { isCartOpen ? (
+            <><CartSideDrawer /><main>{children}</main></>
+        ) : (
+            <main>{children}</main>
+        )}
+
+        </>
     )
 }

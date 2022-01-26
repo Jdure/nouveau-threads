@@ -4,15 +4,14 @@ import CartToggleBtn from "../Cart/carttogglebtn"
 
 interface NavProps {
     children?: React.ReactNode
-    prevState: boolean
+    toggleFunc: () => void;
 }
 
-export default function Navbar ({prevState} : NavProps){
-    const [isCartOpen, setCart] = useState(prevState);
-    const handleCartToggle = () => { setCart(!isCartOpen)}
+export default function Navbar ({toggleFunc} : NavProps){
+
     return (
     // Nav title
-<div data-theme="wireframe" className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
+<div data-theme="light" className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
     <div className="flex-none px-2 mx-2">
         <span className="text-lg font-bold">
             W.E Are Inspired
@@ -43,9 +42,9 @@ export default function Navbar ({prevState} : NavProps){
             </Link>
         </div>
     </div>
-    {/* Cart Btn */}
+ 
     <div className="flex-none navbar-end">
-            <CartToggleBtn onCartToggle={handleCartToggle} />
+            <CartToggleBtn onCartToggle={toggleFunc} />
     </div>
 </div>
 )
