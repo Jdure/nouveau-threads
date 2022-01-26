@@ -9,7 +9,7 @@ interface NavProps {
 
 export default function Navbar ({prevState} : NavProps){
     const [isCartOpen, setCart] = useState(prevState);
-    console.log(prevState);
+    const handleCartToggle = () => { setCart(!isCartOpen)}
     return (
     // Nav title
 <div data-theme="wireframe" className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
@@ -45,7 +45,7 @@ export default function Navbar ({prevState} : NavProps){
     </div>
     {/* Cart Btn */}
     <div className="flex-none navbar-end">
-            <CartToggleBtn onCartToggle={() => {setCart(prevState)}} />
+            <CartToggleBtn onCartToggle={handleCartToggle} />
     </div>
 </div>
 )
