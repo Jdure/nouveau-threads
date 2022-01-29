@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Data, Edge, } from '../../storefront'
+import { Data, Edge, } from '../../types/storefront'
 import FetchStoreData from '../../utils/helpers'
 import { productsQuery, header, formatPrice } from '../../utils/shopify'
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''

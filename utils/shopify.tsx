@@ -57,7 +57,7 @@ query Products {
 }
             `
 
-export const createCart = gql`
+export const createCartQuery = gql`
 mutation cartCreate {
   cartCreate {
     cart {

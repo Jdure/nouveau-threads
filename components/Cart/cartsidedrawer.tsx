@@ -1,7 +1,10 @@
 import Head from 'next/head'
 
-//TODO: Add drawer transition
-// TODO: Fetch cart items from storefront API
+/**TODO: Add drawer transition 
+ * 2.Fetch cart items from storefront API 
+ * 3. map fetched data
+ * ***/
+ 
 export default function CartSideDrawer (){
     return (
         <div className="relative h-full w-full ">
