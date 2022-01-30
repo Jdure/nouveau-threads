@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Data, CartCreate, Cart, FetchCart } from "../../types/cart-create";
 import { createCartQuery, header } from "../../utils/shopify";
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
-const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''ß
+const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
 
 /*** 
  * TODO: 
