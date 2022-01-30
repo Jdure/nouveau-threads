@@ -3,17 +3,14 @@ import { useQuery } from "react-query";
 import { Data, CartCreate, Cart, FetchCart } from "../../types/cart-create";
 import { createCartQuery, header } from "../../utils/shopify";
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
-const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
-
-// 1. TODO: Create cart instance
-// FIXME: Use react-query with axios
-
+const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''ß
 
 /*** 
  * TODO: 
  * 
  * 1. Create Axios instance - use react query to cache cart id
- * 2. Create a function to create a Cart
+ * 2. Create a function to create a Cart - Almost done
+ *      - Cart ID should stay the same as long as the user is browsing the site
  * 3. Create a function to retrieve the Cart items
  * 4. Create a function to add an item to the Cart
  * 
