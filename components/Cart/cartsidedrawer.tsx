@@ -1,4 +1,8 @@
 import Head from 'next/head'
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import createCartID from './cart-create'
+
 
 /**TODO: Add drawer transition 
  * 2.Fetch cart items from storefront API 
@@ -6,6 +10,13 @@ import Head from 'next/head'
  * ***/
  
 export default function CartSideDrawer (){
+
+  const {isLoading, error, data} = useQuery('create-cart', createCartID)
+  const [cart, setCart] = useState(data)
+  if (isLoading) return <div>'Loading cart...'</div>
+
+  if (error) return <div>'An error has occurred: ' + {error}</div>
+
     return (
         <div className="relative h-full w-full ">
         <div className="absolute top-0 right-0"> 

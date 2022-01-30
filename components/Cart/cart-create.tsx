@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Data, CartCreate } from "../../types/cart-create";
+import { Data, CartCreate, Cart, FetchCart } from "../../types/cart-create";
 import { createCartQuery, header } from "../../utils/shopify";
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
@@ -24,16 +24,24 @@ const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
     headers: header
 }) 
 
-export default async function createCartInstance(D) {
+export default async function createCartID() {
     try {
-        const response = await shopifyCartInstance.post(storefrontApi,{query : createCartQuery});
-        console.log(response.data)
-        return response.data
+        const {data: {data: {cartCreate: {cart}} }}: {data: {data: {cartCreate: {cart: Cart}} }} = await shopifyCartInstance.post(storefrontApi,{query : createCartQuery});
+        const cartID = cart.id
+        console.log(cartID)
+        return cartID
     } catch (error) {
         console.log(error);
     }
 
 }
 
+// const response = await shopifyCartInstance.post(storefrontApi,{query : createCartQuery});
+//         if(!response.data) {
+//             throw new Error("Problem initiating cart")
+//         }
+//         const initCart = await response.data.data
+//         console.log(initCart)
+//         return initCart
 
 
