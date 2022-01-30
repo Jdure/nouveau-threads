@@ -20,3 +20,4 @@ export default async function FetchStoreData(domain: string, api: string, config
         console.error(error);
     }
 }
+

@@ -2,7 +2,7 @@ const gql = String.raw
 
 export const header = {
     'Content-Type': 'application/json',
-    'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
 }
 
 export function formatPrice(num: number ){
