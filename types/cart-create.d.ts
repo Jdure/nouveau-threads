@@ -14,6 +14,7 @@ export interface CartCreate {
 export interface Cart {
     id:            string;
     updatedAt:     Date;
+    createdAt:     Date;
     checkoutUrl:   string;
     estimatedCost: EstimatedCost;
     lines:         Lines;

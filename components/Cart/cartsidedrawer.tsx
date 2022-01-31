@@ -1,16 +1,19 @@
-import { QueryClient, useQuery } from 'react-query'
-import { Lines } from '../../types/cart-create'
-import createCartID from './cart-create'
+import {retrieveCart} from '../Cart/cart-create'
+
 interface CartDrawerProps{
   isLoading: boolean, 
   errorMsg: string | any,
   id: string | undefined, 
-  items: Lines | undefined
+  checkoutUrl: string | undefined
 }
 
-export default function CartSideDrawer ({isLoading, errorMsg, id, items} : CartDrawerProps){
+//FIXME: id is causing  400
+
+export default function CartSideDrawer ({isLoading, errorMsg, id, checkoutUrl} : CartDrawerProps){
 
   console.log(id)
+  // console.log(checkoutUrl)
+  retrieveCart(id); 
 
     return (
         <div className="relative h-full w-full ">

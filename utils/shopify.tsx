@@ -64,29 +64,39 @@ mutation cartCreate {
       id
       updatedAt
       checkoutUrl
-      estimatedCost{
-        totalAmount{
-          amount
-          currencyCode
-        }
-      }
-      lines(first:10){
-        edges{
-          node{
-            id
-            merchandise{
-              ... on ProductVariant {
-                id
-              }
-            }
-          }
-        }
-      }
     }
     userErrors {
       code
       field
       message
+    }
+  }
+}
+`
+
+export const retrieveCartQuery = gql`
+query RetrieveCart($cartID: ID!){
+cart(id:$cartID) {
+    createdAt
+    updatedAt
+    lines(first:10) {
+      edges {
+        node {
+          id
+          quantity
+          merchandise {
+            ... on ProductVariant {
+              id
+            }
+          }
+        }
+      }
+    }
+    estimatedCost {
+      totalAmount {
+        amount
+        currencyCode
+      }
     }
   }
 }
