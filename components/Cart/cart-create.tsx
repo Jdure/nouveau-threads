@@ -23,10 +23,9 @@ export async function createCartID() {
 }
 
 // Create a function to retrieve all cart items
-export async function retrieveCart(id : string | undefined ){
+export async function retrieveCart(cartID : string | undefined ){
     try {
-        const response = await shopifyCartInstance.post(storefrontApi,{query : retrieveCartQuery, variables : id });
-        console.log(response.data)
+        const response = await shopifyCartInstance.post(storefrontApi,{query : retrieveCartQuery, variables : {"cartID": cartID } });
         return response.data
     } catch (error) {
         console.log(error)

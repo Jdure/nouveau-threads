@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import {retrieveCart} from '../Cart/cart-create'
 
 interface CartDrawerProps{
@@ -7,13 +8,11 @@ interface CartDrawerProps{
   checkoutUrl: string | undefined
 }
 
-//FIXME: id is causing  400
 
 export default function CartSideDrawer ({isLoading, errorMsg, id, checkoutUrl} : CartDrawerProps){
 
-  console.log(id)
-  // console.log(checkoutUrl)
-  retrieveCart(id); 
+  const {data} = useQuery(['cart-items', id], () => retrieveCart(id));
+  console.log(data);
 
     return (
         <div className="relative h-full w-full ">
