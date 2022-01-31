@@ -1,4 +1,5 @@
 import { QueryClient, useQuery } from 'react-query'
+import { Lines } from '../../types/cart-create'
 import createCartID from './cart-create'
 
 
@@ -10,15 +11,13 @@ import createCartID from './cart-create'
 interface CartDrawerProps{
   isLoading: boolean, 
   errorMsg: string | any,
-  id: string | undefined
+  id: string | undefined, 
+  items: Lines | undefined
 }
-
-// export const getCartID = () => useQuery('create-cart', createCartID, {staleTime: Infinity, refetchOnMount: false} )
  
-export default function CartSideDrawer ({isLoading, errorMsg, id} : CartDrawerProps){
-  
-  // if (errorMsg) return <div>'An error has occurred: ' + {errorMsg}</div>
+// TODO: Map through Lines to show items
 
+export default function CartSideDrawer ({isLoading, errorMsg, id, items} : CartDrawerProps){
 
   console.log(id)
 
@@ -28,13 +27,13 @@ export default function CartSideDrawer ({isLoading, errorMsg, id} : CartDrawerPr
         <div className='container bg-stone-100 rounded h-96 w-96 shadow'>
         { isLoading ?  <h1 className='flex flex-col pl-4 text-2xl font-bold'>'Loading cart...'</h1> : <h1 className='flex flex-col pl-4 text-2xl font-bold'>Cart</h1>}
         <nav className="mt-10 px-6 ">
-              <a className="hover:text-white hover:bg-emerald-300 flex items-center p-2 my-6 transition-colors dark:hover:text-white dark:hover:bg-gray-600 duration-200  text-gray-600 dark:text-gray-400 rounded-lg" href="#">
+             {<a className="hover:text-white hover:bg-emerald-300 flex items-center p-2 my-6 transition-colors dark:hover:text-white dark:hover:bg-gray-600 duration-200  text-gray-600 dark:text-gray-400 rounded-lg" href="#">
                 <span className="mx-4 text-2xl font-normal">
                   Element
                 </span>
                 <span className="flex-grow text-right">
                 </span>
-              </a>
+              </a>}
             </nav></div></div> }
       </div>
         

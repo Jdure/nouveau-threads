@@ -18,7 +18,7 @@ export default function Layout ({children} : LayoutProps){
     return (
         <><Navbar toggleFunc={handleCartToggle} />
         { isCartOpen ? (
-            <><CartSideDrawer isLoading={isLoading} errorMsg={error} id={data?.id} /><main>{children}</main></>
+            <><CartSideDrawer isLoading={isLoading} errorMsg={error} id={data?.id} items={data?.lines} /><main>{children}</main></>
         ) : (
             <main>{children}</main>
         )}
