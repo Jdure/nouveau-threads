@@ -62,6 +62,26 @@ mutation cartCreate {
   cartCreate {
     cart {
       id
+      updatedAt
+      checkoutUrl
+      estimatedCost{
+        totalAmount{
+          amount
+          currencyCode
+        }
+      }
+      lines(first:10){
+        edges{
+          node{
+            id
+            merchandise{
+              ... on ProductVariant {
+                id
+              }
+            }
+          }
+        }
+      }
     }
     userErrors {
       code
@@ -71,4 +91,3 @@ mutation cartCreate {
   }
 }
 `
-            

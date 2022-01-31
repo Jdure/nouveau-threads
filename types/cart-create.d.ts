@@ -12,5 +12,22 @@ export interface CartCreate {
 }
 
 export interface Cart {
-    id: string;
+    id:            string;
+    updatedAt:     Date;
+    checkoutUrl:   string;
+    estimatedCost: EstimatedCost;
+    lines:         Lines;
+}
+
+export interface EstimatedCost {
+    totalAmount: TotalAmount;
+}
+
+export interface TotalAmount {
+    amount:       string;
+    currencyCode: string;
+}
+
+export interface Lines {
+    edges: any[];
 }

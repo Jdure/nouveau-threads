@@ -8,11 +8,10 @@ const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
 /*** 
  * TODO: 
  * 
- * 1. Create Axios instance - use react query to cache cart id
- * 2. Create a function to create a Cart - Almost done
- *      - Cart ID should stay the same as long as the user is browsing the site
- * 3. Create a function to retrieve the Cart items
- * 4. Create a function to add an item to the Cart
+ * 1. Create a function to retrieve the Cart items
+ * 2. Create a function to add an item to the Cart
+ * 3. Add Estimate cost to Cart
+ * 4. Add buy now button - sends user to checkout page.
  * 
  * ****/
 
@@ -24,21 +23,10 @@ const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
 export default async function createCartID() {
     try {
         const {data: {data: {cartCreate: {cart}} }}: {data: {data: {cartCreate: {cart: Cart}} }} = await shopifyCartInstance.post(storefrontApi,{query : createCartQuery});
-        const cartID = cart.id
-        console.log(cartID)
-        return cartID
+        const {id, updatedAt, checkoutUrl, estimatedCost, lines} = cart
+        return {id, updatedAt, checkoutUrl, estimatedCost, lines}
     } catch (error) {
         console.log(error);
     }
 
 }
-
-// const response = await shopifyCartInstance.post(storefrontApi,{query : createCartQuery});
-//         if(!response.data) {
-//             throw new Error("Problem initiating cart")
-//         }
-//         const initCart = await response.data.data
-//         console.log(initCart)
-//         return initCart
-
-
