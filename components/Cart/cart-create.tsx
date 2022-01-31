@@ -5,16 +5,6 @@ import { createCartQuery, header } from "../../utils/shopify";
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storefrontApi = process.env.SHOPIFY_STORE_API_URL || ''
 
-/*** 
- * TODO: 
- * 
- * 1. Create a function to retrieve the Cart items
- * 2. Create a function to add an item to the Cart
- * 3. Add Estimate cost to Cart
- * 4. Add buy now button - sends user to checkout page.
- * 
- * ****/
-
  const shopifyCartInstance = axios.create({
     baseURL: storefrontDomain,
     headers: header

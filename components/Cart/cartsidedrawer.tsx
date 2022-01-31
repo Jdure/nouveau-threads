@@ -1,21 +1,12 @@
 import { QueryClient, useQuery } from 'react-query'
 import { Lines } from '../../types/cart-create'
 import createCartID from './cart-create'
-
-
-/**TODO: Add drawer transition 
- * 2.Fetch cart items from storefront API 
- * 3. map fetched data
- * ***/
-
 interface CartDrawerProps{
   isLoading: boolean, 
   errorMsg: string | any,
   id: string | undefined, 
   items: Lines | undefined
 }
- 
-// TODO: Map through Lines to show items
 
 export default function CartSideDrawer ({isLoading, errorMsg, id, items} : CartDrawerProps){
 
