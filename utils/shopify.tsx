@@ -75,8 +75,8 @@ mutation cartCreate {
 `
 
 export const retrieveCartQuery = gql`
-query RetrieveCart($cartID: ID!){
-cart(id:$cartID) {
+query RetrieveCart($cartId: ID!){
+cart(id:$cartId) {
     createdAt
     updatedAt
     lines(first:10) {
@@ -99,5 +99,32 @@ cart(id:$cartID) {
       }
     }
   }
+}
+`
+export const addCartItemQuery = gql`
+mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+  cartLinesAdd(cartId: $cartId, lines: $lines) {
+    cart {
+      lines(first:100) {
+        edges{
+          node{
+          id
+          quantity
+					merchandise {
+              ... on ProductVariant {
+                product{
+                  title
+                  handle
+                  featuredImage{
+                    url
+                  }
+                }
+            }
+        }
+      }
+    }
+  }
+}
+}
 }
 `
