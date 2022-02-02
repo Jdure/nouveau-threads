@@ -6,6 +6,7 @@ import {
   header,
   retrieveCartQuery,
 } from "../../utils/shopify";
+
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
 

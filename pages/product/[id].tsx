@@ -5,9 +5,7 @@ import { Data} from '../../types/storefront'
 import {ProductData } from '../../types/detail'
 import FetchStoreData from '../../utils/helpers'
 import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
-import { useState } from 'react'
-import { addCartItem, createCartID } from "../../components/Cart/cart-create";
-import { getCartID } from "../../components/layout";
+import { useState } from "react";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storeApi = process.env.SHOPIFY_STORE_API_URL || "";

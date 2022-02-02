@@ -17,7 +17,7 @@ export default function CartSideDrawer({
   checkoutUrl,
 }: CartDrawerProps) {
   const { data } = useQuery(["cart-items", id], () => retrieveCart(id));
-  // console.log(data);
+  console.log(data);
   console.log(id);
 
   return (

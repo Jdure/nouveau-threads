@@ -9,7 +9,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const getCartID = () =>
+const getCartID = () =>
   useQuery("create-cart", createCartID, {
     staleTime: 1000 * 3600,
     refetchOnMount: false,

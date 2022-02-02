@@ -3,6 +3,7 @@
         "cartsidedrawer",
         "carttogglebtn",
         "daisyui",
-        "wireframe"
+        "wireframe",
+        "zustand"
     ]
 }
