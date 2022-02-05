@@ -1,30 +1,25 @@
 import { useQuery } from 'react-query';
 import {retrieveCart} from '../Cart/cart-create'
+import { Cart, CartCreate } from "../../types/cart-create";
+import { useAppContext } from "../../context/AppContext";
 
-interface CartDrawerProps{
-  isLoading: boolean, 
-  errorMsg: string | any,
-  id: string | undefined, 
-  checkoutUrl: string | undefined
-}
+export default function CartSideDrawer() {
+  const cartData = useAppContext();
+  const cartID = cartData?.id;
+  const checkoutLink = cartData?.checkoutUrl;
+  const { data, isError, error, isLoading } = useQuery(
+    ["cart-items", cartID],
+    () => retrieveCart(cartID)
+  );
 
-
-
-export default function CartSideDrawer({
-  isLoading,
-  errorMsg,
-  id,
-  checkoutUrl,
-}: CartDrawerProps) {
-  const { data } = useQuery(["cart-items", id], () => retrieveCart(id));
-  console.log(data);
-  console.log(id);
+  // const { cart }: CartCreate = data.data;
+  // console.dir(cart);
 
   return (
     <div className="relative h-full w-full ">
-      {errorMsg ? (
+      {isError ? (
         <div className="absolute top-0 right-0">
-          'An error has occurred: ' + {errorMsg}
+          'An error has occurred: ' + {error}
         </div>
       ) : (
         <div className="absolute top-0 right-0">
@@ -36,17 +31,33 @@ export default function CartSideDrawer({
             ) : (
               <h1 className="flex flex-col pl-4 text-2xl font-bold">Cart</h1>
             )}
-            <nav className="mt-10 px-6 ">
-              {
-                <a
-                  className="hover:text-white hover:bg-emerald-300 flex items-center p-2 my-6 transition-colors dark:hover:text-white dark:hover:bg-gray-600 duration-200  text-gray-600 dark:text-gray-400 rounded-lg"
-                  href="#"
-                >
-                  <span className="mx-4 text-2xl font-normal">Element</span>
-                  <span className="flex-grow text-right"></span>
-                </a>
-              }
-            </nav>
+            <div className="mt-10 px-6 ">
+              {/* <ul className="flex flex-col">
+                {cart.lines.edges.map((item) => {
+                  <li className="border-gray-400 flex flex-row mb-2">
+                    <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
+                      <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                        <a href="#" className="block relative">
+                          <img
+                            alt="profil"
+                            src="/images/person/6.jpg"
+                            className="mx-auto object-cover rounded-full h-10 w-10 "
+                          />
+                        </a>
+                      </div>
+                      <div className="flex-1 pl-1 md:mr-16">
+                        <div className="font-medium dark:text-white">
+                          Jean Marc
+                        </div>
+                        <div className="text-gray-600 dark:text-gray-200 text-sm">
+                          Developer
+                        </div>
+                      </div>
+                    </div>
+                  </li>;
+                })}
+              </ul> */}
+            </div>
           </div>
         </div>
       )}
