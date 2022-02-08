@@ -6,6 +6,8 @@ import {ProductData } from '../../types/detail'
 import FetchStoreData from '../../utils/helpers'
 import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
 import { useState } from "react";
+import { useAppContext } from "../../context/AppContext";
+import { addCartItem } from "../../components/Cart/cart-create";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storeApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -14,11 +16,16 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
+const handleAddToCart = () => {};
+
 export default function ProductDetail({ product }: ProductData) {
-  const { priceRange, featuredImage } = product;
+  const cartData = useAppContext();
+  const cartID = cartData?.id;
+  const { priceRange, featuredImage, variants } = product;
   const image = featuredImage.url;
   const price = priceRange.minVariantPrice;
   const [quantity, setQuantity] = useState(1);
+  const variantID = variants.edges[0].node.id;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -79,7 +86,12 @@ export default function ProductDetail({ product }: ProductData) {
                   <span className="title-font font-medium text-2xl text-gray-900">
                     {formatPrice(parseInt(price.amount))}
                   </span>
-                  <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                  <button
+                    onClick={() =>
+                      addCartItem(cartID, product.handle, variantID, quantity)
+                    }
+                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  >
                     Add To Cart
                   </button>
                 </div>

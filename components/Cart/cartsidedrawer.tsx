@@ -1,19 +1,23 @@
 import { useQuery } from 'react-query';
-import {retrieveCart} from '../Cart/cart-create'
-import { Cart, CartCreate } from "../../types/cart-create";
+import { retrieveCart } from "../Cart/cart-create";
 import { useAppContext } from "../../context/AppContext";
+import { useState } from "react";
+import { Edge, GetCart } from "../../types/cart-get";
 
 export default function CartSideDrawer() {
   const cartData = useAppContext();
   const cartID = cartData?.id;
   const checkoutLink = cartData?.checkoutUrl;
-  const { data, isError, error, isLoading } = useQuery(
+  const [cart, setCart] = useState<GetCart>();
+  const { data, isError, error, isLoading } = useQuery<GetCart>(
     ["cart-items", cartID],
-    () => retrieveCart(cartID)
+    () => retrieveCart(cartID),
+    {
+      onSuccess: () => setCart(data),
+    }
   );
-
-  // const { cart }: CartCreate = data.data;
-  // console.dir(cart);
+  let userCart = cart?.data.cart;
+  console.log(userCart);
 
   return (
     <div className="relative h-full w-full ">
@@ -32,31 +36,30 @@ export default function CartSideDrawer() {
               <h1 className="flex flex-col pl-4 text-2xl font-bold">Cart</h1>
             )}
             <div className="mt-10 px-6 ">
-              {/* <ul className="flex flex-col">
-                {cart.lines.edges.map((item) => {
+              <ul className="flex flex-col">
+                {userCart?.lines.edges.map((item: Edge) => {
+                  const articles = item.node;
+                  const articleDetail = articles.merchandise.product;
                   <li className="border-gray-400 flex flex-row mb-2">
                     <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
                       <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
                         <a href="#" className="block relative">
                           <img
-                            alt="profil"
-                            src="/images/person/6.jpg"
+                            alt={articleDetail.handle}
+                            src={articleDetail.featuredImage.url}
                             className="mx-auto object-cover rounded-full h-10 w-10 "
                           />
                         </a>
                       </div>
                       <div className="flex-1 pl-1 md:mr-16">
                         <div className="font-medium dark:text-white">
-                          Jean Marc
-                        </div>
-                        <div className="text-gray-600 dark:text-gray-200 text-sm">
-                          Developer
+                          {articleDetail.title}
                         </div>
                       </div>
                     </div>
                   </li>;
                 })}
-              </ul> */}
+              </ul>
             </div>
           </div>
         </div>

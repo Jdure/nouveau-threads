@@ -48,7 +48,7 @@ export async function retrieveCart(cartID: string | undefined) {
 
 // Create a function to add an item to the Cart
 export async function addCartItem(
-  cartID: string,
+  cartID: string | undefined,
   handle: string,
   variantID: string,
   itemQuantity: number

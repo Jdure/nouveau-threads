@@ -8,10 +8,12 @@ export interface ProductData {
 
 export interface Product {
     id:            string;
+    handle:        string;
     title:         string;
     description:   string;
     priceRange:    PriceRange;
     featuredImage: FeaturedProductImage;
+    variants:      Variants;
 }
 
 export interface FeaturedProductImage {

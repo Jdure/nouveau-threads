@@ -10,29 +10,31 @@ export function formatPrice(num: number ){
 }
 
 export const productDetailQuery = gql`
-query SingleProduct($handle: String) {
-  product(handle: $handle) {
-    id
-    title
-    description
-    priceRange {
-      minVariantPrice {
-        amount
+  query SingleProduct($handle: String) {
+    product(handle: $handle) {
+      id
+      handle
+      title
+      description
+      priceRange {
+        minVariantPrice {
+          amount
+        }
       }
-    }
-    featuredImage{
-      url
-      altText
-    }
-    variants(first: 1){
-      edges {
-        node{
-          id
+      featuredImage {
+        url
+        altText
+      }
+      variants(first: 1) {
+        edges {
+          node {
+            id
+          }
         }
       }
     }
   }
-}`
+`;
 
 export const productsQuery = gql`
 query Products {
