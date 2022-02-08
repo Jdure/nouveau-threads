@@ -4,6 +4,8 @@ import { useAppContext } from "../../context/AppContext";
 import { useState } from "react";
 import { Edge, GetCart } from "../../types/cart-get";
 
+//FIXME: Items that are in cart are not displaying
+
 export default function CartSideDrawer() {
   const cartData = useAppContext();
   const cartID = cartData?.id;
