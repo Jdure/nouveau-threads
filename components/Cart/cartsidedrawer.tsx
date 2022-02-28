@@ -4,8 +4,6 @@ import { useAppContext } from "../../context/AppContext";
 import { useState } from "react";
 import { Edge, GetCart } from "../../types/cart-get";
 
-//FIXME: Items that are in cart are not displaying
-
 export default function CartSideDrawer() {
   const cartData = useAppContext();
   const cartID = cartData?.id;
@@ -18,7 +16,7 @@ export default function CartSideDrawer() {
       onSuccess: () => setCart(data),
     }
   );
-  let userCart = cart?.data.cart;
+  const userCart = cart?.data.cart;
   console.log(userCart);
 
   return (
@@ -29,40 +27,38 @@ export default function CartSideDrawer() {
         </div>
       ) : (
         <div className="absolute top-0 right-0">
-          <div className="container bg-stone-100 rounded h-96 w-96 shadow">
-            {isLoading ? (
-              <h1 className="flex flex-col pl-4 text-2xl font-bold">
-                'Loading cart...'
-              </h1>
-            ) : (
-              <h1 className="flex flex-col pl-4 text-2xl text-black font-bold">
-                Cart
-              </h1>
-            )}
-            <div className="mt-10 px-6 ">
+          <div className="container bg-stone-100 rounded h-screen w-96 shadow">
+            <h1 className="flex flex-col pl-4 text-2xl text-black font-bold">
+              Cart
+            </h1>
+            <div className="mt-10 px-6">
               <ul className="flex flex-col">
                 {userCart?.lines.edges.map((item: Edge) => {
                   const articles = item.node;
                   const articleDetail = articles.merchandise.product;
-                  <li>{articleDetail.title}</li>;
-                  // <li className="border-gray-400 flex flex-row mb-2">
-                  //   <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-                  //     <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                  //       <a href="#" className="block relative">
-                  //         <img
-                  //           alt={articleDetail.handle}
-                  //           src={articleDetail.featuredImage.url}
-                  //           className="mx-auto object-cover rounded-full h-10 w-10 "
-                  //         />
-                  //       </a>
-                  //     </div>
-                  //     <div className="flex-1 pl-1 md:mr-16">
-                  //       <div className="font-medium dark:text-white">
-                  //         {articleDetail.title}
-                  //       </div>
-                  //     </div>
-                  //   </div>
-                  // </li>;
+                  return (
+                    <li
+                      key={articleDetail.handle}
+                      className="border-gray-400 flex flex-row mb-2"
+                    >
+                      <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
+                        <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
+                          <a href="#" className="block relative">
+                            <img
+                              alt={articleDetail.handle}
+                              src={articleDetail.featuredImage.url}
+                              className="mx-auto object-cover rounded-full h-10 w-10 "
+                            />
+                          </a>
+                        </div>
+                        <div className="flex-1 pl-1 md:mr-16">
+                          <div className="font-medium dark:text-white">
+                            {articleDetail.title}
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  );
                 })}
               </ul>
             </div>
@@ -72,3 +68,6 @@ export default function CartSideDrawer() {
     </div>
   );
 }
+
+
+
