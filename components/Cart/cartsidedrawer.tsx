@@ -1,28 +1,21 @@
 import { useQuery } from 'react-query';
 import { retrieveCart } from "../Cart/cart-create";
 import { useAppContext } from "../../context/AppContext";
-import { useState } from "react";
 import { Edge, GetCart } from "../../types/cart-get";
-
-//NOTE: Fetch Data is typed GetCart or undefined - so some refetches result in undefined
-// Then a refetch happens then the data is there or 
-// so every time the cart drawer is open the app refetches with undefined then the results
-// FIXME: Need to fix this - I should start here https://tkdodo.eu/blog/react-query-and-type-script
 
 export default function CartSideDrawer() {
   const cartData = useAppContext();
   const cartID = cartData?.id;
   const checkoutLink = cartData?.checkoutUrl;
-  const [cart, setCart] = useState<GetCart>();
-  const { data, isError, error, isFetching } = useQuery<GetCart>(
+  const { data, isError, error, isLoading, isSuccess } = useQuery<GetCart>(
     ["cart-items", cartID],
     () => retrieveCart(cartID),
     {
-      onSuccess: () => setCart(data),
-      initialData: cart,
+      refetchInterval: 4000,
     }
   );
-  const userCart = cart?.data.cart;
+
+  const userCart = data?.data.cart;
   console.log(userCart);
 
   return (
@@ -33,14 +26,14 @@ export default function CartSideDrawer() {
         </div>
       ) : (
         <div className="absolute top-0 right-0">
-          <div className="container bg-stone-100 rounded h-96 w-96 shadow">
+          <div className="container bg-stone-100 rounded h-auto w-96 shadow">
             <h1 className="flex flex-col pl-4 text-2xl text-black font-bold">
               Cart
             </h1>
             <div className="mt-10 px-6">
-              {isFetching ? (
+              {isLoading ? (
                 <p className="flex flex-col pl-4 text-2xl text-black font-bold">
-                  Fetching...
+                  Loading Cart...
                 </p>
               ) : (
                 <ul className="flex flex-col">
@@ -52,7 +45,7 @@ export default function CartSideDrawer() {
                         key={articleDetail.handle}
                         className="border-gray-400 flex flex-row mb-2"
                       >
-                        <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
+                        <div className="transition duration-500 shadow ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
                           <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
                             <a href="#" className="block relative">
                               <img
@@ -66,12 +59,27 @@ export default function CartSideDrawer() {
                             <div className="font-medium dark:text-white">
                               {articleDetail.title}
                             </div>
+                            <div className="text-gray-600 dark:text-gray-200 text-sm">
+                              Quantity: {articles.quantity}
+                            </div>
                           </div>
                         </div>
                       </li>
                     );
                   })}
                 </ul>
+              )}
+              {isSuccess && userCart!.lines.edges.length <= 0 ? (
+                <p className="flex flex-col pl-4 text-xl text-black font-light">
+                  Sorry your cart is empty
+                </p>
+              ) : (
+                <button
+                  type="button"
+                  className="py-2 px-4 mb-3  bg-slate-600 hover:bg-slate-700 focus:ring-slate-500 focus:ring-offset-slate-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                >
+                  <a href={checkoutLink}>Checkout</a>
+                </button>
               )}
             </div>
           </div>
