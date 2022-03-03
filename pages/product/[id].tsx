@@ -16,8 +16,6 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const handleAddToCart = () => {};
-
 export default function ProductDetail({ product }: ProductData) {
   const cartData = useAppContext();
   const cartID = cartData?.id;

@@ -2,27 +2,35 @@ import { useQuery } from 'react-query';
 import { retrieveCart } from "../Cart/cart-create";
 import { useAppContext } from "../../context/AppContext";
 import { Edge, GetCart } from "../../types/cart-get";
+import { formatPrice } from "../../utils/shopify";
+
+function initCart() {
+  const cartData = useAppContext();
+  const ID = cartData?.id;
+  const url = cartData?.checkoutUrl;
+  return [ID, url];
+}
+
+function useCart() {
+  const cartID = initCart()[0];
+  return useQuery<GetCart>(["cart-items", cartID], () => retrieveCart(cartID), {
+    refetchIntervalInBackground: true,
+    refetchInterval: 3000,
+  });
+}
 
 export default function CartSideDrawer() {
-  const cartData = useAppContext();
-  const cartID = cartData?.id;
-  const checkoutLink = cartData?.checkoutUrl;
-  const { data, isError, error, isLoading, isSuccess } = useQuery<GetCart>(
-    ["cart-items", cartID],
-    () => retrieveCart(cartID),
-    {
-      refetchInterval: 4000,
-    }
-  );
-
-  const userCart = data?.data.cart;
-  console.log(userCart);
+  const checkoutLink = initCart()[1];
+  const shopCart = useCart();
+  const cartItem = shopCart.data?.data.cart.lines;
+  const price = shopCart.data?.data.cart.estimatedCost.totalAmount.amount;
+  console.log(shopCart);
 
   return (
     <div className="relative h-full w-full ">
-      {isError ? (
+      {shopCart.isError ? (
         <div className="absolute top-0 right-0">
-          'An error has occurred: ' + {error}
+          'An error has occurred: ' + {shopCart.error instanceof Error}
         </div>
       ) : (
         <div className="absolute top-0 right-0">
@@ -31,13 +39,18 @@ export default function CartSideDrawer() {
               Cart
             </h1>
             <div className="mt-10 px-6">
-              {isLoading ? (
-                <p className="flex flex-col pl-4 text-2xl text-black font-bold">
-                  Loading Cart...
-                </p>
+              {shopCart.isLoading ? (
+                <div className="flex items-center justify-center">
+                  <div
+                    className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+                    role="status"
+                  >
+                    <span className="hidden md:visible">Loading...</span>
+                  </div>
+                </div>
               ) : (
                 <ul className="flex flex-col">
-                  {userCart?.lines.edges.map((item: Edge) => {
+                  {cartItem!.edges.map((item: Edge) => {
                     const articles = item.node;
                     const articleDetail = articles.merchandise.product;
                     return (
@@ -69,18 +82,22 @@ export default function CartSideDrawer() {
                   })}
                 </ul>
               )}
-              {isSuccess && userCart!.lines.edges.length <= 0 ? (
-                <p className="flex flex-col pl-4 text-xl text-black font-light">
-                  Sorry your cart is empty
-                </p>
-              ) : (
-                <button
-                  type="button"
-                  className="py-2 px-4 mb-3  bg-slate-600 hover:bg-slate-700 focus:ring-slate-500 focus:ring-offset-slate-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                >
-                  <a href={checkoutLink}>Checkout</a>
-                </button>
-              )}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2">
+                  <button
+                    type="button"
+                    className="py-2 px-4 mb-3  bg-slate-600 hover:bg-slate-700 focus:ring-slate-500 focus:ring-offset-slate-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  >
+                    <a href={checkoutLink}>Checkout</a>
+                  </button>
+                </div>
+                <div>
+                  <p className="text-lg text-center ">Total</p>
+                  <p className="text-lg text-center">
+                    {formatPrice(parseInt(price))}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
