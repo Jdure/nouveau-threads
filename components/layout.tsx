@@ -24,12 +24,13 @@ export default function Layout({ children }: LayoutProps) {
   const handleCartToggle = () => {
     setCartOpen(!isCartOpen);
   };
-
+  // TODO: Find a better way to update cart then refetching every 5 seconds
+  // The mutation works on inital page load then disappear's when you navigate to another page
   const { data, isError, isLoading, error } = useQuery<GetCart>(
     ["cart-items", cartID],
     () => retrieveCart(cartID),
     {
-      // refetchInterval: 5000,
+      refetchInterval: 5000,
     }
   );
 
