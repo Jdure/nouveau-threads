@@ -1,43 +1,42 @@
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryResult } from "react-query";
 import { retrieveCart } from "../Cart/cart-create";
 import { useAppContext } from "../../context/AppContext";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
 
-function initCart() {
-  const cartData = useAppContext();
-  const ID = cartData?.id;
-  const url = cartData?.checkoutUrl;
-  return [ID, url];
+interface CartProps {
+  getCartFunc: GetCart | undefined;
+  cartCheckout: string | undefined;
+  cartLoading: boolean;
+  cartError: boolean;
+  cartErrorMsg: string | unknown;
 }
 
-function getCart() {
-  const cartID = initCart()[0];
-  return useQuery<GetCart>(["cart-items", cartID], () => retrieveCart(cartID), {
-    refetchIntervalInBackground: true,
-    refetchInterval: 3000,
-  });
-}
-
-export default function CartSideDrawer() {
-  const checkoutLink = initCart()[1];
-  const shopCart = getCart();
-  const cartItem = shopCart.data?.data.cart.lines;
-  const price = shopCart.data?.data.cart.estimatedCost.totalAmount.amount;
+export default function CartSideDrawer({
+  getCartFunc,
+  cartCheckout,
+  cartError,
+  cartLoading,
+  cartErrorMsg,
+}: CartProps) {
+  const checkoutLink = cartCheckout;
+  const shopCart = getCartFunc;
+  const cartItem = shopCart?.data.cart.lines;
+  const price = shopCart?.data.cart.estimatedCost.totalAmount.amount;
   console.log(shopCart);
 
-  if (shopCart.isError)
+  if (cartError)
     return (
       <div className="relative h-full w-full ">
         <div className="absolute top-0 right-0">
           <div className="container bg-stone-100 rounded h-auto w-96 shadow">
-            'An error has occurred: ' + {shopCart.error instanceof Error}
+            'An error has occurred: ' + {cartErrorMsg instanceof Error}
           </div>
         </div>
       </div>
     );
 
-  if (shopCart.isLoading)
+  if (cartLoading)
     return (
       <div className="relative h-full w-full ">
         <div className="absolute top-0 right-0">
@@ -112,6 +111,3 @@ export default function CartSideDrawer() {
     </div>
   );
 }
-
-
-

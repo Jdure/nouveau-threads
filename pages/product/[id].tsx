@@ -8,6 +8,7 @@ import { productsQuery, header, formatPrice, productDetailQuery } from '../../ut
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import { addCartItem } from "../../components/Cart/cart-create";
+import { useMutation, useQueryClient } from "react-query";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storeApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -24,6 +25,13 @@ export default function ProductDetail({ product }: ProductData) {
   const price = priceRange.minVariantPrice;
   const [quantity, setQuantity] = useState(1);
   const variantID = variants.edges[0].node.id;
+  const queryClient = useQueryClient();
+  const addMutation = useMutation(
+    () => addCartItem(cartID, product.handle, variantID, quantity),
+    {
+      onSuccess: () => queryClient.invalidateQueries("cart-items"),
+    }
+  );
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -85,9 +93,10 @@ export default function ProductDetail({ product }: ProductData) {
                     {formatPrice(parseInt(price.amount))}
                   </span>
                   <button
-                    onClick={() =>
-                      addCartItem(cartID, product.handle, variantID, quantity)
-                    }
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addMutation.mutate();
+                    }}
                     className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   >
                     Add To Cart
