@@ -17,8 +17,7 @@ export default function Layout({ children }: LayoutProps) {
   const handleCartToggle = () => {
     setCartOpen(!isCartOpen);
   };
-  // TODO: Find a better way to update cart then refetching every 5 seconds
-  // The mutation works on inital page load then disappear's when you navigate to another page
+
   const initCart = getUserCart(cartID);
 
   if (initCart.isError) return <h1>There's an error initializing the Cart</h1>;
