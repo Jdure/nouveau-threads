@@ -7,7 +7,7 @@ import FetchStoreData from '../../utils/helpers'
 import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { addCartItem } from "../../components/Cart/cart-create";
+import { addCartItem, retrieveCart } from "../../components/Cart/cart-create";
 import { useMutation, useQueryClient } from "react-query";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
@@ -29,7 +29,10 @@ export default function ProductDetail({ product }: ProductData) {
   const addMutation = useMutation(
     () => addCartItem(cartID, product.handle, variantID, quantity),
     {
-      onSuccess: () => queryClient.invalidateQueries("cart-items"),
+      // Grab response data
+      // Decompose it
+      // add it to query data
+      onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
     }
   );
 

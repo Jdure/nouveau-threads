@@ -3,46 +3,43 @@ import { retrieveCart } from "../Cart/cart-create";
 import { useAppContext } from "../../context/AppContext";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
+import { getUserCart } from "../../utils/helpers";
 
 interface CartProps {
-  getCartFunc: GetCart | undefined;
   cartCheckout: string | undefined;
-  cartLoading: boolean;
-  cartError: boolean;
-  cartErrorMsg: string | unknown;
+  cartIDNum: string | undefined;
 }
 
-export default function CartSideDrawer({
-  getCartFunc,
-  cartCheckout,
-  cartError,
-  cartLoading,
-  cartErrorMsg,
-}: CartProps) {
+export default function CartSideDrawer({ cartCheckout, cartIDNum }: CartProps) {
+  const { data, isLoading, isError, error } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
-  const shopCart = getCartFunc;
+  const shopCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const price = shopCart?.data.cart.estimatedCost.totalAmount.amount;
-  console.log(shopCart);
 
-  if (cartError)
+  if (isError)
     return (
       <div className="relative h-full w-full ">
         <div className="absolute top-0 right-0">
           <div className="container bg-stone-100 rounded h-auto w-96 shadow">
-            'An error has occurred: ' + {cartErrorMsg instanceof Error}
+            'An error has occurred: ' + {error instanceof Error}
           </div>
         </div>
       </div>
     );
 
-  if (cartLoading)
+  if (isLoading)
     return (
       <div className="relative h-full w-full ">
-        <div className="absolute top-0 right-0">
-          <div className="container bg-stone-100 rounded h-12 w-96 shadow">
-            <div className="flex items-center justify-center">
-              <p className="">Loading...</p>
+        <div className="absolute top-0 right-0 ">
+          <div className="container bg-stone-100 rounded h-12 w-96 ">
+            <div className="flex justify-center items-center">
+              <div
+                className="spinner-border text-slate-600 mt-2 animate-spin inline-block w-8 h-8 border-4 rounded-full"
+                role="status"
+              >
+                <span className="hidden">Loading...</span>
+              </div>
             </div>
           </div>
         </div>
@@ -58,7 +55,7 @@ export default function CartSideDrawer({
           </h1>
           <div className="mt-10 px-6">
             <ul className="flex flex-col">
-              {cartItem!.edges.map((item: Edge) => {
+              {cartItem?.edges.map((item: Edge) => {
                 const articles = item.node;
                 const articleDetail = articles.merchandise.product;
                 return (
