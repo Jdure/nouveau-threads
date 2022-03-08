@@ -25,13 +25,11 @@ export default function ProductDetail({ product }: ProductData) {
   const price = priceRange.minVariantPrice;
   const [quantity, setQuantity] = useState(1);
   const variantID = variants.edges[0].node.id;
+  // TODO: Put all mutations in helper function
   const queryClient = useQueryClient();
   const addMutation = useMutation(
     () => addCartItem(cartID, product.handle, variantID, quantity),
     {
-      // Grab response data
-      // Decompose it
-      // add it to query data
       onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
     }
   );

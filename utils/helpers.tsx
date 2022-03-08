@@ -1,5 +1,5 @@
-import { useQuery } from "react-query";
-import { retrieveCart } from "../components/Cart/cart-create";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { retrieveCart, deleteCartItem } from "../components/Cart/cart-create";
 
 const axios = require("axios");
 
@@ -33,3 +33,11 @@ export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     staleTime: 1000 * 30,
   });
+
+export const delCartItem = (
+  id: string | undefined,
+  variantId: string | undefined
+) =>
+  useMutation(() => deleteCartItem(id, variantId), {
+    onSuccess: () => useQueryClient().invalidateQueries(["cart-items", id]),
+  }).mutate();

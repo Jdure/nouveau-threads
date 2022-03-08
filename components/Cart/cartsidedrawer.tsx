@@ -5,6 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
 import { getUserCart } from "../../utils/helpers";
+import { deleteCartItem } from "./cart-create";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -19,13 +20,11 @@ export default function CartSideDrawer({
   cartOpenFunc,
   cartOpenBool,
 }: CartProps) {
-  const { data, isError, error } = getUserCart(cartIDNum);
+  const { data, isError, error, refetch } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
   const shopCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
-
-  console.log(data);
 
   if (isError)
     return (
@@ -95,6 +94,10 @@ export default function CartSideDrawer({
                         >
                           {cartItem?.edges.map((item: Edge) => {
                             const articles = item.node;
+                            const delMutation = deleteCartItem(
+                              cartIDNum,
+                              articles.id
+                            );
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
@@ -129,9 +132,15 @@ export default function CartSideDrawer({
                                     <p className="text-gray-500">
                                       Qty {articles.quantity}
                                     </p>
-
+                                    {/* TODO: Cart needs a refetch to delete item 
+                                      FIxME: Btn is firing automatically?
+                                    */}
                                     <div className="flex">
                                       <button
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          delMutation;
+                                        }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
