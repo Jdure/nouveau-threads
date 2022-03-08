@@ -44,8 +44,13 @@ export interface Product {
     title:         string;
     handle:        string;
     featuredImage: FeaturedImage;
+    priceRange:    PriceRange;
 }
 
 export interface FeaturedImage {
     url: string;
+}
+
+export interface PriceRange {
+    minVariantPrice: TotalAmount;
 }

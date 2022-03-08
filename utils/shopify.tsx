@@ -94,6 +94,12 @@ export const retrieveCartQuery = gql`
                   featuredImage {
                     url
                   }
+                  priceRange {
+                    minVariantPrice {
+                      amount
+                      currencyCode
+                    }
+                  }
                 }
               }
             }

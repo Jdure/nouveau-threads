@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Transition } from "@headlessui/react";
 import CartSideDrawer from "./Cart/cartsidedrawer";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Navbar from "./Navbar/navbar";
@@ -25,14 +26,19 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navbar toggleFunc={handleCartToggle} />
-      {isCartOpen ? (
-        <>
-          <CartSideDrawer cartCheckout={url} cartIDNum={cartID} />
-          <main>{children}</main>
-        </>
-      ) : (
-        <main>{children}</main>
-      )}
+      <Transition
+        show={isCartOpen}
+        enter="transition-opacity duration-75"
+        leave="transition-opacity duration-150"
+      >
+        <CartSideDrawer
+          cartCheckout={url}
+          cartIDNum={cartID}
+          cartOpenFunc={handleCartToggle}
+          cartOpenBool={isCartOpen}
+        />
+      </Transition>
+      <main>{children}</main>
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
