@@ -142,3 +142,24 @@ mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
 }
 }
 `
+
+export const removeCartItemQuery = gql`
+  mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart {
+        lines(first: 10) {
+          edges {
+            node {
+              id
+              quantity
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;

@@ -5,6 +5,7 @@ import {
   createCartQuery,
   header,
   retrieveCartQuery,
+  removeCartItemQuery,
 } from "../../utils/shopify";
 
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
@@ -68,6 +69,27 @@ export async function addCartItem(
     const response = await shopifyCartInstance.post(storefrontApi, {
       query: addCartItemQuery,
       variables: addItemVariables,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Create a function to delete an item in the Cart
+export async function deleteCartItem(
+  cartID: string | undefined,
+  variantID: string
+) {
+  let delItemVariables = {
+    cartId: cartID,
+    lineIds: variantID,
+  };
+  try {
+    const response = await shopifyCartInstance.post(storefrontApi, {
+      query: removeCartItemQuery,
+      variables: delItemVariables,
     });
     console.log(response.data);
     return response.data;
