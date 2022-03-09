@@ -3,11 +3,16 @@ import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { Data} from '../../types/storefront'
 import {ProductData } from '../../types/detail'
-import FetchStoreData from '../../utils/helpers'
-import { productsQuery, header, formatPrice, productDetailQuery } from '../../utils/shopify'
+import FetchStoreData, { addCartItems } from "../../utils/helpers";
+import {
+  productsQuery,
+  header,
+  formatPrice,
+  productDetailQuery,
+} from "../../utils/shopify";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { addCartItem, retrieveCart } from "../../components/Cart/cart-create";
+import { addItem, retrieveCart } from "../../components/Cart/cart-create";
 import { useMutation, useQueryClient } from "react-query";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
@@ -28,7 +33,7 @@ export default function ProductDetail({ product }: ProductData) {
   // TODO: Put all mutations in helper function
   const queryClient = useQueryClient();
   const addMutation = useMutation(
-    () => addCartItem(cartID, product.handle, variantID, quantity),
+    () => addItem(cartID, product.handle, variantID, quantity),
     {
       onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
     }

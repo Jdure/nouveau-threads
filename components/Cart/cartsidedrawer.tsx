@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
 import { getUserCart } from "../../utils/helpers";
-import { deleteCartItem } from "./cart-create";
+import { deleteItem } from "./cart-create";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -14,6 +14,7 @@ interface CartProps {
   cartOpenBool: boolean;
 }
 
+// FIXME: ITEMS are disapearing from cart when navigating
 export default function CartSideDrawer({
   cartCheckout,
   cartIDNum,
@@ -94,7 +95,7 @@ export default function CartSideDrawer({
                         >
                           {cartItem?.edges.map((item: Edge) => {
                             const articles = item.node;
-                            const delMutation = deleteCartItem(
+                            const delMutation = deleteItem(
                               cartIDNum,
                               articles.id
                             );
@@ -139,7 +140,7 @@ export default function CartSideDrawer({
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          delMutation;
+                                          console.log("clicked");
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"

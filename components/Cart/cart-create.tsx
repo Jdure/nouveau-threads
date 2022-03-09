@@ -48,7 +48,7 @@ export async function retrieveCart(cartID: string | undefined) {
 }
 
 // Create a function to add an item to the Cart
-export async function addCartItem(
+export async function addItem(
   cartID: string | undefined,
   handle: string,
   variantID: string,
@@ -78,7 +78,7 @@ export async function addCartItem(
 }
 
 // Create a function to delete an item in the Cart
-export async function deleteCartItem(
+export async function deleteItem(
   cartID: string | undefined,
   variantID: string | undefined
 ) {
