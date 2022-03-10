@@ -35,20 +35,15 @@ export default async function FetchStoreData(
 
 export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
-    // staleTime: 1000 * 30,
+    refetchIntervalInBackground: true,
   });
 
-// NOTE: This mutation might not be working as well
+// FIXME: This mutation might not be working as well
 export const delCartItem = (
   id: string | undefined,
   variantId: string | undefined
-) =>
-  useMutation(() => deleteItem(id, variantId), {
-    onSuccess: () =>
-      useQueryClient().fetchQuery(["cart-items", id], () => retrieveCart(id)),
-  }).mutate();
+) => useMutation(() => deleteItem(id, variantId));
 
-// FIXME: Add cart items mutation not working
 export const addCartItems = (
   id: string | undefined,
   handle: string,

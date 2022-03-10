@@ -30,13 +30,11 @@ export default function ProductDetail({ product }: ProductData) {
   const price = priceRange.minVariantPrice;
   const [quantity, setQuantity] = useState(1);
   const variantID = variants.edges[0].node.id;
-  // TODO: Put all mutations in helper function
-  const queryClient = useQueryClient();
-  const addMutation = useMutation(
-    () => addItem(cartID, product.handle, variantID, quantity),
-    {
-      onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
-    }
+  const addItemMutation = addCartItems(
+    cartID,
+    product.handle,
+    variantID,
+    quantity
   );
 
   return (
@@ -101,7 +99,8 @@ export default function ProductDetail({ product }: ProductData) {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      addMutation.mutate();
+                      // addMutation.mutate();
+                      addItemMutation.mutate();
                     }}
                     className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   >

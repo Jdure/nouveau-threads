@@ -1,10 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 // import { XIcon } from "@heroics's/react/outline";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
-import { getUserCart } from "../../utils/helpers";
+import { delCartItem, getUserCart } from "../../utils/helpers";
 import { deleteItem } from "./cart-create";
 
 interface CartProps {
@@ -21,9 +21,9 @@ export default function CartSideDrawer({
   cartOpenFunc,
   cartOpenBool,
 }: CartProps) {
-  const { data, isError, error, refetch } = getUserCart(cartIDNum);
+  const { data, isError, error } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
-  const shopCart = data;
+  const shopCart: GetCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
 
@@ -95,10 +95,10 @@ export default function CartSideDrawer({
                         >
                           {cartItem?.edges.map((item: Edge) => {
                             const articles = item.node;
-                            const delMutation = deleteItem(
-                              cartIDNum,
-                              articles.id
-                            );
+                            // const delMutation = delCartItem(
+                            //   cartIDNum,
+                            //   articles.id
+                            // );
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
@@ -134,13 +134,14 @@ export default function CartSideDrawer({
                                       Qty {articles.quantity}
                                     </p>
                                     {/* TODO: Cart needs a refetch to delete item 
-                                      FIxME: Btn is firing automatically?
+                                      FIXME: Btn is firing automatically?
                                     */}
                                     <div className="flex">
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
                                           console.log("clicked");
+                                          // delMutation;
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
