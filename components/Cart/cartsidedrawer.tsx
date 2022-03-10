@@ -4,8 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 // import { XIcon } from "@heroics's/react/outline";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
-import { delCartItem, getUserCart } from "../../utils/helpers";
-import { deleteItem } from "./cart-create";
+import { getUserCart, delCartItem } from "../../utils/helpers";
+import { deleteItem, retrieveCart } from "./cart-create";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -95,13 +95,13 @@ export default function CartSideDrawer({
                         >
                           {cartItem?.edges.map((item: Edge) => {
                             const articles = item.node;
-                            // const delMutation = delCartItem(
-                            //   cartIDNum,
-                            //   articles.id
-                            // );
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
+                            // const delItemMutation = delCartItem(
+                            //   cartIDNum,
+                            //   articles.id
+                            // );
                             return (
                               <li
                                 key={articleDetail.handle}
@@ -133,15 +133,18 @@ export default function CartSideDrawer({
                                     <p className="text-gray-500">
                                       Qty {articles.quantity}
                                     </p>
-                                    {/* TODO: Cart needs a refetch to delete item 
-                                      FIXME: Btn is firing automatically?
-                                    */}
+                                    {/* TODO: Cart needs a refetch to delete item
+                                     */}
                                     <div className="flex">
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          console.log("clicked");
-                                          // delMutation;
+                                          // Calling the query function instead of the mutation
+                                          // FIXME: implement delete mutation
+                                          deleteItem(cartIDNum, articles.id);
+                                          console.log(
+                                            "clicked: " + articles.id
+                                          );
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"

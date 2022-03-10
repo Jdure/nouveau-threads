@@ -12,8 +12,6 @@ import {
 } from "../../utils/shopify";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { addItem, retrieveCart } from "../../components/Cart/cart-create";
-import { useMutation, useQueryClient } from "react-query";
 
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storeApi = process.env.SHOPIFY_STORE_API_URL || "";

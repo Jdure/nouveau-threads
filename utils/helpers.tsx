@@ -38,11 +38,9 @@ export const getUserCart = (id: string | undefined) =>
     refetchIntervalInBackground: true,
   });
 
-// FIXME: This mutation might not be working as well
-export const delCartItem = (
-  id: string | undefined,
-  variantId: string | undefined
-) => useMutation(() => deleteItem(id, variantId));
+// FIXME: This mutation not be working  for delete
+// export const delCartItem = (id: string | undefined, variantId: string) =>
+//   useMutation(() => deleteItem(id, variantId));
 
 export const addCartItems = (
   id: string | undefined,
