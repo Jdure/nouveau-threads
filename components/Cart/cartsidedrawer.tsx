@@ -1,11 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-// import { XIcon } from "@heroics's/react/outline";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
 import { getUserCart, delCartItem } from "../../utils/helpers";
 import { deleteItem, retrieveCart } from "./cart-create";
+import { useMutation } from "react-query";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -26,6 +26,7 @@ export default function CartSideDrawer({
   const shopCart: GetCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
+  // const delMutation = delCartItem(cartIDNum);
 
   if (isError)
     return (
@@ -98,10 +99,7 @@ export default function CartSideDrawer({
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
-                            // const delItemMutation = delCartItem(
-                            //   cartIDNum,
-                            //   articles.id
-                            // );
+
                             return (
                               <li
                                 key={articleDetail.handle}
@@ -125,9 +123,9 @@ export default function CartSideDrawer({
                                         {formatPrice(parseInt(articlePrice))}
                                       </p>
                                     </div>
-                                    {/* <p className="mt-1 text-sm text-gray-500">
-                                      {product.color}
-                                    </p> */}
+                                    <p className="mt-1 text-sm text-gray-500">
+                                      Product Colour
+                                    </p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
                                     <p className="text-gray-500">

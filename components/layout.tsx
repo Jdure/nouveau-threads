@@ -19,10 +19,6 @@ export default function Layout({ children }: LayoutProps) {
     setCartOpen(!isCartOpen);
   };
 
-  const initCart = getUserCart(cartID);
-
-  if (initCart.isError) return <h1>There's an error initializing the Cart</h1>;
-
   return (
     <>
       <Navbar toggleFunc={handleCartToggle} />
