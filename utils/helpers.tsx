@@ -39,7 +39,7 @@ export const getUserCart = (id: string | undefined) =>
     refetchIntervalInBackground: true,
   });
 
-// FIXME: This mutation not be working  for delete
+// NOTE: Ignore warnings, known issue with Typescript and React Query 
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
   useMutation<Response, AxiosError, string, () => void>(
     ({ id, variantId }) => deleteItem(id, variantId),

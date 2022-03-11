@@ -138,10 +138,11 @@ export default function CartSideDrawer({
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          // Calling the query function instead of the mutation
-                                          // FIXME: implement delete mutation
-                                          // deleteItem(cartIDNum, articles.id);
-                                          mutate({id: cartIDNum, variantId: articles.id});
+                                          // NOTE: Ignore warnings, known issue with Typescript and React Query
+                                          mutate({
+                                            id: cartIDNum,
+                                            variantId: articles.id,
+                                          });
                                           console.log("clicked: " + articlesId);
                                         }}
                                         type="button"
