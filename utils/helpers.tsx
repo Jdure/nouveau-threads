@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   retrieveCart,
@@ -38,10 +39,14 @@ export const getUserCart = (id: string | undefined) =>
     refetchIntervalInBackground: true,
   });
 
-
 // FIXME: This mutation not be working  for delete
-export const delCartItem = (id: string | undefined, variantId: string) =>
-  useMutation(() => deleteItem(id, variantId)); 
+export const delCartItem = (id?: string | undefined, variantId?: string) =>
+  useMutation<Response, AxiosError, string, () => void>(
+    ({ id, variantId }) => deleteItem(id, variantId),
+    {
+      onSuccess: (data) => console.log(data),
+    }
+  );
 
 export const addCartItems = (
   id: string | undefined,

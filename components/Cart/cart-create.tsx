@@ -79,8 +79,8 @@ export async function addItem(
 
 // Create a function to delete an item in the Cart
 export async function deleteItem(
-  cartID: string | undefined,
-  variantID: string | undefined
+  cartID?: string | undefined,
+  variantID?: string | undefined
 ) {
   let delItemVariables = {
     cartId: cartID,

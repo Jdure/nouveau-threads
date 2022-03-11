@@ -14,7 +14,7 @@ interface CartProps {
   cartOpenBool: boolean;
 }
 
-// FIXME: ITEMS are disapearing from cart when navigating
+// FIXME: ITEMS are disappearing from cart when navigating
 export default function CartSideDrawer({
   cartCheckout,
   cartIDNum,
@@ -26,7 +26,8 @@ export default function CartSideDrawer({
   const shopCart: GetCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
-  // const delMutation = delCartItem(cartIDNum);
+  let articlesId: string | undefined = undefined;
+  const { mutate } = delCartItem();
 
   if (isError)
     return (
@@ -99,7 +100,7 @@ export default function CartSideDrawer({
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
-
+                            articlesId = articles.id;
                             return (
                               <li
                                 key={articleDetail.handle}
@@ -139,10 +140,9 @@ export default function CartSideDrawer({
                                           e.preventDefault();
                                           // Calling the query function instead of the mutation
                                           // FIXME: implement delete mutation
-                                          deleteItem(cartIDNum, articles.id);
-                                          console.log(
-                                            "clicked: " + articles.id
-                                          );
+                                          // deleteItem(cartIDNum, articles.id);
+                                          mutate({id: cartIDNum, variantId: articles.id});
+                                          console.log("clicked: " + articlesId);
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
