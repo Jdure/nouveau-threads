@@ -4,8 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
 import { formatPrice } from "../../utils/shopify";
 import { getUserCart, delCartItem } from "../../utils/helpers";
-import { deleteItem, retrieveCart } from "./cart-create";
-import { useMutation } from "react-query";
+import { useQueryClient } from "react-query";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -26,7 +25,6 @@ export default function CartSideDrawer({
   const shopCart: GetCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
-  let articlesId: string | undefined = undefined;
   const { mutate } = delCartItem();
 
   if (isError)
@@ -100,7 +98,6 @@ export default function CartSideDrawer({
                             const articleDetail = articles.merchandise.product;
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
-                            articlesId = articles.id;
                             return (
                               <li
                                 key={articleDetail.handle}
@@ -143,7 +140,6 @@ export default function CartSideDrawer({
                                             id: cartIDNum,
                                             variantId: articles.id,
                                           });
-                                          console.log("clicked: " + articlesId);
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
