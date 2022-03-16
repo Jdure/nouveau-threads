@@ -36,10 +36,10 @@ export default async function FetchStoreData(
 
 export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
-    // refetchIntervalInBackground: true,
+    refetchIntervalInBackground: true,
   });
 
-// NOTE: Ignore warnings, known issue with Typescript and React Query 
+// NOTE: Ignore warnings, known issue with Typescript and React Query
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
   useMutation<Response, AxiosError, string, () => void>(
     ({ id, variantId }) => deleteItem(id, variantId),
@@ -49,17 +49,6 @@ export const delCartItem = (id?: string | undefined, variantId?: string) =>
       },
     }
   );
-
-  // export function delCartItem(id?: string | undefined, variantId?: string) {
-  //   return useMutation<Response, AxiosError, string, () => void>(
-  //     ({ id, variantId }) => deleteItem(id, variantId),
-  //     {
-  //       onSuccess: () => {
-  //         useQueryClient().invalidateQueries("cart-items")
-  //       }
-  //     }
-  //   );
-  // }
 
 
 export const addCartItems = (
