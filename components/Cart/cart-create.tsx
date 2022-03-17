@@ -1,15 +1,19 @@
 import axios from "axios";
-import { Data, CartCreate, Cart, FetchCart } from "../../types/cart-create";
+import { Cart } from "../../types/cart-create";
 import {
   addCartItemQuery,
   createCartQuery,
-  header,
   retrieveCartQuery,
   removeCartItemQuery,
-} from "../../utils/shopify";
+} from "../../utils/shopify-queries";
 
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
+const header = {
+  "Content-Type": "application/json",
+  "X-Shopify-Storefront-Access-Token":
+    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
+};
 
 const shopifyCartInstance = axios.create({
   baseURL: storefrontDomain,

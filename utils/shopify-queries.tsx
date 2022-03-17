@@ -1,13 +1,4 @@
-const gql = String.raw
-
-export const header = {
-    'Content-Type': 'application/json',
-    'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
-}
-
-export function formatPrice(num: number ){
-  return Intl.NumberFormat("en-CA", { style : "currency", currency: "CAD", minimumFractionDigits: 0}).format(num)
-}
+const gql = String.raw;
 
 export const productDetailQuery = gql`
   query SingleProduct($handle: String) {
@@ -37,44 +28,44 @@ export const productDetailQuery = gql`
 `;
 
 export const productsQuery = gql`
-query Products {
-  products(first:12){
-    edges {
-      node {
-        id
-        handle
-        title
-        featuredImage {
-          url
-          altText
-        }
-        priceRange{
-          minVariantPrice{
-            amount
+  query Products {
+    products(first: 12) {
+      edges {
+        node {
+          id
+          handle
+          title
+          featuredImage {
+            url
+            altText
+          }
+          priceRange {
+            minVariantPrice {
+              amount
+            }
           }
         }
       }
     }
   }
-}
-            `
+`;
 
 export const createCartQuery = gql`
-mutation cartCreate {
-  cartCreate {
-    cart {
-      id
-      updatedAt
-      checkoutUrl
-    }
-    userErrors {
-      code
-      field
-      message
+  mutation cartCreate {
+    cartCreate {
+      cart {
+        id
+        updatedAt
+        checkoutUrl
+      }
+      userErrors {
+        code
+        field
+        message
+      }
     }
   }
-}
-`
+`;
 
 export const retrieveCartQuery = gql`
   query RetrieveCart($cartId: ID!) {
@@ -116,32 +107,32 @@ export const retrieveCartQuery = gql`
   }
 `;
 export const addCartItemQuery = gql`
-mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-  cartLinesAdd(cartId: $cartId, lines: $lines) {
-    cart {
-      lines(first:100) {
-        edges{
-          node{
-          id
-          quantity
-					merchandise {
-              ... on ProductVariant {
-                product{
-                  title
-                  handle
-                  featuredImage{
-                    url
+  mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart {
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  product {
+                    title
+                    handle
+                    featuredImage {
+                      url
+                    }
                   }
                 }
+              }
             }
+          }
         }
       }
     }
   }
-}
-}
-}
-`
+`;
 
 export const removeCartItemQuery = gql`
   mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {

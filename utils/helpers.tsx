@@ -1,12 +1,28 @@
 import { AxiosError } from "axios";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, QueryClient } from "react-query";
 import {
   retrieveCart,
   addItem,
   deleteItem,
 } from "../components/Cart/cart-create";
+import { GetCart } from "../types/cart-get";
 
 const axios = require("axios");
+const queryClient = new QueryClient();
+
+export const header = {
+  "Content-Type": "application/json",
+  "X-Shopify-Storefront-Access-Token":
+    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
+};
+
+export function formatPrice(num: number) {
+  return Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
+    minimumFractionDigits: 0,
+  }).format(num);
+}
 
 export default async function FetchStoreData(
   domain: string,
@@ -35,17 +51,22 @@ export default async function FetchStoreData(
 }
 
 export const getUserCart = (id: string | undefined) =>
-  useQuery(["cart-items", id], () => retrieveCart(id), {
-    refetchIntervalInBackground: true,
-  });
+  useQuery<GetCart, ErrorConstructor>(
+    ["cart-items", id],
+    () => retrieveCart(id),
+    {
+      refetchIntervalInBackground: true,
+      refetchInterval: 2500,
+    }
+  );
 
 // NOTE: Ignore warnings, known issue with Typescript and React Query
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
   useMutation<Response, AxiosError, string, () => void>(
     ({ id, variantId }) => deleteItem(id, variantId),
     {
-      onSuccess: () => {
-        useQueryClient().invalidateQueries("cart-items");
+      onSuccess: (id) => {
+        queryClient.invalidateQueries(["cart-items", id]);
       },
     }
   );

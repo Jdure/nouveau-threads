@@ -3,13 +3,12 @@ import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { Data} from '../../types/storefront'
 import {ProductData } from '../../types/detail'
-import FetchStoreData, { addCartItems } from "../../utils/helpers";
-import {
-  productsQuery,
+import FetchStoreData, {
+  addCartItems,
   header,
   formatPrice,
-  productDetailQuery,
-} from "../../utils/shopify";
+} from "../../utils/helpers";
+import { productsQuery, productDetailQuery } from "../../utils/shopify-queries";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 
@@ -97,7 +96,6 @@ export default function ProductDetail({ product }: ProductData) {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      // addMutation.mutate();
                       addItemMutation.mutate();
                     }}
                     className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"

@@ -2,8 +2,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
-import { formatPrice } from "../../utils/shopify";
-import { getUserCart, delCartItem } from "../../utils/helpers";
+import { getUserCart, delCartItem, formatPrice } from "../../utils/helpers";
 import { useQueryClient } from "react-query";
 
 interface CartProps {
@@ -22,7 +21,7 @@ export default function CartSideDrawer({
 }: CartProps) {
   const { data, isError, error } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
-  const shopCart: GetCart = data;
+  const shopCart = data;
   const cartItem = shopCart?.data.cart.lines;
   const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
   const { mutate } = delCartItem();

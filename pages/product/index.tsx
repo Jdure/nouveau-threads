@@ -2,8 +2,8 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Data, Edge, } from '../../types/storefront'
-import FetchStoreData from '../../utils/helpers'
-import { productsQuery, header, formatPrice } from '../../utils/shopify'
+import FetchStoreData, { header, formatPrice } from "../../utils/helpers";
+import { productsQuery } from "../../utils/shopify-queries";
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
