@@ -12,7 +12,6 @@ interface CartProps {
   cartOpenBool: boolean;
 }
 
-// FIXME: ITEMS are disappearing from cart when navigating
 export default function CartSideDrawer({
   cartCheckout,
   cartIDNum,
@@ -128,8 +127,6 @@ export default function CartSideDrawer({
                                     <p className="text-gray-500">
                                       Qty {articles.quantity}
                                     </p>
-                                    {/* TODO: Cart needs a refetch to delete item
-                                     */}
                                     <div className="flex">
                                       <button
                                         onClick={(e) => {
