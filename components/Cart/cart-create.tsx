@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios, { AxiosPromise } from "axios";
 import { Cart } from "../../types/cart-create";
+import { GetCart, Cart as Bag } from "../../types/cart-get";
 import {
   addCartItemQuery,
   createCartQuery,
@@ -39,17 +40,21 @@ export async function createCartID() {
 }
 
 // Create a function to retrieve all cart items
-export async function retrieveCart(cartID: string | undefined) {
+export const retrieveCart = async (
+  cartID: string | undefined
+): Promise<GetCart> => {
   try {
     const response = await shopifyCartInstance.post(storefrontApi, {
       query: retrieveCartQuery,
       variables: { cartId: cartID },
     });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
-}
+};
 
 // Create a function to add an item to the Cart
 export async function addItem(
@@ -70,12 +75,19 @@ export async function addItem(
     },
   };
   try {
-    const response = await shopifyCartInstance.post(storefrontApi, {
-      query: addCartItemQuery,
-      variables: addItemVariables,
-    });
-    console.log(response.data);
-    return response.data;
+    const {
+      data: {
+        data: {
+          cartLinesAdd: { cart },
+        },
+      },
+    }: { data: { data: { cartLinesAdd: { cart: Bag } } } } =
+      await shopifyCartInstance.post(storefrontApi, {
+        query: addCartItemQuery,
+        variables: addItemVariables,
+      });
+    console.log(cart);
+    return cart;
   } catch (error) {
     console.log(error);
   }
@@ -91,12 +103,19 @@ export async function deleteItem(
     lineIds: variantID,
   };
   try {
-    const response = await shopifyCartInstance.post(storefrontApi, {
-      query: removeCartItemQuery,
-      variables: delItemVariables,
-    });
-    console.log(response.data);
-    return response.data;
+    const {
+      data: {
+        data: {
+          cartLinesRemove: { cart },
+        },
+      },
+    }: { data: { data: { cartLinesRemove: { cart: Bag } } } } =
+      await shopifyCartInstance.post(storefrontApi, {
+        query: removeCartItemQuery,
+        variables: delItemVariables,
+      });
+    console.log(cart);
+    return cart;
   } catch (error) {
     console.log(error);
   }

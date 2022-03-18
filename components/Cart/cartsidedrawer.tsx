@@ -20,10 +20,11 @@ export default function CartSideDrawer({
 }: CartProps) {
   const { data, isError, error } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
-  const shopCart = data;
-  const cartItem = shopCart?.data.cart.lines;
-  const subTotal = shopCart?.data.cart.estimatedCost.totalAmount.amount;
-  const { mutate } = delCartItem();
+  const shopCart = data?.data;
+  const cartItem = shopCart?.cart.lines;
+  const subTotal = shopCart?.cart.estimatedCost.totalAmount.amount;
+  // const { mutate } = delCartItem();
+  const delProduct = delCartItem();
 
   if (isError)
     return (
@@ -132,7 +133,11 @@ export default function CartSideDrawer({
                                         onClick={(e) => {
                                           e.preventDefault();
                                           // NOTE: Ignore warnings, known issue with Typescript and React Query
-                                          mutate({
+                                          // mutate({
+                                          //   id: cartIDNum,
+                                          //   variantId: articles.id,
+                                          // });
+                                          delProduct.mutate({
                                             id: cartIDNum,
                                             variantId: articles.id,
                                           });

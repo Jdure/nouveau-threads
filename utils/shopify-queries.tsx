@@ -123,6 +123,12 @@ export const addCartItemQuery = gql`
                     featuredImage {
                       url
                     }
+                    priceRange {
+                      minVariantPrice {
+                        amount
+                        currencyCode
+                      }
+                    }
                   }
                 }
               }

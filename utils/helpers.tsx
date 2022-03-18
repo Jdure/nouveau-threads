@@ -5,10 +5,15 @@ import {
   addItem,
   deleteItem,
 } from "../components/Cart/cart-create";
-import { GetCart } from "../types/cart-get";
+import { Cart, Data, GetCart } from "../types/cart-get";
 
 const axios = require("axios");
 const queryClient = new QueryClient();
+
+type Variables = {
+  id: string;
+  variantId: string;
+};
 
 export const header = {
   "Content-Type": "application/json",
@@ -56,21 +61,30 @@ export const getUserCart = (id: string | undefined) =>
     () => retrieveCart(id),
     {
       refetchIntervalInBackground: true,
-      refetchInterval: 2500,
+      staleTime: 2500,
     }
   );
 
 // NOTE: Ignore warnings, known issue with Typescript and React Query
+// export const delCartItem = (id?: string | undefined, variantId?: string) =>
+//   useMutation<Response, AxiosError, string, () => void>(
+//     ({ id, variantId }) => deleteItem(id, variantId),
+//     {
+//       onSuccess: (id) => {
+//         queryClient.invalidateQueries(["cart-items", id]);
+//       },
+//     }
+//   );
+
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
-  useMutation<Response, AxiosError, string, () => void>(
+  useMutation<Cart, ErrorConstructor, Variables, string>(
     ({ id, variantId }) => deleteItem(id, variantId),
     {
-      onSuccess: (id) => {
-        queryClient.invalidateQueries(["cart-items", id]);
+      onMutate: ({ id, variantId }) => {
+        queryClient.invalidateQueries("cart-items");
       },
     }
   );
-
 
 export const addCartItems = (
   id: string | undefined,
