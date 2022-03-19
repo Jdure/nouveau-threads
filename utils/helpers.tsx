@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import React from "react";
 import { useMutation, useQuery, QueryClient } from "react-query";
 import {
   retrieveCart,
@@ -61,21 +62,12 @@ export const getUserCart = (id: string | undefined) =>
     () => retrieveCart(id),
     {
       refetchIntervalInBackground: true,
-      staleTime: 2500,
+      refetchInterval: (data) =>
+        data?.data.cart.lines.edges.length > 0 ? 2500 : undefined,
     }
   );
 
 // NOTE: Ignore warnings, known issue with Typescript and React Query
-// export const delCartItem = (id?: string | undefined, variantId?: string) =>
-//   useMutation<Response, AxiosError, string, () => void>(
-//     ({ id, variantId }) => deleteItem(id, variantId),
-//     {
-//       onSuccess: (id) => {
-//         queryClient.invalidateQueries(["cart-items", id]);
-//       },
-//     }
-//   );
-
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
   useMutation<Cart, ErrorConstructor, Variables, string>(
     ({ id, variantId }) => deleteItem(id, variantId),
