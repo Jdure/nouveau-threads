@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
 import { getUserCart, delCartItem, formatPrice } from "../../utils/helpers";
@@ -18,13 +18,21 @@ export default function CartSideDrawer({
   cartOpenFunc,
   cartOpenBool,
 }: CartProps) {
-  const { data, isError, error } = getUserCart(cartIDNum);
+  const { data, isError, error, refetch } = getUserCart(
+    cartIDNum,
+    cartOpenBool
+  );
   const checkoutLink = cartCheckout;
-  const shopCart = data?.data;
-  const cartItem = shopCart?.cart.lines;
-  const subTotal = shopCart?.cart.estimatedCost.totalAmount.amount;
+  const [clicked, setIsClicked] = useState(false);
+  const shopCart = data;
+  const cartItem = shopCart?.lines;
+  const subTotal = shopCart?.estimatedCost.totalAmount.amount;
   // const { mutate } = delCartItem();
   const delProduct = delCartItem();
+
+  if (clicked) {
+    refetch({ cancelRefetch: true });
+  }
 
   if (isError)
     return (
@@ -132,13 +140,9 @@ export default function CartSideDrawer({
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          // NOTE: Ignore warnings, known issue with Typescript and React Query
-                                          // mutate({
-                                          //   id: cartIDNum,
-                                          //   variantId: articles.id,
-                                          // });
-                                          delProduct.mutate({
-                                            id: cartIDNum,
+                                          setIsClicked(true);
+                                          delProduct.mutateAsync({
+                                            id: cartIDNum as string,
                                             variantId: articles.id,
                                           });
                                         }}
@@ -161,7 +165,7 @@ export default function CartSideDrawer({
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>{formatPrice(parseInt(subTotal))}</p>
+                      <p>{formatPrice(parseInt(subTotal as string))}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.

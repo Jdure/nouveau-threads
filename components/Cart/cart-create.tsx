@@ -48,7 +48,7 @@ export const retrieveCart = async (
       query: retrieveCartQuery,
       variables: { cartId: cartID },
     });
-    console.log(response);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -86,7 +86,6 @@ export async function addItem(
         query: addCartItemQuery,
         variables: addItemVariables,
       });
-    console.log(cart);
     return cart;
   } catch (error) {
     console.log(error);
@@ -114,7 +113,6 @@ export async function deleteItem(
         query: removeCartItemQuery,
         variables: delItemVariables,
       });
-    console.log(cart);
     return cart;
   } catch (error) {
     console.log(error);

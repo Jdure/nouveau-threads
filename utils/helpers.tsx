@@ -56,31 +56,56 @@ export default async function FetchStoreData(
   }
 }
 
-export const getUserCart = (id: string | undefined) =>
-  useQuery<GetCart, ErrorConstructor>(
-    ["cart-items", id],
-    () => retrieveCart(id),
-    {
-      refetchIntervalInBackground: true,
-      refetchInterval: (data) =>
-        data?.data.cart.lines.edges.length > 0 ? 2500 : undefined,
-    }
-  );
+export const getUserCart = (id: string | undefined, openCart?: boolean) =>
+  useQuery(["cart-items", id], () => retrieveCart(id), {
+    refetchIntervalInBackground: true,
+    select: (data) => data.data.cart,
+    // enabled: openCart,
+  });
 
 // NOTE: Ignore warnings, known issue with Typescript and React Query
+// export const delCartItem = (id?: string | undefined, variantId?: string) =>
+//   useMutation<Cart, ErrorConstructor, Variables, string>(
+//     ({ id, variantId }) => deleteItem(id, variantId),
+//     {
+//       // onMutate: async ({ id, variantId }) => {
+//       //   queryClient.invalidateQueries("cart-items");
+//       // },
+//       onSuccess: async (data) => {
+//         queryClient.setQueryData(["cart-items", id], data);
+//         console.log(data);
+//       },
+//     }
+//   );
+
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
-  useMutation<Cart, ErrorConstructor, Variables, string>(
-    ({ id, variantId }) => deleteItem(id, variantId),
-    {
-      onMutate: ({ id, variantId }) => {
-        queryClient.invalidateQueries("cart-items");
-      },
-    }
-  );
+  useMutation(({ id, variantId }) => deleteItem(id, variantId), {
+    onMutate: async (cart: Cart) => {
+      await queryClient.cancelQueries("cart-items");
+      const previousCart = queryClient.getQueryData<Cart>("cart-items");
+
+      if (previousCart)
+        queryClient.setQueryData("cart-items", {
+          ...previousCart,
+          lines: [...previousCart.lines.edges],
+        });
+      return { previousCart };
+    },
+
+    onError: (err, variables, context) => {
+      if (context?.previousCart) {
+        queryClient.setQueryData("cart-items", context.previousCart);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries("cart-items");
+    },
+  });
 
 export const addCartItems = (
   id: string | undefined,
   handle: string,
   variantId: string,
   itemQty: number
-) => useMutation(() => addItem(id, handle, variantId, itemQty));
+) => useMutation(async () => await addItem(id, handle, variantId, itemQty));
