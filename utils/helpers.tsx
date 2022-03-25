@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import React from "react";
-import { useMutation, useQuery, QueryClient } from "react-query";
+import { useMutation, useQuery, QueryClient, QueryCache } from "react-query";
 import {
   retrieveCart,
   addItem,
@@ -60,6 +60,10 @@ export const getUserCart = (id: string | undefined, openCart?: boolean) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     refetchIntervalInBackground: true,
     select: (data) => data.data.cart,
+    refetchOnMount: true,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    notifyOnChangeProps: ["data"],
     // enabled: openCart,
   });
 
@@ -78,28 +82,37 @@ export const getUserCart = (id: string | undefined, openCart?: boolean) =>
 //     }
 //   );
 
+// export const delCartItem = (id?: string | undefined, variantId?: string) =>
+//   useMutation(({ id, variantId }) => deleteItem(id, variantId), {
+//     onMutate: async (cart: Variables) => {
+//       await queryClient.cancelQueries("cart-items");
+//       const previousCart = queryClient.getQueryData<Variables>("cart-items");
+
+//       if (previousCart != undefined)
+//         queryClient.setQueryData("cart-items", {
+//           ...previousCart,
+//           lines: [...previousCart],
+//         });
+//       console.log(cart);
+//       return { previousCart };
+//     },
+
+//     onError: (err, variables, context) => {
+//       if (context?.previousCart) {
+//         queryClient.setQueryData("cart-items", context.previousCart);
+//       }
+//     },
+
+//     onSettled: () => {
+//       queryClient.invalidateQueries("cart-items");
+//     },
+//   });
+
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
-  useMutation(({ id, variantId }) => deleteItem(id, variantId), {
-    onMutate: async (cart: Cart) => {
-      await queryClient.cancelQueries("cart-items");
-      const previousCart = queryClient.getQueryData<Cart>("cart-items");
-
-      if (previousCart)
-        queryClient.setQueryData("cart-items", {
-          ...previousCart,
-          lines: [...previousCart.lines.edges],
-        });
-      return { previousCart };
-    },
-
-    onError: (err, variables, context) => {
-      if (context?.previousCart) {
-        queryClient.setQueryData("cart-items", context.previousCart);
-      }
-    },
-
-    onSettled: () => {
-      queryClient.invalidateQueries("cart-items");
+  useMutation(async ({ id, variantId }) => await deleteItem(id, variantId), {
+    onSuccess: (data: Cart) => {
+      queryClient.setQueryData(["cart-items", id], data);
+      console.log(data);
     },
   });
 

@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge, GetCart } from "../../types/cart-get";
 import { getUserCart, delCartItem, formatPrice } from "../../utils/helpers";
@@ -30,9 +30,12 @@ export default function CartSideDrawer({
   // const { mutate } = delCartItem();
   const delProduct = delCartItem();
 
-  if (clicked) {
-    refetch({ cancelRefetch: true });
-  }
+  useEffect(() => {
+    if (clicked) {
+      refetch();
+      setIsClicked(false);
+    }
+  }, [clicked]);
 
   if (isError)
     return (
@@ -141,7 +144,7 @@ export default function CartSideDrawer({
                                         onClick={(e) => {
                                           e.preventDefault();
                                           setIsClicked(true);
-                                          delProduct.mutateAsync({
+                                          delProduct.mutate({
                                             id: cartIDNum as string,
                                             variantId: articles.id,
                                           });
