@@ -23,19 +23,10 @@ export default function CartSideDrawer({
     cartOpenBool
   );
   const checkoutLink = cartCheckout;
-  const [clicked, setIsClicked] = useState(false);
   const shopCart = data;
   const cartItem = shopCart?.lines;
   const subTotal = shopCart?.estimatedCost.totalAmount.amount;
-  // const { mutate } = delCartItem();
   const delProduct = delCartItem();
-
-  useEffect(() => {
-    if (clicked) {
-      refetch();
-      setIsClicked(false);
-    }
-  }, [clicked]);
 
   if (isError)
     return (
@@ -143,11 +134,15 @@ export default function CartSideDrawer({
                                       <button
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          setIsClicked(true);
-                                          delProduct.mutate({
-                                            id: cartIDNum as string,
-                                            variantId: articles.id,
-                                          });
+                                          delProduct.mutate(
+                                            {
+                                              id: cartIDNum as string,
+                                              variantId: articles.id,
+                                            },
+                                            {
+                                              onSuccess: () => refetch(),
+                                            }
+                                          );
                                         }}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"

@@ -1,20 +1,11 @@
-import { AxiosError } from "axios";
-import React from "react";
-import { useMutation, useQuery, QueryClient, QueryCache } from "react-query";
+import { useMutation, useQuery, QueryClient } from "react-query";
 import {
   retrieveCart,
   addItem,
   deleteItem,
 } from "../components/Cart/cart-create";
-import { Cart, Data, GetCart } from "../types/cart-get";
 
 const axios = require("axios");
-const queryClient = new QueryClient();
-
-type Variables = {
-  id: string;
-  variantId: string;
-};
 
 export const header = {
   "Content-Type": "application/json",
@@ -60,61 +51,10 @@ export const getUserCart = (id: string | undefined, openCart?: boolean) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     refetchIntervalInBackground: true,
     select: (data) => data.data.cart,
-    refetchOnMount: true,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-    notifyOnChangeProps: ["data"],
-    // enabled: openCart,
   });
-
-// NOTE: Ignore warnings, known issue with Typescript and React Query
-// export const delCartItem = (id?: string | undefined, variantId?: string) =>
-//   useMutation<Cart, ErrorConstructor, Variables, string>(
-//     ({ id, variantId }) => deleteItem(id, variantId),
-//     {
-//       // onMutate: async ({ id, variantId }) => {
-//       //   queryClient.invalidateQueries("cart-items");
-//       // },
-//       onSuccess: async (data) => {
-//         queryClient.setQueryData(["cart-items", id], data);
-//         console.log(data);
-//       },
-//     }
-//   );
-
-// export const delCartItem = (id?: string | undefined, variantId?: string) =>
-//   useMutation(({ id, variantId }) => deleteItem(id, variantId), {
-//     onMutate: async (cart: Variables) => {
-//       await queryClient.cancelQueries("cart-items");
-//       const previousCart = queryClient.getQueryData<Variables>("cart-items");
-
-//       if (previousCart != undefined)
-//         queryClient.setQueryData("cart-items", {
-//           ...previousCart,
-//           lines: [...previousCart],
-//         });
-//       console.log(cart);
-//       return { previousCart };
-//     },
-
-//     onError: (err, variables, context) => {
-//       if (context?.previousCart) {
-//         queryClient.setQueryData("cart-items", context.previousCart);
-//       }
-//     },
-
-//     onSettled: () => {
-//       queryClient.invalidateQueries("cart-items");
-//     },
-//   });
 
 export const delCartItem = (id?: string | undefined, variantId?: string) =>
-  useMutation(async ({ id, variantId }) => await deleteItem(id, variantId), {
-    onSuccess: (data: Cart) => {
-      queryClient.setQueryData(["cart-items", id], data);
-      console.log(data);
-    },
-  });
+  useMutation(async ({ id, variantId }) => await deleteItem(id, variantId));
 
 export const addCartItems = (
   id: string | undefined,
@@ -122,3 +62,5 @@ export const addCartItems = (
   variantId: string,
   itemQty: number
 ) => useMutation(async () => await addItem(id, handle, variantId, itemQty));
+
+//TODO: Create Update function
