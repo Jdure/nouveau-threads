@@ -16,6 +16,8 @@ interface CartProps {
   cartOpenBool: boolean;
 }
 
+//TODO:This component is too long, break it down into two components (CartSideDrawer and CartSideDrawerItem)
+
 export default function CartSideDrawer({
   cartCheckout,
   cartIDNum,
