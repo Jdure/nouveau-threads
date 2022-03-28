@@ -1,9 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Edge, GetCart } from "../../types/cart-get";
-import { getUserCart, delCartItem, formatPrice } from "../../utils/helpers";
-import { useQueryClient } from "react-query";
+import { Edge } from "../../types/cart-get";
+import {
+  getUserCart,
+  delCartItem,
+  formatPrice,
+  updateCartItem,
+} from "../../utils/helpers";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -27,6 +31,7 @@ export default function CartSideDrawer({
   const cartItem = shopCart?.lines;
   const subTotal = shopCart?.estimatedCost.totalAmount.amount;
   const delProduct = delCartItem();
+  const updateProduct = updateCartItem();
 
   if (isError)
     return (
@@ -127,9 +132,47 @@ export default function CartSideDrawer({
                                     </p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">
-                                      Qty {articles.quantity}
-                                    </p>
+                                    <div className="inline-flex">
+                                      <button
+                                        className="text-gray-500 font-bold py-0 px-4 rounded-l"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          updateProduct.mutate(
+                                            {
+                                              id: cartIDNum as string,
+                                              variantId: articles.id,
+                                              quantity: articles.quantity + 1,
+                                            },
+                                            {
+                                              onSuccess: () => refetch(),
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        +
+                                      </button>
+                                      <p className="text-gray-500">
+                                        Qty {articles.quantity}
+                                      </p>
+                                      <button
+                                        className="text-gray-500 font-bold py-0 px-4 rounded-r"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          updateProduct.mutate(
+                                            {
+                                              id: cartIDNum as string,
+                                              variantId: articles.id,
+                                              quantity: articles.quantity - 1,
+                                            },
+                                            {
+                                              onSuccess: () => refetch(),
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        -
+                                      </button>
+                                    </div>
                                     <div className="flex">
                                       <button
                                         onClick={(e) => {

@@ -160,3 +160,25 @@ export const removeCartItemQuery = gql`
     }
   }
 `;
+
+
+export const updateCartItemQuery = gql`
+  mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      cart {
+        lines(first: 10) {
+          edges {
+            node {
+              id
+              quantity
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;

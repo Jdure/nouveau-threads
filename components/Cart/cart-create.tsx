@@ -6,6 +6,7 @@ import {
   createCartQuery,
   retrieveCartQuery,
   removeCartItemQuery,
+  updateCartItemQuery,
 } from "../../utils/shopify-queries";
 
 const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
@@ -92,7 +93,6 @@ export async function addItem(
   }
 }
 
-// Create a function to delete an item in the Cart
 export async function deleteItem(
   cartID?: string | undefined,
   variantID?: string | undefined
@@ -112,6 +112,33 @@ export async function deleteItem(
       await shopifyCartInstance.post(storefrontApi, {
         query: removeCartItemQuery,
         variables: delItemVariables,
+      });
+    return cart;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateItemQty(
+  cartID?: string | undefined,
+  variantID?: string,
+  itemQuantity?: number
+) {
+  let updateItemVars = {
+    cartId: cartID,
+    lines: { id: variantID, quantity: itemQuantity },
+  };
+  try {
+    const {
+      data: {
+        data: {
+          cartLinesUpdate: { cart },
+        },
+      },
+    }: { data: { data: { cartLinesUpdate: { cart: Bag } } } } =
+      await shopifyCartInstance.post(storefrontApi, {
+        query: updateCartItemQuery,
+        variables: updateItemVars,
       });
     return cart;
   } catch (error) {

@@ -3,6 +3,7 @@ import {
   retrieveCart,
   addItem,
   deleteItem,
+  updateItemQty,
 } from "../components/Cart/cart-create";
 
 const axios = require("axios");
@@ -60,7 +61,15 @@ export const addCartItems = (
   id: string | undefined,
   handle: string,
   variantId: string,
-  itemQty: number
-) => useMutation(async () => await addItem(id, handle, variantId, itemQty));
+  quantity: number
+) => useMutation(async () => await addItem(id, handle, variantId, quantity));
 
-//TODO: Create Update function
+export const updateCartItem = (
+  id?: string | undefined,
+  variantId?: string,
+  quantity?: number
+) =>
+  useMutation(
+    async ({ id, variantId, quantity }) =>
+      await updateItemQty(id, variantId, quantity)
+  );
