@@ -4,7 +4,7 @@ import {
   addItem,
   deleteItem,
   updateItemQty,
-} from "../components/Cart/cart-create";
+} from "../components/Cart/cart-api";
 
 const axios = require("axios");
 

@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { createCartID } from "../components/Cart/cart-create";
+import { createCartID } from "../components/Cart/cart-api";
 
 interface ContextProps {
   children: React.ReactNode;
