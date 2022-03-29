@@ -8,6 +8,7 @@ import {
   formatPrice,
   updateCartItem,
 } from "../../utils/helpers";
+import CartItem from "./cartitem";
 
 interface CartProps {
   cartCheckout: string | undefined;
@@ -24,16 +25,11 @@ export default function CartSideDrawer({
   cartOpenFunc,
   cartOpenBool,
 }: CartProps) {
-  const { data, isError, error, refetch } = getUserCart(
-    cartIDNum,
-    cartOpenBool
-  );
+  const { data, isError, error, refetch } = getUserCart(cartIDNum);
   const checkoutLink = cartCheckout;
   const shopCart = data;
   const cartItem = shopCart?.lines;
   const subTotal = shopCart?.estimatedCost.totalAmount.amount;
-  const delProduct = delCartItem();
-  const updateProduct = updateCartItem();
 
   if (isError)
     return (
@@ -107,97 +103,16 @@ export default function CartSideDrawer({
                             const articlePrice =
                               articleDetail.priceRange.minVariantPrice.amount;
                             return (
-                              <li
-                                key={articleDetail.handle}
-                                className="flex py-6"
-                              >
-                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                  <img
-                                    src={articleDetail.featuredImage.url}
-                                    alt={articleDetail.handle}
-                                    className="h-full w-full object-cover object-center"
-                                  />
-                                </div>
-
-                                <div className="ml-4 flex flex-1 flex-col">
-                                  <div>
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                      <h3>
-                                        <a href="#"> {articleDetail.title} </a>
-                                      </h3>
-                                      <p className="ml-4">
-                                        {formatPrice(parseInt(articlePrice))}
-                                      </p>
-                                    </div>
-                                    <p className="mt-1 text-sm text-gray-500">
-                                      Product Colour
-                                    </p>
-                                  </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
-                                    <div className="inline-flex">
-                                      <button
-                                        className="text-gray-500 font-bold py-0 px-4 rounded-l"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          updateProduct.mutate(
-                                            {
-                                              id: cartIDNum as string,
-                                              variantId: articles.id,
-                                              quantity: articles.quantity + 1,
-                                            },
-                                            {
-                                              onSuccess: () => refetch(),
-                                            }
-                                          );
-                                        }}
-                                      >
-                                        +
-                                      </button>
-                                      <p className="text-gray-500">
-                                        Qty {articles.quantity}
-                                      </p>
-                                      <button
-                                        className="text-gray-500 font-bold py-0 px-4 rounded-r"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          updateProduct.mutate(
-                                            {
-                                              id: cartIDNum as string,
-                                              variantId: articles.id,
-                                              quantity: articles.quantity - 1,
-                                            },
-                                            {
-                                              onSuccess: () => refetch(),
-                                            }
-                                          );
-                                        }}
-                                      >
-                                        -
-                                      </button>
-                                    </div>
-                                    <div className="flex">
-                                      <button
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          delProduct.mutate(
-                                            {
-                                              id: cartIDNum as string,
-                                              variantId: articles.id,
-                                            },
-                                            {
-                                              onSuccess: () => refetch(),
-                                            }
-                                          );
-                                        }}
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                      >
-                                        Remove
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
+                              <CartItem
+                                itemTitle={articleDetail.title}
+                                itemHandle={articleDetail.handle}
+                                itemId={articles.id}
+                                itemImg={articleDetail.featuredImage.url}
+                                itemPrice={articlePrice}
+                                itemQty={articles.quantity}
+                                cartID={cartIDNum}
+                                refetchItem={refetch}
+                              />
                             );
                           })}
                         </ul>

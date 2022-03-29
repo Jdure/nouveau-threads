@@ -48,7 +48,7 @@ export default async function FetchStoreData(
   }
 }
 
-export const getUserCart = (id: string | undefined, openCart?: boolean) =>
+export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     refetchIntervalInBackground: true,
     select: (data) => data.data.cart,
