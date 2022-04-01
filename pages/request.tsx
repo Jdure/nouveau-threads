@@ -8,9 +8,9 @@ export default function Request (){
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-          <form className="flex w-full max-w-sm space-x-3">
-            <div className="w-full max-w-2xl px-5 py-10 m-auto mt-10 bg-white rounded-lg shadow ">
+        <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center ">
+          <form className="flex w-full max-w-lg space-x-3">
+            <div className="w-full max-w-2xl px-5 py-10 m-auto mt-10 bg-white rounded-lg shadow-xl">
               <div className="mb-6 text-3xl font-light text-center text-gray-800 ">
                 Send a request
               </div>
