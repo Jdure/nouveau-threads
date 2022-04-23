@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   QueryObserverResult,
@@ -44,9 +45,11 @@ export default function CartItem({
       <div className="ml-4 flex flex-1 flex-col">
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
-            <h3>
-              <a href="#"> {itemTitle} </a>
-            </h3>
+            <Link key={itemHandle} href={`/product/${itemHandle}`}>
+              <h3>
+                <a href="#">{itemTitle} </a>
+              </h3>
+            </Link>
             <p className="ml-4">{formatPrice(parseInt(itemPrice))}</p>
           </div>
           <p className="mt-1 text-sm text-gray-500">Product Colour</p>
