@@ -29,13 +29,13 @@ const AppContext = createContext<CartContextProps | undefined>(undefined);
 export function AppWrapper({ children }: ContextProps) {
   const getCartCookie = Cookies.get("CART");
   const [userCookie, setUserCookie] = useState("");
-  const cartQuery = getCartID();
+  const getCartQuery = getCartID();
 
   useEffect(() => {
-    if (cartQuery.isSuccess && userCookie == "") {
-      setCartCookie(cartQuery.data);
+    if (getCartQuery.isSuccess && userCookie == "") {
+      setCartCookie(getCartQuery.data);
     }
-  }, [cartQuery.data]);
+  }, [getCartQuery.data]);
 
   useEffect(() => {
     if (getCartCookie !== undefined) {
@@ -50,7 +50,7 @@ export function AppWrapper({ children }: ContextProps) {
     } catch (err) {
       return err;
     }
-  }, [cartQuery.data]);
+  }, [getCartQuery.data]);
 
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
