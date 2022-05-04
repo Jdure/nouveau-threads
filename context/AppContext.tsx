@@ -22,7 +22,7 @@ const getCartID = () =>
 const setCartCookie = (
   cartData: { id: string; checkoutUrl: string } | undefined
 ) => {
-  Cookies.set("CART", JSON.stringify(cartData));
+  Cookies.set("CART", JSON.stringify(cartData), { expires: 1 / 48 });
 };
 const AppContext = createContext<CartContextProps | undefined>(undefined);
 
