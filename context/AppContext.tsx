@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { createCartID } from "../components/Cart/cart-api";
+import Cookies from "js-cookie";
 
 interface ContextProps {
   children: React.ReactNode;
@@ -18,35 +19,40 @@ const getCartID = () =>
     refetchOnWindowFocus: false,
   });
 
-// - [ ] Save Cart Session on page return from checkout if no purchase was made
-//  - [X] Check if local storage is empty - doesn't have the cart ID
-//  - [ ] If its not empty use the cartID instead of refetching for a new one
-//  - [ ] If empty save the cartID in local storage
-
+const setCartCookie = (
+  cartData: { id: string; checkoutUrl: string } | undefined
+) => {
+  Cookies.set("CART", JSON.stringify(cartData));
+};
 const AppContext = createContext<CartContextProps | undefined>(undefined);
 
 export function AppWrapper({ children }: ContextProps) {
-  const [localCart, setLocalCart] = useState<String | null>("");
-  const { data } = getCartID();
-
-  // useEffect(() => {
-  //   localStorage.setItem("CART", JSON.stringify(data));
-  // }, [data]);
+  const getCartCookie = Cookies.get("CART");
+  const [userCookie, setUserCookie] = useState("");
+  const cartQuery = getCartID();
 
   useEffect(() => {
-    if (localCart == null) {
-      localStorage.setItem("CART", JSON.stringify(data));
+    if (cartQuery.isSuccess && userCookie == "") {
+      setCartCookie(cartQuery.data);
     }
-  }, [data]);
+  }, [cartQuery.data]);
 
   useEffect(() => {
-    const cartData = localStorage.getItem("CART");
-    setLocalCart(cartData);
+    if (getCartCookie !== undefined) {
+      setUserCookie(getCartCookie!);
+      console.log(getCartCookie);
+    }
   }, []);
 
   const contextValue = useMemo(() => {
-    return data;
-  }, [data]);
+    try {
+      const value = JSON.parse(userCookie!);
+      console.log(value);
+      return value;
+    } catch (err) {
+      return err;
+    }
+  }, [cartQuery.data]);
 
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
