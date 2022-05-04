@@ -104,6 +104,7 @@ export default function CartSideDrawer({
                               articleDetail.priceRange.minVariantPrice.amount;
                             return (
                               <CartItem
+                                key={articleDetail.handle}
                                 itemTitle={articleDetail.title}
                                 itemHandle={articleDetail.handle}
                                 itemId={articles.id}

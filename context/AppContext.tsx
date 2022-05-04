@@ -40,14 +40,12 @@ export function AppWrapper({ children }: ContextProps) {
   useEffect(() => {
     if (getCartCookie !== undefined) {
       setUserCookie(getCartCookie!);
-      console.log(getCartCookie);
     }
   }, []);
 
   const contextValue = useMemo(() => {
     try {
       const value = JSON.parse(userCookie!);
-      console.log(value);
       return value;
     } catch (err) {
       return err;
