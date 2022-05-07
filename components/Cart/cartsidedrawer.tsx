@@ -2,12 +2,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge } from "../../types/cart-get";
-import {
-  getUserCart,
-  delCartItem,
-  formatPrice,
-  updateCartItem,
-} from "../../utils/helpers";
+import { getUserCart, formatPrice } from "../../utils/helpers";
 import CartItem from "./cartitem";
 
 interface CartProps {
@@ -16,9 +11,6 @@ interface CartProps {
   cartOpenFunc: () => void;
   cartOpenBool: boolean;
 }
-
-//TODO:This component is too long, break it down into two components (CartSideDrawer and CartSideDrawerItem)
-
 export default function CartSideDrawer({
   cartCheckout,
   cartIDNum,

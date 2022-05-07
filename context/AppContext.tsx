@@ -24,6 +24,8 @@ const setCartCookie = (
 ) => {
   Cookies.set("CART", JSON.stringify(cartData), { expires: 1 / 48 });
 };
+
+// FIXME: Context's default is undefined need to pass in data to not be undefined else if cookie is not set cart will be broken
 const AppContext = createContext<CartContextProps | undefined>(undefined);
 
 export function AppWrapper({ children }: ContextProps) {
