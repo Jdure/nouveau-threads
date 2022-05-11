@@ -22,6 +22,7 @@ export function formatPrice(num: number) {
   }).format(num);
 }
 
+//TODO: Improve this fetch with React Query - See retrieveCart as example
 export default async function FetchStoreData(
   domain: string,
   api: string,
