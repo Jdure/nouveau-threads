@@ -25,8 +25,7 @@ const setCartCookie = (
   Cookies.set("CART", JSON.stringify(cartData), { expires: 1 / 48 });
 };
 
-// FIXME: Context's default is undefined need to pass in data to not be undefined else if cookie is not set cart will be broken
-const AppContext = createContext<CartContextProps | undefined>(undefined);
+const AppContext = createContext<CartContextProps>(undefined!);
 
 export function AppWrapper({ children }: ContextProps) {
   const getCartCookie = Cookies.get("CART");
@@ -45,17 +44,18 @@ export function AppWrapper({ children }: ContextProps) {
     }
   }, []);
 
-  const contextValue = useMemo(() => {
+  const contextValue: CartContextProps = useMemo(() => {
     try {
-      const value = JSON.parse(userCookie!);
+      const value =
+        userCookie == "" ? getCartQuery.data : JSON.parse(userCookie!);
       return value;
     } catch (err) {
-      return err;
+      return err as Error;
     }
   }, [getCartQuery.data]);
 
   return (
-    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
+    <AppContext.Provider value={contextValue!}>{children}</AppContext.Provider>
   );
 }
 
