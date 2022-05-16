@@ -1,14 +1,17 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { Data, Edge, } from '../../types/storefront'
-import FetchStoreData, { header, formatPrice } from "../../utils/helpers";
+import FetchStoreData, { header, formatPrice, getStoreProducts } from "../../utils/helpers";
 import { productsQuery } from "../../utils/shopify-queries";
 const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
 const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
 
 
-export default function StoreProducts ({products}: Data){
+export default function StoreProducts (){
+  const {data} = useQuery('products', getStoreProducts,{ staleTime: Infinity})
+
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
   <Head>
@@ -22,7 +25,7 @@ return (
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {products.edges.map((item: Edge) => { 
+          {data.data.products.edges.map((item: Edge) => { 
             const product = item.node
             const image = product.featuredImage
             const price = product.priceRange.minVariantPrice
@@ -63,12 +66,13 @@ return (
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const response= await FetchStoreData(storeDomain, storeApi, header, productsQuery)
-  const  { products } : Data  = await response.data
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('products', getStoreProducts);
 
   return {
     props: {
-      products
+      dehydratedState: dehydrate(queryClient)
     }
   }
 }

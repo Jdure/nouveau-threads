@@ -1,6 +1,10 @@
 import Head from 'next/head'
+import { useQuery } from 'react-query';
+import { getStoreProducts } from '../utils/helpers'
 
 export default function Home() {
+  // const {data} = useQuery('products', getStoreProducts )
+  // console.log(data);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
