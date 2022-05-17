@@ -148,7 +148,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
   const response = await getStoreProducts(productDetailQuery,{handle: params.id});
   const { product } = await response.data;
-  // const { product }: ProductData = await response.data;
 
   return {
     props: {
