@@ -1,4 +1,4 @@
-import { useMutation, useQuery, QueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import {
   retrieveCart,
@@ -6,22 +6,20 @@ import {
   deleteItem,
   updateItemQty,
 } from "../components/Cart/cart-api";
-import { productsQuery } from "./shopify-queries";
-// TODO: Export this object as its used in multiple places
-const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
-const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
-// TODO: Export this object as its used in multiple places
+
+export const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
+export const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
+
 export const header = {
   "Content-Type": "application/json",
   "X-Shopify-Storefront-Access-Token":
     process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
 };
-// TODO: Export this object as its used in multiple places
-const shopifyCartInstance = axios.create({
+
+export const shopifyCartInstance = axios.create({
   baseURL: storefrontDomain,
   headers: header,
 });
-
 
 export function formatPrice(num: number) {
   return Intl.NumberFormat("en-CA", {
@@ -31,13 +29,9 @@ export function formatPrice(num: number) {
   }).format(num);
 }
 
-//FIXME: Broken Individual Items Page - need to adjust with React Query
-//TODO: Look into getStaticPaths and React Query
-
-export const getStoreProducts = async () => {
+export const getStoreProducts = async (queries: string, variable?: object) => {
     try {
-      const response = await shopifyCartInstance.post(storefrontApi, {query: productsQuery});
-      console.log(response.data);
+      const response = await shopifyCartInstance.post(storefrontApi, {query: queries, variables: variable});
       return response.data
     } catch (error) {
       console.log(error)

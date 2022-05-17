@@ -3,17 +3,14 @@ import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { Data} from '../../types/storefront'
 import {ProductData } from '../../types/detail'
-import FetchStoreData, {
+import {
   addCartItems,
-  header,
   formatPrice,
+  getStoreProducts,
 } from "../../utils/helpers";
 import { productsQuery, productDetailQuery } from "../../utils/shopify-queries";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-
-const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
-const storeApi = process.env.SHOPIFY_STORE_API_URL || "";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -125,14 +122,16 @@ export default function ProductDetail({ product }: ProductData) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await FetchStoreData(
-    storeDomain,
-    storeApi,
-    header,
-    productsQuery
-  );
-  const { products }: Data = await response.data;
+  // const response = await FetchStoreData(
+  //   storeDomain,
+  //   storeApi,
+  //   header,
+  //   productsQuery
+  // );
+  // const { products }: Data = await response.data;
+  const response = await getStoreProducts(productsQuery);
 
+  const {products} : Data = await response.data;
   const paths = products.edges.map((value) => {
     return {
       params: { id: value.node.handle },
@@ -147,14 +146,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
-  const response = await FetchStoreData(
-    storeDomain,
-    storeApi,
-    header,
-    productDetailQuery,
-    { handle: params.id }
-  );
-  const { product }: ProductData = await response.data;
+  const response = await getStoreProducts(productDetailQuery,{handle: params.id});
+  const { product } = await response.data;
+  // const { product }: ProductData = await response.data;
 
   return {
     props: {

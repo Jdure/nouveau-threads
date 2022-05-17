@@ -1,6 +1,6 @@
-import axios, { AxiosPromise } from "axios";
 import { Cart } from "../../types/cart-create";
 import { GetCart, Cart as Bag } from "../../types/cart-get";
+import { shopifyCartInstance, storefrontApi } from "../../utils/helpers";
 import {
   addCartItemQuery,
   createCartQuery,
@@ -8,19 +8,6 @@ import {
   removeCartItemQuery,
   updateCartItemQuery,
 } from "../../utils/shopify-queries";
-
-const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
-const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
-const header = {
-  "Content-Type": "application/json",
-  "X-Shopify-Storefront-Access-Token":
-    process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
-};
-
-const shopifyCartInstance = axios.create({
-  baseURL: storefrontDomain,
-  headers: header,
-});
 
 // Initialize cart with id and checkout URL
 export async function createCartID() {

@@ -2,15 +2,12 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import { Data, Edge, } from '../../types/storefront'
-import FetchStoreData, { header, formatPrice, getStoreProducts } from "../../utils/helpers";
+import { Edge, } from '../../types/storefront'
+import { formatPrice, getStoreProducts } from "../../utils/helpers";
 import { productsQuery } from "../../utils/shopify-queries";
-const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || ''
-const storeApi = process.env.SHOPIFY_STORE_API_URL || ''
-
 
 export default function StoreProducts (){
-  const {data} = useQuery('products', getStoreProducts,{ staleTime: Infinity})
+  const {data} = useQuery('products',() => getStoreProducts(productsQuery),{ staleTime: Infinity})
 
 return (
 <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -68,7 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('products', getStoreProducts);
+  await queryClient.prefetchQuery('products', () => getStoreProducts(productsQuery));
 
   return {
     props: {
