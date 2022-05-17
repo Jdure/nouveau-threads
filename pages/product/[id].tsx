@@ -122,13 +122,6 @@ export default function ProductDetail({ product }: ProductData) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const response = await FetchStoreData(
-  //   storeDomain,
-  //   storeApi,
-  //   header,
-  //   productsQuery
-  // );
-  // const { products }: Data = await response.data;
   const response = await getStoreProducts(productsQuery);
 
   const {products} : Data = await response.data;
