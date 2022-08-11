@@ -4,17 +4,19 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    colors: {
-      "primary": "#F7F7F7", 
-      "gray": "#7DA2A9",
-      "black": "#000",
-      "white": "#FFF",
-      "hover": "#E6E6E6"
-    },
     fontFamily: {
       "heading": ["Josefin Sans", "sans-serif"],
       "body": ["Lato", "sans-serif"]
     },
-    extend: {},
+    extend: {
+      colors: {
+        "primary": "#96D0CF",
+        "secondary": "#F29883", 
+        "accent": "#CC8D00",
+        "black": "#000",
+        "white": "#FFF",
+        "hover": "#84B8B7"
+      },
+    },
   },
 }
