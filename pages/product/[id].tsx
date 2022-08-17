@@ -40,54 +40,47 @@ export default function ProductDetail({ product }: ProductData) {
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <section className="text-gray-600 body-font overflow-hidden">
-          <div className="container px-5 py-24 mx-auto">
+          <div className="container px-1 py-52 mx-auto bg-slate-50 rounded-xl">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <img
                 alt={product.title}
-                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded shadow-2xl"
                 src={image}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                <h2 className="text-md title-font text-gray-500 tracking-widest">
                   COLLECTION
                 </h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                   {product.title}
                 </h1>
-                <p className="leading-relaxed">{product.description}</p>
-                <div className="flex justify-center mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+                <p className="leading-relaxed text-xl">{product.description}</p>
+                <div className="flex justify-center mt-6 items-center pb-5 border-b-2 border-gray-300 mb-5">
                   <div className="w-auto">
-                    <span className="m-auto pr-2 font-medium">Quantity</span>
+                    <span className="m-auto pr-2 text-xl">Quantity</span>
                   </div>
-                  <div className="w-auto h-10">
-                    <input
-                      readOnly
-                      type="number"
-                      value={quantity}
-                      className="text-center  rounded border appearance-none border-gray-300 py-2 focus:outline-none text-base"
-                    />
-                  </div>
-                  <div className="w-auto flex flex-col">
-                    <button
-                      onClick={() =>
-                        quantity < 20 ? setQuantity(quantity + 1) : quantity
-                      }
-                      className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded"
-                    >
-                      <span className="m-auto text-xl">+</span>
-                    </button>
+                  <div className="w-auto flex flex-row">
                     <button
                       onClick={() =>
                         quantity > 1 ? setQuantity(quantity - 1) : quantity
                       }
-                      className="bg-indigo-400 text-white hover:bg-indigo-500 font-medium mx-1 my-1 px-5 rounded"
+                      className="bg-primary text-white hover:bg-hover mx-1 my-1 px-4 rounded-lg"
                     >
                       <span className="m-auto text-xl">-</span>
+                    </button>
+                    <p className="text-center text-xl py-2 px-4">{quantity}</p>
+                    <button
+                      onClick={() =>
+                        quantity < 20 ? setQuantity(quantity + 1) : quantity
+                      }
+                      className="bg-primary text-white hover:bg-hover mx-1 my-1 px-4 rounded-lg"
+                    >
+                      <span className="m-auto text-xl">+</span>
                     </button>
                   </div>
                 </div>
                 <div className="flex">
-                  <span className="title-font font-medium text-2xl text-gray-900">
+                  <span className="title-font font-medium text-2xl text-black">
                     {formatPrice(parseInt(price.amount))}
                   </span>
                   <button
@@ -95,7 +88,7 @@ export default function ProductDetail({ product }: ProductData) {
                       e.preventDefault();
                       addItemMutation.mutate();
                     }}
-                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                    className="flex ml-auto text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-hover rounded"
                   >
                     Add To Cart
                   </button>

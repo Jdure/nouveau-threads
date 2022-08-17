@@ -15,7 +15,7 @@ module.exports = {
         "accent": "#CC8D00",
         "black": "#000",
         "white": "#FFF",
-        "hover": "#84B8B7"
+        "hover": "#699191"
       },
     },
   },
