@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Footer from "../components/Footer/footer";
 import { useQuery } from 'react-query';
 import { getStoreProducts } from '../utils/helpers'
 
@@ -9,20 +10,21 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="text-gray-600 body-font">
+      <main className="text-gray-600 body-font  bg-teal-50">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
             <img
               className="object-cover object-center rounded"
               alt="hero"
-              src="https://dummyimage.com/600x720"
+              src="https://source.unsplash.com/oat3l0iVwPs/600x800"
             />
           </div>
-          <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+          <div className=" lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 className="title-font font-heading sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-              Welcome to W.E Are Inspire!
+              Welcome to{" "}
+              <span className="text-secondary">W.E Are Inspire!</span>
             </h1>
-            <p className="font-heading text-xl py-2">
+            <p className="font-heading text-secondary text-xl py-2">
               Let's animate your life!
             </p>
             <p className="mb-8 leading-relaxed">
@@ -39,8 +41,8 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
+      <Footer />
+      {/* <footer className="flex items-center justify-center w-full h-24 border-t">
         <a
           className="flex items-center justify-center"
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -50,7 +52,7 @@ export default function Home() {
           Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }
