@@ -40,7 +40,7 @@ export default function ProductDetail({ product }: ProductData) {
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <section className="text-gray-600 body-font overflow-hidden">
-          <div className="container px-1 py-52 mx-auto bg-slate-50 rounded-xl">
+          <div className="container px-1 py-52 mx-auto bg-teal-50 rounded-xl">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <img
                 alt={product.title}
