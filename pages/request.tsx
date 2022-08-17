@@ -8,67 +8,64 @@ export default function Request (){
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center ">
-          <form className="flex w-full max-w-lg space-x-3">
-            <div className="w-full max-w-2xl px-5 py-10 m-auto mt-10 bg-white rounded-lg shadow-xl">
-              <div className="mb-6 text-3xl font-light text-center text-gray-800 ">
-                Send a request
+        <main className="text-gray-600 body-font relative w-full h-full">
+          <div className="absolute inset-0 bg-gray-300">
+            <iframe
+              width="100%"
+              height="100%"
+              frameBorder={0}
+              marginHeight={0}
+              marginWidth={0}
+              title="map"
+              scrolling="no"
+              src="https://source.unsplash.com/848z7lbCjoo/1600x900"
+              style={{ filter: "grayscale(0.2) contrast(1.2) opacity(0.8)" }}
+            />
+          </div>
+          <div className="container px-5 py-24 mx-auto flex">
+            <div className="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+              <h2 className="text-gray-900 text-2xl mb-1 font-medium title-font">
+                Request
+              </h2>
+              <p className="leading-relaxed mb-5 text-gray-600">
+                Please make a request
+              </p>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-600"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
               </div>
-              <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
-                <div className="col-span-2 lg:col-span-2">
-                  <div className=" relative ">
-                    <input
-                      type="text"
-                      id="contact-form-name"
-                      className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                      placeholder="Name"
-                    />
-                  </div>
-                </div>
-                <div className="col-span-2 lg:col-span-2">
-                  <div className=" relative ">
-                    <input
-                      type="text"
-                      id="contact-form-email"
-                      className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                      placeholder="name@example.com"
-                    />
-                  </div>
-                </div>
-                <div className="col-span-2">
-                  <label className="text-gray-700" htmlFor="name">
-                    <textarea
-                      className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                      id="comment"
-                      placeholder="Enter your description"
-                      name="comment"
-                      rows={5}
-                      cols={40}
-                      defaultValue={""}
-                    />
-                  </label>
-                </div>
-                <div className="col-span-2 lg:col-span-2">
-                  <div className="relative ">
-                    <input
-                      type="file"
-                      id="contact-form-file"
-                      className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                      placeholder="upload"
-                    />
-                  </div>
-                </div>
-                <div className="col-span-2 text-right">
-                  <button
-                    type="submit"
-                    className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                  >
-                    Send
-                  </button>
-                </div>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="message"
+                  className="leading-7 text-sm text-gray-600"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                  defaultValue={""}
+                />
               </div>
+              <button className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-hover rounded text-lg">
+                Button
+              </button>
+              <p className="text-xs text-gray-500 mt-3">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </p>
             </div>
-          </form>
+          </div>
         </main>
 
         <footer className="flex items-center justify-center w-full h-24 border-t">
