@@ -5,12 +5,12 @@ import { getStoreProducts } from '../utils/helpers'
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen py-2">
+    <div className="flex flex-col items-center justify-start min-h-screen py-2 ">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="text-gray-600 body-font  bg-teal-50">
+      <main className="text-gray-600 body-font rounded-xl shadow-lg bg-teal-100">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
             <img
@@ -42,17 +42,6 @@ export default function Home() {
         </div>
       </main>
       <Footer />
-      {/* <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer> */}
     </div>
   );
 }

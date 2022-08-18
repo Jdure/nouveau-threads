@@ -65,7 +65,7 @@ export default function CartSideDrawer({
               leaveTo="translate-x-full"
             >
               <div className="pointer-events-auto w-screen max-w-md">
-                <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                <div className="flex h-full flex-col overflow-y-scroll bg-teal-50 shadow-xl">
                   <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div className="flex items-start justify-between">
                       <Dialog.Title className="text-lg font-medium text-gray-900">
@@ -124,7 +124,7 @@ export default function CartSideDrawer({
                     <div className="mt-6">
                       <a
                         href={checkoutLink}
-                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                        className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-hover"
                       >
                         Checkout
                       </a>
@@ -134,7 +134,7 @@ export default function CartSideDrawer({
                         or{" "}
                         <button
                           type="button"
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          className="font-medium text-primary hover:text-hover"
                           onClick={cartOpenFunc}
                         >
                           Continue Shopping
