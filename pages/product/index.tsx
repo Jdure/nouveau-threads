@@ -21,10 +21,14 @@ export default function StoreProducts() {
       <main className="flex flex-col items-start justify-center w-full flex-1 px-20 ">
         <div>
           <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h1 className="text-6xl font-bold my-2 font-heading">Products</h1>
-            <p className="text-lg font-thin pb-6 text-secondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit!
-            </p>
+            <div className="flex flex-wrap w-full mb-10">
+              <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
+                <h1 className="sm:text-3xl text-xl font-heading title-font mb-2 text-black">
+                  Products
+                </h1>
+                <div className="h-1 w-20 bg-secondary rounded" />
+              </div>
+            </div>
             <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
               {data.data.products.edges.map((item: Edge) => {
                 const product = item.node;
