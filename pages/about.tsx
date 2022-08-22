@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Team } from "../components/Content/team";
 import Footer from "../components/Footer/footer";
 
-// TODO: REDO Hero section
+// TODO: REDO Hero sectionH
 
 export default function About() {
   return (
