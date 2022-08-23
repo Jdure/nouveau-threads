@@ -11,16 +11,16 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="text-gray-600 body-font rounded-xl shadow-lg bg-slate-50">
+      <main className="text-gray-600 body-font">
         <div className="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center">
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
             <img
-              className="object-cover object-center rounded"
+              className="object-cover object-center rounded-md shadow-lg"
               alt="hero"
               src="https://source.unsplash.com/oat3l0iVwPs/600x800"
             />
           </div>
-          <div className=" lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+          <div className=" lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center bg-slate-50 rounded-lg shadow-md py-16 mx-5">
             <h1 className="title-font font-heading sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
               Welcome to{" "}
               <span className="text-secondary">W.E Are Inspired!</span>

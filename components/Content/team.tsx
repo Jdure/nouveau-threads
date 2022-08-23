@@ -3,8 +3,8 @@ import React from "react";
 export const Team = () => {
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 py-2 mx-auto">
-        <div className="flex flex-col text-start w-full mb-20">
+      <div className="container px-5 py-8 mx-auto">
+        <div className="flex flex-col text-start w-full mb-10">
           <h1 className="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">
             OUR TEAM
           </h1>
