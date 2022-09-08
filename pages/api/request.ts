@@ -5,11 +5,16 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     const msg = {
-        to: process.env.SENDGRID_EMAIL_TO || "",
+        to: [{ email: process.env.SENDGRID_EMAIL_TO || "" } ,{ email: req.body.email } ],
         from: process.env.SENDGRID_EMAIL_FROM || "", // Use the email address or domain you verified above
-        subject: 'Sending with Twilio SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        subject: 'Client Request',
+        templateId: process.env.SENDGRID_TEMPLATE_ID || "",
+        dynamic_template_data: {
+          name: req.body.name, 
+          email: req.body.email,
+          message: req.body.msg,
+          support_email: process.env.SENDGRID_EMAIL_FROM 
+        }
       };
 
 sgMail
