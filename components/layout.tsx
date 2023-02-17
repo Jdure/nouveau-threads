@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Navbar from "./Navbar/navbar";
 import { getUserCart } from "../utils/helpers";
 import { useAppContext } from "../context/AppContext";
+import Footer from "./Footer/footer";
+import Head from "next/head";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -34,7 +36,12 @@ export default function Layout({ children }: LayoutProps) {
           cartOpenBool={isCartOpen}
         />
       </Transition>
+      <Head>
+        <title>Sticker World</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main>{children}</main>
+      <Footer />
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
