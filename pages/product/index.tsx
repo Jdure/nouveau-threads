@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import Link from "next/link";
+import { dehydrate, QueryClient, useQuery } from "react-query";
 import { Jumbotron } from "../../components/Content/jumbotron";
 import Footer from "../../components/Footer/footer";
 import { Edge } from "../../types/storefront";
@@ -15,10 +14,6 @@ export default function StoreProducts() {
 
   return (
     <div>
-      <Head>
-        <title>Products</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Jumbotron title="Products" />
       <div className="flex flex-col items-center justify-center">
         <div>

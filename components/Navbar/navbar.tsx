@@ -9,20 +9,20 @@ interface NavProps {
 
 export default function Navbar({ toggleFunc }: NavProps) {
   return (
-    <div className="navbar bg-primary">
+    <div className="navbar bg-neutral">
       <div className="flex-1 px-2">
         <a href="/" className="normal-case text-xl text-base-100">
-          Sticker World 👾
+          Nouveau Threads 🧵
         </a>
       </div>
       <div className="flex flex-row justify-end items-center space-x-2 text-base-100">
         <Link href="/request">
-          <a className=" btn btn-ghost rounded-sm hover:bg-primary-focus">
+          <a className=" btn btn-ghost rounded-sm hover:bg-purple-800">
             Request
           </a>
         </Link>
         <Link href="/about">
-          <a className="btn btn-ghost rounded-sm hover:bg-primary-focus">
+          <a className="btn btn-ghost rounded-sm hover:hover:bg-purple-800">
             About
           </a>
         </Link>
@@ -44,7 +44,7 @@ export default function Navbar({ toggleFunc }: NavProps) {
     //           Home
     //         </a>
     //       </Link>
-    //       <Link href="/product">
+    //       <Link href="0">
     //         <a className="mr-5 text-white font-heading text-xl hover:text-hover">
     //           Product
     //         </a>

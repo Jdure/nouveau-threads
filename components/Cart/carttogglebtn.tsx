@@ -6,7 +6,7 @@ export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
     return (
       <button
         onClick={onCartToggle}
-        className="btn btn-ghost rounded-sm hover:bg-primary-focus"
+        className="btn btn-ghost rounded-sm hover:bg-purple-800"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
