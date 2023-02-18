@@ -15,17 +15,17 @@ export default function Footer() {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
           </svg>
-          <span className="ml-3 text-xl">W.E Are Inspired</span>
+          <span className="ml-3 text-xl">Nouveau Threads</span>
         </a>
         <p className="text-sm text-black sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          {`© ${new Date().getFullYear()} W.E Are Inspired`} —
+          {`© ${new Date().getFullYear()} Nouveau Threads`} —
           <a
             href=""
             className="text-hover ml-1"
             rel="noopener noreferrer"
             target="_blank"
           >
-            @W.E_Are_Inspired
+            @NouveauTreads
           </a>
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">

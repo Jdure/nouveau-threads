@@ -19,8 +19,10 @@ export default function Navbar({ toggleFunc }: NavProps) {
         <Link href="#about">
           <a className="btn btn-ghost rounded-sm hover:bg-base-200">About</a>
         </Link>
-        <Link href="#contact">
-          <a className=" btn btn-ghost rounded-sm hover:bg-base-200">Contact</a>
+        <Link href="/product">
+          <a className=" btn btn-ghost rounded-sm hover:bg-base-200">
+            Products
+          </a>
         </Link>
         <CartToggleBtn onCartToggle={toggleFunc} />
       </div>

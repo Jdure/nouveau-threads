@@ -48,7 +48,7 @@ export default function Home() {
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
         <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
-          <a className="btn btn-outline btn-accent btn-xs rounded-md">
+          <a className="btn btn-outline btn-neutral btn-xs rounded-md">
             View Products
           </a>
         </Link>
@@ -99,7 +99,7 @@ export default function Home() {
       <div className="flex flex-row justify-evenly items-center text-center">
         <div className="basis-1/2 flex flex-col items-center justify-between space-y-6">
           <h2 className="text-3xl">Our Mission</h2>
-          <p className="w-2/3 text-lg font-light">
+          <p className="w-2/3 text-lg font-light leading-loose">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni saepe
             quas ut quod corporis dicta minima, ipsum ratione maiores
           </p>
@@ -113,9 +113,32 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-row">
-        <div></div>
-        <div></div>
+      <div className="flex flex-row bg-slate-600 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
+        <div className="flex flex-col text-base-100 space-y-4">
+          <h2 id="contact" className="text-2xl">
+            Contact Us
+          </h2>
+          <p className="text-xl font-light">23 Thread Avenue</p>
+          <p className="text-xl font-light">Ottawa, Ontario</p>
+          <p className="text-xl font-light">Canada 🇨🇦</p>
+          <p className="text-xl font-light">Tel: 1-800-555-1234</p>
+        </div>
+        <div className="flex flex-col w-1/4 justify-evenly space-y-4">
+          <h2 className="text-base-100 text-2xl">Subscribe</h2>
+          <p className="text-base-100 text-xl font-light">
+            Catch the latest releases
+          </p>
+          <div className="relative">
+            <input
+              type="email"
+              placeholder="name@example.com"
+              className="input input-bordered w-full pr-16 rounded-md"
+            />
+            <button className="btn btn-primary btn absolute top-0 right-0 rounded-r-md rounded-l-md">
+              Send
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
