@@ -9,22 +9,18 @@ interface NavProps {
 
 export default function Navbar({ toggleFunc }: NavProps) {
   return (
-    <div className="navbar bg-neutral">
+    <div className="navbar bg-transparent">
       <div className="flex-1 px-2">
-        <a href="/" className="normal-case text-xl text-base-100">
+        <a href="/" className="normal-case text-xl text-neutral">
           Nouveau Threads 🧵
         </a>
       </div>
-      <div className="flex flex-row justify-end items-center space-x-2 text-base-100">
-        <Link href="/request">
-          <a className=" btn btn-ghost rounded-sm hover:bg-purple-800">
-            Request
-          </a>
+      <div className="flex flex-row justify-end items-center space-x-2 text-neutral">
+        <Link href="#about">
+          <a className="btn btn-ghost rounded-sm hover:bg-base-200">About</a>
         </Link>
-        <Link href="/about">
-          <a className="btn btn-ghost rounded-sm hover:hover:bg-purple-800">
-            About
-          </a>
+        <Link href="#contact">
+          <a className=" btn btn-ghost rounded-sm hover:bg-base-200">Contact</a>
         </Link>
         <CartToggleBtn onCartToggle={toggleFunc} />
       </div>

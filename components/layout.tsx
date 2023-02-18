@@ -37,7 +37,7 @@ export default function Layout({ children }: LayoutProps) {
         />
       </Transition>
       <Head>
-        <title>Sticker World</title>
+        <title>Nouveau Threads</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>{children}</main>

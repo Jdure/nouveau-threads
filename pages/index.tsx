@@ -21,8 +21,13 @@ export default function Home() {
   if (isError) return <div>Error!</div>;
 
   return (
-    <>
-      <div className="hero h-96 bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600">
+    <main>
+      <div
+        className="hero h-96"
+        style={{
+          backgroundImage: `url("https://source.unsplash.com/7YwWjgS7aJs/1280x720")`,
+        }}
+      >
         <div className="hero-overlay bg-opacity-30"></div>
         <div className="hero-content flex flex-col text-center">
           <h1 className=" mb-2 text-4xl font-bold text-base-100">
@@ -31,23 +36,24 @@ export default function Home() {
           <p className="text-xl text-base-100">
             Lorem ipsum dolor sit amet consectetur adipisicing elit
           </p>
-          <p className="btn btn-secondary rounded-lg">Get yours today!</p>
-          <div className="flex flex-row"></div>
+          <p className="btn btn-primary rounded-lg">Shop Now!</p>
         </div>
       </div>
-      <div id="about" className="flex flex-col py-6 items-center">
-        <p className="text-2xl text-center text-neutral w-4/5">
+      <div id="about" className="flex flex-col pt-16 pb-6 items-center">
+        <p className="text-2xl font-light text-center text-neutral w-4/5">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente sit
-          quaerat. 🎨
+          quaerat.
         </p>
       </div>
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
-        <h2 className="text-neutral text-xl font-bold">Top Sellers</h2>
+        <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
-          <a className="btn btn-secondary btn-xs">View Products</a>
+          <a className="btn btn-outline btn-accent btn-xs rounded-md">
+            View Products
+          </a>
         </Link>
       </div>
-      <div className="flex flex-col sm:flex-row justify-center sm:justify-evenly items-center pt-6">
+      <div className="flex flex-col sm:flex-row justify-center sm:justify-evenly items-center py-8">
         {products?.edges
           .slice(0, 3)
           .map(
@@ -58,26 +64,26 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  className="card card-compact rounded-lg w-60 bg-base-100"
+                  className="card card-compact rounded-md w-60 bg-base-100"
                 >
                   <figure>
                     <Image
-                      className="rounded-lg"
+                      className="rounded-md"
                       src={featuredImage.url}
                       alt={title}
                       width={1080}
                       height={1080}
                     />
                   </figure>
-                  <div className="card-body items-center text-center sm:items-start">
-                    <h2 className="card-title text-xl">{title}</h2>
-                    <div className="flex flex-row space-x-8 pt-2">
-                      <p className="text-base font-light">
+                  <div className="card-body items-center text-center">
+                    <h2 className="card-title text-lg">{title}</h2>
+                    <div className="flex flex-col space-y-4 pt-2">
+                      <p className="text-lg font-light">
                         {formatPrice(
                           parseInt(priceRange.minVariantPrice.amount)
                         )}
                       </p>
-                      <button className="btn btn-primary btn-xs">
+                      <button className="btn btn-primary rounded-md btn-sm">
                         Add to Cart
                       </button>
                     </div>
@@ -87,7 +93,30 @@ export default function Home() {
             }
           )}
       </div>
-      <div className="divider w-3/4 mx-auto"></div>
-    </>
+      <h1 id="about" className="text-neutral text-2xl pl-8 pt-14">
+        About Us
+      </h1>
+      <div className="flex flex-row justify-evenly items-center text-center">
+        <div className="basis-1/2 flex flex-col items-center justify-between space-y-6">
+          <h2 className="text-3xl">Our Mission</h2>
+          <p className="w-2/3 text-lg font-light">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni saepe
+            quas ut quod corporis dicta minima, ipsum ratione maiores
+          </p>
+        </div>
+        <div className="basis-1/2">
+          <Image
+            className="rounded-md"
+            src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
+            width={400}
+            height={400}
+          />
+        </div>
+      </div>
+      <div className="flex flex-row">
+        <div></div>
+        <div></div>
+      </div>
+    </main>
   );
 }
