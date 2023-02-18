@@ -29,6 +29,7 @@ export default function Card(props: {
           <p className="text-lg font-light">
             {formatPrice(parseInt(props.price))}
           </p>
+          {/* TODO: Do I need this button on the product page? */}
           <button className="btn btn-primary rounded-md btn-sm hover:animate-pulse">
             Add to Cart
           </button>

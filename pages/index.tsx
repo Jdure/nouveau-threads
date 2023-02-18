@@ -86,7 +86,7 @@ export default function Home() {
         </div>
         <div className="basis-1/2">
           <Image
-            className="rounded-md"
+            className="rounded-md object-cover object-center"
             src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
             width={400}
             height={400}
@@ -114,7 +114,7 @@ export default function Home() {
               placeholder="name@example.com"
               className="input input-bordered w-full pr-16 rounded-md"
             />
-            <button className="btn btn-primary btn absolute top-0 right-0 rounded-r-md rounded-l-md">
+            <button className="btn btn-primary absolute top-0 right-0 rounded-r-md rounded-l-md">
               Send
             </button>
           </div>
