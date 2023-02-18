@@ -5,6 +5,7 @@ import Image from "next/image";
 import { productsQuery } from "../utils/shopify-queries";
 import { Edge, Products, Storefront } from "../types/storefront";
 import { Key } from "react";
+import Card from "../components/Content/card";
 
 export default function Home() {
   const {
@@ -62,33 +63,12 @@ export default function Home() {
               idx: Key
             ) => {
               return (
-                <div
-                  key={idx}
-                  className="card card-compact rounded-md w-60 bg-base-100"
-                >
-                  <figure>
-                    <Image
-                      className="rounded-md"
-                      src={featuredImage.url}
-                      alt={title}
-                      width={1080}
-                      height={1080}
-                    />
-                  </figure>
-                  <div className="card-body items-center text-center">
-                    <h2 className="card-title text-lg">{title}</h2>
-                    <div className="flex flex-col space-y-4 pt-2">
-                      <p className="text-lg font-light">
-                        {formatPrice(
-                          parseInt(priceRange.minVariantPrice.amount)
-                        )}
-                      </p>
-                      <button className="btn btn-primary rounded-md btn-sm">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Card
+                  featuredImage={featuredImage.url}
+                  title={title}
+                  price={priceRange.minVariantPrice.amount}
+                  idx={idx}
+                />
               );
             }
           )}
@@ -113,7 +93,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-row bg-slate-600 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
+      <div className="flex flex-row bg-slate-700 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
         <div className="flex flex-col text-base-100 space-y-4">
           <h2 id="contact" className="text-2xl">
             Contact Us
