@@ -47,7 +47,7 @@ export default function CartItem({
           <div className="flex justify-between text-base font-medium text-gray-900">
             <Link key={itemHandle} href={`/product/${itemHandle}`}>
               <h3>
-                <a href="#">{itemTitle} </a>
+                <a href="#">{itemTitle}</a>
               </h3>
             </Link>
             <p className="ml-4">{formatPrice(parseInt(itemPrice))}</p>

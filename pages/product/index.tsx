@@ -1,10 +1,8 @@
 import { GetStaticProps } from 'next'
 import Link from "next/link";
 import { dehydrate, QueryClient, useQuery } from "react-query";
-import { Jumbotron } from "../../components/Content/jumbotron";
-import Footer from "../../components/Footer/footer";
 import { Edge } from "../../types/storefront";
-import { formatPrice, getStoreProducts } from "../../utils/helpers";
+import { getStoreProducts } from "../../utils/helpers";
 import { productsQuery } from "../../utils/shopify-queries";
 import Card from "../../components/Content/card";
 import { Key } from "react";

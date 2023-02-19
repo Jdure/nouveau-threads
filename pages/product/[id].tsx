@@ -11,7 +11,6 @@ import {
 import { productsQuery, productDetailQuery } from "../../utils/shopify-queries";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import Footer from "../../components/Footer/footer";
 import Image from "next/image";
 
 interface IParams extends ParsedUrlQuery {

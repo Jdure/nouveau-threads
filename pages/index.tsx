@@ -1,25 +1,43 @@
 import { useQuery } from "react-query";
-import { formatPrice, getStoreProducts } from "../utils/helpers";
+import { getStoreProducts } from "../utils/helpers";
 import Link from "next/link";
 import Image from "next/image";
 import { productsQuery } from "../utils/shopify-queries";
-import { Edge, Products, Storefront } from "../types/storefront";
+import { Edge, Storefront } from "../types/storefront";
 import { Key } from "react";
 import Card from "../components/Content/card";
 
 export default function Home() {
-  const {
-    data: data,
-    isError,
-    isLoading,
-  } = useQuery<Storefront>("products", () => getStoreProducts(productsQuery), {
-    staleTime: Infinity,
-  });
+  const { data: data, isError } = useQuery<Storefront>(
+    "products",
+    () => getStoreProducts(productsQuery),
+    {
+      staleTime: Infinity,
+    }
+  );
   const products = data?.data.products;
 
-  if (isLoading) return <div>Loading..</div>;
-
-  if (isError) return <div>Error!</div>;
+  if (isError)
+    return (
+      <div className="alert alert-error shadow-lg">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current flex-shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Error! Task failed successfully.</span>
+        </div>
+      </div>
+    );
 
   return (
     <main>
@@ -37,7 +55,6 @@ export default function Home() {
           <p className="text-xl text-base-100">
             Lorem ipsum dolor sit amet consectetur adipisicing elit
           </p>
-          <p className="btn btn-primary rounded-lg">Shop Now!</p>
         </div>
       </div>
       <div id="about" className="flex flex-col pt-16 pb-6 items-center">
@@ -94,20 +111,18 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
-        <div className="flex flex-col text-base-100 space-y-4">
+        <div className="flex flex-col text-base-100 space-y-4 font-bold">
           <h2 id="contact" className="text-2xl">
             Contact Us
           </h2>
-          <p className="text-xl font-light">23 Thread Avenue</p>
-          <p className="text-xl font-light">Ottawa, Ontario</p>
-          <p className="text-xl font-light">Canada 🇨🇦</p>
-          <p className="text-base font-light">1-800-555-1234</p>
+          <p className="text-xl ">23 Thread Avenue</p>
+          <p className="text-xl ">Ottawa, Ontario</p>
+          <p className="text-xl ">Canada 🇨🇦</p>
+          <p className="text-base ">1-800-555-1234</p>
         </div>
-        <div className="flex flex-col w-1/4 justify-evenly space-y-4">
+        <div className="flex flex-col w-1/4 justify-evenly space-y-4 font-bold">
           <h2 className="text-base-100 text-2xl">Subscribe</h2>
-          <p className="text-base-100 text-xl font-light">
-            Catch the latest releases
-          </p>
+          <p className="text-base-100 text-xl ">Catch the latest releases</p>
           <div className="relative">
             <input
               type="email"
