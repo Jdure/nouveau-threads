@@ -16,6 +16,9 @@ export default function StoreProducts() {
 
   return (
     <div>
+      <h1 className="text-4xl font-bold text-neutral text-center py-4">
+        Products
+      </h1>
       <div className="flex flex-row flex-wrap justify-evenly items-center mx-6 py-6">
         {data.data.products.edges.map((item: Edge, idx: Key) => {
           const product = item.node;

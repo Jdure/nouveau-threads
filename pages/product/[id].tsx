@@ -12,10 +12,13 @@ import { productsQuery, productDetailQuery } from "../../utils/shopify-queries";
 import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import Footer from "../../components/Footer/footer";
+import Image from "next/image";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
+
+// TODO: Fix layout of item detail
 
 export default function ProductDetail({ product }: ProductData) {
   const cartData = useAppContext();
@@ -40,13 +43,15 @@ export default function ProductDetail({ product }: ProductData) {
       </Head>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <section className="text-gray-600 body-font overflow-hidden">
+        <section className="text-neutral overflow-hidden">
           <div className="container px-1 py-52 mx-auto bg-slate-50 rounded-xl">
-            <div className="lg:w-4/5 mx-auto flex flex-wrap">
-              <img
+            <div className="lg:w-4/5 mx-auto flex flex-nowrap">
+              <Image
                 alt={product.title}
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded shadow-2xl"
                 src={image}
+                width={500}
+                height={500}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-md title-font text-gray-500 tracking-widest">
@@ -99,8 +104,6 @@ export default function ProductDetail({ product }: ProductData) {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

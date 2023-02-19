@@ -49,7 +49,7 @@ export default function Home() {
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
         <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
-          <a className="btn btn-outline btn-neutral btn-xs rounded-md">
+          <a className="btn btn-outline btn-accent btn-xs rounded-md hover:animate-pulse">
             View Products
           </a>
         </Link>
@@ -84,7 +84,7 @@ export default function Home() {
             quas ut quod corporis dicta minima, ipsum ratione maiores
           </p>
         </div>
-        <div className="basis-1/2">
+        <div className="basis-1/2 ">
           <Image
             className="rounded-md object-cover object-center"
             src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
@@ -93,7 +93,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-row bg-slate-700 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
+      <div className="flex flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
         <div className="flex flex-col text-base-100 space-y-4">
           <h2 id="contact" className="text-2xl">
             Contact Us
@@ -101,7 +101,7 @@ export default function Home() {
           <p className="text-xl font-light">23 Thread Avenue</p>
           <p className="text-xl font-light">Ottawa, Ontario</p>
           <p className="text-xl font-light">Canada 🇨🇦</p>
-          <p className="text-xl font-light">Tel: 1-800-555-1234</p>
+          <p className="text-base font-light">1-800-555-1234</p>
         </div>
         <div className="flex flex-col w-1/4 justify-evenly space-y-4">
           <h2 className="text-base-100 text-2xl">Subscribe</h2>
