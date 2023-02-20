@@ -6,6 +6,7 @@ import {
   RefetchQueryFilters,
 } from "react-query";
 import { delCartItem, formatPrice, updateCartItem } from "../../utils/helpers";
+import { deleteItem, updateItemQty } from "./cart-api";
 
 interface CartItemProps {
   itemTitle: string;
@@ -60,16 +61,17 @@ export default function CartItem({
               className="text-gray-500 font-bold py-0 px-4 rounded-l"
               onClick={(e) => {
                 e.preventDefault();
-                updateProduct.mutate(
-                  {
-                    id: cartID,
-                    variantId: itemId,
-                    quantity: itemQty + 1,
-                  },
-                  {
-                    onSuccess: () => refetchItem(),
-                  }
-                );
+                updateItemQty(cartID, itemId, itemQty + 1)
+                // updateProduct.mutate(
+                //   {
+                //     id: cartID,
+                //     variantId: itemId,
+                //     quantity: itemQty + 1,
+                //   },
+                //   {
+                //     onSuccess: () => refetchItem(),
+                //   }
+                // );
               }}
             >
               +
@@ -79,16 +81,17 @@ export default function CartItem({
               className="text-gray-500 font-bold py-0 px-4 rounded-r"
               onClick={(e) => {
                 e.preventDefault();
-                updateProduct.mutate(
-                  {
-                    id: cartID,
-                    variantId: itemId,
-                    quantity: itemQty - 1,
-                  },
-                  {
-                    onSuccess: () => refetchItem(),
-                  }
-                );
+                updateItemQty(cartID, itemId, itemQty - 1)
+                // updateProduct.mutate(
+                //   {
+                //     id: cartID,
+                //     variantId: itemId,
+                //     quantity: itemQty - 1,
+                //   },
+                //   {
+                //     onSuccess: () => refetchItem(),
+                //   }
+                // );
               }}
             >
               -
@@ -98,15 +101,16 @@ export default function CartItem({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                delProduct.mutate(
-                  {
-                    id: cartID,
-                    variantId: itemId,
-                  },
-                  {
-                    onSuccess: () => refetchItem(),
-                  }
-                );
+                deleteItem(cartID, itemId)
+                // delProduct.mutate(
+                //   {
+                //     id: cartID,
+                //     variantId: itemId,
+                //   },
+                //   {
+                //     onSuccess: () => refetchItem(),
+                //   }
+                // );
               }}
               type="button"
               className="font-medium text-primary hover:text-hover"
