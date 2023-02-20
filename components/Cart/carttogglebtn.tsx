@@ -1,9 +1,20 @@
+import { useAppContext } from "../../context/AppContext";
+import { getUserCart } from "../../utils/helpers";
+
 interface CartToggleProps {
 onCartToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => void;
 }
 
 export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
+  const cartData = useAppContext();
+  const cartID = cartData?.id;
+
+  const {data} = getUserCart(cartID)
+
+
   return (
+    <div className="indicator">
+ { data!.lines.edges.length > 0 ? <span className="indicator-item badge badge-xs badge-secondary"></span> : null }
     <button
       onClick={onCartToggle}
       className="btn btn-ghost rounded-sm hover:bg-base-200"
@@ -23,5 +34,6 @@ export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
         />
       </svg>
     </button>
+    </div>
   );
 }

@@ -1,16 +1,17 @@
 import { GetStaticProps } from 'next'
 import Link from "next/link";
 import { dehydrate, QueryClient, useQuery } from "react-query";
-import { Edge } from "../../types/storefront";
+import { Edge, Storefront } from "../../types/storefront";
 import { getStoreProducts } from "../../utils/helpers";
 import { productsQuery } from "../../utils/shopify-queries";
 import Card from "../../components/Content/card";
 import { Key } from "react";
 
 export default function StoreProducts() {
-  const { data } = useQuery("products", () => getStoreProducts(productsQuery), {
+  const { data: data } = useQuery<Storefront>("products", () => getStoreProducts(productsQuery), {
     staleTime: Infinity,
   });
+  const products = data?.data.products;
 
   return (
     <div>
@@ -18,17 +19,14 @@ export default function StoreProducts() {
         Products
       </h1>
       <div className="flex flex-row flex-wrap justify-evenly items-center mx-6 py-6">
-        {data.data.products.edges.map((item: Edge, idx: Key) => {
-          const product = item.node;
-          const image = product.featuredImage;
-          const price = product.priceRange.minVariantPrice;
+        {products?.edges.map(({node: {handle, featuredImage, priceRange, title}}: Edge, idx: Key) => {
           return (
-            <Link key={product.handle} href={`/product/${product.handle}`}>
+            <Link key={handle} href={`/product/${handle}`}>
               <a>
                 <Card
-                  featuredImage={image.url}
-                  title={product.title}
-                  price={price.amount}
+                  featuredImage={featuredImage.url}
+                  title={title}
+                  price={priceRange.minVariantPrice.amount}
                   idx={idx}
                 />
               </a>
