@@ -66,7 +66,7 @@ export default function CartSideDrawer({
                 <div className="flex h-full flex-col overflow-y-scroll bg-teal-50 shadow-xl">
                   <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                     <div className="flex items-start justify-between">
-                      <Dialog.Title className="text-lg font-medium text-gray-900">
+                      <Dialog.Title className="text-lg font-medium text-neutral">
                         {" "}
                         Shopping cart{" "}
                       </Dialog.Title>
@@ -108,12 +108,12 @@ export default function CartSideDrawer({
                   </div>
 
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                    <div className="flex justify-between text-base font-medium text-gray-900">
+                    <div className="flex justify-between text-base font-medium text-neutral">
                       <p>Subtotal</p>
                       <p>{formatPrice(parseInt(subTotal as string))}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
-                      Shipping and taxes calculated at checkout.
+                      Shipping and taxes calculated at checkout
                     </p>
                     <div className="mt-6">
                       <a
@@ -123,7 +123,7 @@ export default function CartSideDrawer({
                         Checkout
                       </a>
                     </div>
-                    <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                    <div className="mt-6 flex justify-center text-center text-sm text-neutral">
                       <p>
                         or{" "}
                         <button
