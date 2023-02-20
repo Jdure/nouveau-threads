@@ -14,9 +14,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const [isCartOpen, setCartOpen] = useState(false);
-  const cartData = useAppContext();
-  const cartID = cartData?.id;
-  const url = cartData?.checkoutUrl;
+  const {id, checkoutUrl} = useAppContext();
   const handleCartToggle = () => {
     setCartOpen(!isCartOpen);
   };
@@ -30,8 +28,8 @@ export default function Layout({ children }: LayoutProps) {
         leave="transition-opacity duration-150"
       >
         <CartSideDrawer
-          cartCheckout={url}
-          cartIDNum={cartID}
+          cartCheckout={checkoutUrl}
+          cartIDNum={id}
           cartOpenFunc={handleCartToggle}
           cartOpenBool={isCartOpen}
         />

@@ -18,10 +18,8 @@ export default function CartSideDrawer({
   cartOpenBool,
 }: CartProps) {
   const { data, isError, error, refetch } = getUserCart(cartIDNum);
-  const checkoutLink = cartCheckout;
-  const shopCart = data;
-  const cartItem = shopCart?.lines;
-  const subTotal = shopCart?.estimatedCost.totalAmount.amount;
+  const cartItem = data?.lines;
+  const subTotal = data?.estimatedCost.totalAmount.amount;
 
   if (isError)
     return (
@@ -123,7 +121,7 @@ export default function CartSideDrawer({
                     </p>
                     <div className="mt-6">
                       <a
-                        href={checkoutLink}
+                        href={cartCheckout}
                         className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-hover"
                       >
                         Checkout

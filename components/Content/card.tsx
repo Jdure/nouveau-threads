@@ -14,8 +14,8 @@ export default function Card(props: {
   idx: React.Key;
 }) {
   const router = useRouter();
-  const cartData = useAppContext();
-  const cartID = cartData?.id;
+  const {id} = useAppContext();
+
 
   return (
     <div
@@ -40,7 +40,7 @@ export default function Card(props: {
           <button
             onClick={(e) => {
               e.preventDefault();
-              addItem(cartID, props.handle!, props.variant!, 1);
+              addItem(id, props.handle!, props.variant!, 1);
             }}
             className={`btn btn-primary rounded-md btn-sm hover:animate-pulse ${
               router.asPath != "/" ? "hidden" : ""

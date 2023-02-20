@@ -6,10 +6,10 @@ onCartToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => void;
 }
 
 export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
-  const cartData = useAppContext();
-  const cartID = cartData?.id;
+  const { id } = useAppContext();
 
-  const {data} = getUserCart(cartID)
+
+  const {data} = getUserCart(id)
 
 
   return (

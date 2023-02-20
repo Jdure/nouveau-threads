@@ -17,8 +17,6 @@ export default function Home() {
     }
   );
   const products = data?.data.products;
-  const cartData = useAppContext();
-  const cartID = cartData?.id;
 
   if (isError)
     return (
