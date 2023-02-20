@@ -2,14 +2,20 @@ import React from "react";
 import { formatPrice } from "../../utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useAppContext } from "../../context/AppContext";
+import { addItem } from "../Cart/cart-api";
 
 export default function Card(props: {
   featuredImage: string;
   title: string;
   price: string;
+  handle?: string | undefined;
+  variant?: string | undefined;
   idx: React.Key;
 }) {
   const router = useRouter();
+  const cartData = useAppContext();
+  const cartID = cartData?.id;
 
   return (
     <div
@@ -31,8 +37,11 @@ export default function Card(props: {
           <p className="text-lg font-light">
             {formatPrice(parseInt(props.price))}
           </p>
-          {/* TODO:  onClick add item to cart */}
           <button
+            onClick={(e) => {
+              e.preventDefault();
+              addItem(cartID, props.handle!, props.variant!, 1);
+            }}
             className={`btn btn-primary rounded-md btn-sm hover:animate-pulse ${
               router.asPath != "/" ? "hidden" : ""
             }`}

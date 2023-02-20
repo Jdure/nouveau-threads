@@ -15,11 +15,12 @@ export interface Edge {
 }
 
 export interface Node {
-    id:            string;
-    handle:        string;
-    title:         string;
-    featuredImage: FeaturedImage;
-    priceRange:    PriceRange;
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage: FeaturedImage;
+  priceRange: PriceRange;
+  variants: Variants;
 }
 
 export interface FeaturedImage {
@@ -33,4 +34,16 @@ export interface PriceRange {
 
 export interface MinVariantPrice {
     amount: string;
+}
+
+export interface Variants {
+  edges: VariantsEdge[];
+}
+
+export interface VariantsEdge {
+  node: VariantsNode;
+}
+
+export interface VariantsNode {
+  id: string;
 }

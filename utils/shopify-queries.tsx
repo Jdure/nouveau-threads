@@ -44,6 +44,13 @@ export const productsQuery = gql`
               amount
             }
           }
+          variants(first: 1) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
         }
       }
     }

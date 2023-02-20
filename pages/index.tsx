@@ -6,6 +6,7 @@ import { productsQuery } from "../utils/shopify-queries";
 import { Edge, Storefront } from "../types/storefront";
 import { Key } from "react";
 import Card from "../components/Content/card";
+import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
   const { data: data, isError } = useQuery<Storefront>(
@@ -16,6 +17,8 @@ export default function Home() {
     }
   );
   const products = data?.data.products;
+  const cartData = useAppContext();
+  const cartID = cartData?.id;
 
   if (isError)
     return (
@@ -34,7 +37,7 @@ export default function Home() {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>Error! Task failed successfully.</span>
+          <span>Error! Unable to lead data!</span>
         </div>
       </div>
     );
@@ -53,7 +56,7 @@ export default function Home() {
             Nouveau Threads
           </h1>
           <p className="text-xl text-base-100">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit
+            Lorem ipsum dolor sit amet consectetur adipisicing elit!
           </p>
         </div>
       </div>
@@ -76,7 +79,9 @@ export default function Home() {
           .slice(0, 3)
           .map(
             (
-              { node: { title, featuredImage, priceRange } }: Edge,
+              {
+                node: { title, featuredImage, priceRange, handle, variants },
+              }: Edge,
               idx: Key
             ) => {
               return (
@@ -85,6 +90,8 @@ export default function Home() {
                   title={title}
                   price={priceRange.minVariantPrice.amount}
                   idx={idx}
+                  handle={handle}
+                  variant={variants.edges[0].node.id}
                 />
               );
             }
