@@ -87,20 +87,16 @@ export default function CartSideDrawer({
                           role="list"
                           className="-my-6 divide-y divide-gray-200"
                         >
-                          {cartItem?.edges.map((item: Edge) => {
-                            const articles = item.node;
-                            const articleDetail = articles.merchandise.product;
-                            const articlePrice =
-                              articleDetail.priceRange.minVariantPrice.amount;
+                          {cartItem?.edges.map(({ node: { id, quantity, merchandise: { product: {priceRange, handle, title, featuredImage}} }}: Edge) => {
                             return (
                               <CartItem
-                                key={articleDetail.handle}
-                                itemTitle={articleDetail.title}
-                                itemHandle={articleDetail.handle}
-                                itemId={articles.id}
-                                itemImg={articleDetail.featuredImage.url}
-                                itemPrice={articlePrice}
-                                itemQty={articles.quantity}
+                                key={handle}
+                                itemTitle={title}
+                                itemHandle={handle}
+                                itemId={id}
+                                itemImg={featuredImage.url}
+                                itemPrice={priceRange.minVariantPrice.amount}
+                                itemQty={quantity}
                                 cartID={cartIDNum}
                                 refetchItem={refetch}
                               />
