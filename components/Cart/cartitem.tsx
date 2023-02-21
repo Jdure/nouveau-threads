@@ -5,13 +5,13 @@ import {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
+  useQueryClient
 } from "react-query";
 import {
   formatPrice,
   useUpdateCartItem,
   useDeleteCartItem
 } from "../../utils/helpers";
-import { deleteItem } from "./cart-api";
 
 interface CartItemProps {
   itemTitle: string;
@@ -52,6 +52,7 @@ export default function CartItem({
   cartID,
   refetchItem,
 }: CartItemProps) {
+  const queryClient = useQueryClient()
   const deleteCartItem = useDeleteCartItem();
   const updateCartItem = useUpdateCartItem();
   const [state, dispatch] = useReducer(reducer, {quantity: itemQty})
@@ -64,7 +65,7 @@ export default function CartItem({
         quantity: state.quantity,
       },
       {
-        onSuccess: () => refetchItem(),
+        onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
       }
     );
   };
@@ -76,23 +77,35 @@ export default function CartItem({
           variantId: itemId
         }, 
         {
-          onSuccess: () => refetchItem(),
+          onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
         }
       );
   };
-
-  // TODO: Redesign cart items 
   return (
-    <div className="flex flex-row justify-center items-center">
-      {/* Image | Item title | buttons | price */}
-      <Image src={itemImg} height={24} width={24} />
-      <div className="flex flex-col text-neutral justify-evenly items-center">
-        <h1 className="text-xl">{{itemTitle}}</h1>
-        
+    <li key={itemHandle} className="flex py-6">
+      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+        <Image
+          src={itemImg}
+          alt={itemHandle}
+          height={500}
+          width={500}
+          className="h-full w-full object-cover object-center"
+        />
       </div>
-      <div className="flex flex-row justify-evenly items-center">
-      <button
-              className="btn btn-outline btn-neutral btn-xs rounded-none"
+
+      <div className="mx-2 flex flex-1 flex-col justify-around">
+          <div className="flex justify-between text-base text-neutral">
+            <Link key={itemHandle} href={`/product/${itemHandle}`}>
+              <h3>
+                <a href="#">{itemTitle}</a>
+              </h3>
+            </Link>
+            <p>{formatPrice(parseInt(itemPrice))}</p>
+          </div>
+        <div className="flex flex-row items-center justify-between text-sm">
+          <div className="inline-flex space-x-3">
+            <button
+              className="btn rounded-md btn-outline btn-xs "
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate();
@@ -101,9 +114,9 @@ export default function CartItem({
             >
               +
             </button>
-            <p className="text-neutral">Qty {itemQty}</p>
+            <p className="text-neutral text-base">{itemQty}</p>
             <button
-              className="btn btn-outline btn-neutral btn-xs rounded-none"
+              className="btn rounded-md btn-outline btn-xs "
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate()
@@ -112,80 +125,21 @@ export default function CartItem({
             >
               -
             </button>
-      </div>
-      <div className="flex flex-col">
-      <p className="text-base">{formatPrice(parseInt(itemPrice))}</p>
-        <button
+          </div>
+          <div className="flex">
+            <button
               onClick={(e) => {
                 e.preventDefault();
                 handleDelete()
               }}
               type="button"
-              className=" btn btn-outline btn-primary btn-xs rounded-none"
+              className=" btn rounded-md btn-outline btn-primary btn-xs"
             >
               Remove
-        </button>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    // <li key={itemHandle} className="flex py-6">
-    //   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-    //     <img
-    //       src={itemImg}
-    //       alt={itemHandle}
-    //       className="h-full w-full object-cover object-center"
-    //     />
-    //   </div>
-
-    //   <div className="ml-4 flex flex-1 flex-col">
-    //     <div>
-    //       <div className="flex justify-between text-base font-medium text-gray-900">
-    //         <Link key={itemHandle} href={`/product/${itemHandle}`}>
-    //           <h3>
-    //             <a href="#">{itemTitle}</a>
-    //           </h3>
-    //         </Link>
-    //         <p className="ml-4">{formatPrice(parseInt(itemPrice))}</p>
-    //       </div>
-    //       <p className="mt-1 text-sm text-gray-500">Product Colour</p>
-    //     </div>
-    //     <div className="flex flex-row items-end justify-between text-sm">
-    //       <div className="inline-flex">
-    //         <button
-    //           className="btn btn-outline btn-neutral btn-xs"
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             handleUpdate();
-    //             dispatch({type: "increment_qty"})
-    //           }}
-    //         >
-    //           +
-    //         </button>
-    //         <p className="text-neutral">Qty {itemQty}</p>
-    //         <button
-    //           className="btn btn-outline btn-neutral btn-xs"
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             handleUpdate()
-    //             dispatch({type: "decrement_qty"})
-    //           }}
-    //         >
-    //           -
-    //         </button>
-    //       </div>
-    //       <div className="flex">
-    //         <button
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             handleDelete()
-    //           }}
-    //           type="button"
-    //           className=" btn btn-outline btn-primary btn-xs"
-    //         >
-    //           Remove
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </li>
+    </li>
   );
 }

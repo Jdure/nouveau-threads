@@ -1,4 +1,4 @@
-import { useQueryClient, useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import {
   retrieveCart,
@@ -6,7 +6,7 @@ import {
   deleteItem,
   updateItemQty,
 } from "../components/Cart/cart-api";
-import { GetCart } from "../types/cart-get";
+
 
 export const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 export const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -49,8 +49,6 @@ export const getUserCart = (id: string | undefined) =>
     select: (data) => data.data.cart,
   });
 
-// export const delCartItem = (id?: string | undefined, variantId?: string) =>
-//   useMutation(async ({ id, variantId }) => await deleteItem(id, variantId));
 
 export const useDeleteCartItem = () =>  {
   const mutation = useMutation(async (params: {
@@ -64,12 +62,20 @@ export const useDeleteCartItem = () =>  {
   return mutation.mutate
 }
 
-export const addCartItems = (
-  id: string | undefined,
-  handle: string,
-  variantId: string,
-  quantity: number
-) => useMutation(async () => await addItem(id, handle, variantId, quantity));
+export const useAddCartItem = () => {
+  const mutation = useMutation(
+    async (params: {
+      id: string | undefined,
+      handle: string,
+      variantId: string,
+      quantity: number
+    }) => {
+      const {id, variantId, quantity, handle} = params;
+      await addItem(id, handle, variantId, quantity)
+    }
+  )
+  return mutation.mutate
+}
 
 
 export const useUpdateCartItem = () => {
