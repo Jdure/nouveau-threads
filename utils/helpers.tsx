@@ -61,6 +61,7 @@ export const useDeleteCartItem = () =>  {
     await deleteItem(id, variantId);
   }
   )
+  return mutation.mutate
 }
 
 export const addCartItems = (
