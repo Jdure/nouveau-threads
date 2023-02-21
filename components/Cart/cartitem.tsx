@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import { useReducer } from 'react';
 import {
   QueryObserverResult,
@@ -11,7 +10,7 @@ import {
   formatPrice,
   useUpdateCartItem,
 } from "../../utils/helpers";
-import { deleteItem, updateItemQty } from "./cart-api";
+import { deleteItem } from "./cart-api";
 
 interface CartItemProps {
   itemTitle: string;
@@ -26,17 +25,17 @@ interface CartItemProps {
   ) => Promise<QueryObserverResult>;
 }
 
-function reducer(state, action) {
+function reducer(state: { quantity: number; }, action: { type: string | number }) {
   switch(action.type) {
     case "increment_qty": {
       return {
         quantity: state.quantity + 1
-      }
+      };
     }
     case "decrement_qty": {
         return {
           quantity: state.quantity - 1
-        }
+        };
     }
   }
   throw Error("Unknown action: " + action.type)
@@ -54,14 +53,14 @@ export default function CartItem({
 }: CartItemProps) {
   const delProduct = delCartItem();
   const updateCartItem = useUpdateCartItem();
-  // TODO: Add useReducer hook to increment and decrement quantity
+  const [state, dispatch] = useReducer(reducer, {quantity: itemQty})
 
   const handleClick = () => {
     updateCartItem(
       {
         id: cartID,
         variantId: itemId,
-        quantity: itemQty + 1,
+        quantity: state.quantity,
       },
       {
         onSuccess: () => refetchItem(),
@@ -98,17 +97,7 @@ export default function CartItem({
               onClick={(e) => {
                 e.preventDefault();
                 handleClick();
-                // updateItemQty(cartID, itemId, itemQty + 1);
-                // updateProduct.mutate(
-                //   {
-                //     id: cartID,
-                //     variantId: itemId,
-                //     quantity: itemQty + 1,
-                //   },
-                //   {
-                //     onSuccess: () => refetchItem(),
-                //   }
-                // );
+                dispatch({type: "increment_qty"})
               }}
             >
               +
@@ -118,17 +107,8 @@ export default function CartItem({
               className="text-gray-500 font-bold py-0 px-4 rounded-r"
               onClick={(e) => {
                 e.preventDefault();
-                updateItemQty(cartID, itemId, itemQty - 1);
-                // updateProduct.mutate(
-                //   {
-                //     id: cartID,
-                //     variantId: itemId,
-                //     quantity: itemQty - 1,
-                //   },
-                //   {
-                //     onSuccess: () => refetchItem(),
-                //   }
-                // );
+                handleClick()
+                dispatch({type: "decrement_qty"})
               }}
             >
               -
