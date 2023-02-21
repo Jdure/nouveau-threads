@@ -49,8 +49,19 @@ export const getUserCart = (id: string | undefined) =>
     select: (data) => data.data.cart,
   });
 
-export const delCartItem = (id?: string | undefined, variantId?: string) =>
-  useMutation(async ({ id, variantId }) => await deleteItem(id, variantId));
+// export const delCartItem = (id?: string | undefined, variantId?: string) =>
+//   useMutation(async ({ id, variantId }) => await deleteItem(id, variantId));
+
+export const useDeleteCartItem = () =>  {
+  const mutation = useMutation(async (params: {
+    id: string | undefined;
+    variantId: string;
+  }) => {
+    const {id, variantId} = params;
+    await deleteItem(id, variantId);
+  }
+  )
+}
 
 export const addCartItems = (
   id: string | undefined,
@@ -59,15 +70,6 @@ export const addCartItems = (
   quantity: number
 ) => useMutation(async () => await addItem(id, handle, variantId, quantity));
 
-// export const updateCartItem = (
-//   id?: string | undefined,
-//   variantId?: string,
-//   quantity?: number
-// ) =>
-//   useMutation(
-//     async ({ id, variantId, quantity }) =>
-//       await updateItemQty(id, variantId, quantity)
-//   );
 
 export const useUpdateCartItem = () => {
   const mutation = useMutation(
