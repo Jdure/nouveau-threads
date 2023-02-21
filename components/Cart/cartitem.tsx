@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { useReducer } from 'react';
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -23,6 +24,22 @@ interface CartItemProps {
   refetchItem: <TPageData>(
     options?: RefetchOptions & RefetchQueryFilters<TPageData>
   ) => Promise<QueryObserverResult>;
+}
+
+function reducer(state, action) {
+  switch(action.type) {
+    case "increment_qty": {
+      return {
+        quantity: state.quantity + 1
+      }
+    }
+    case "decrement_qty": {
+        return {
+          quantity: state.quantity - 1
+        }
+    }
+  }
+  throw Error("Unknown action: " + action.type)
 }
 
 export default function CartItem({
