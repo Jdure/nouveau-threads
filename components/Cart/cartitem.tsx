@@ -25,7 +25,7 @@ interface CartItemProps {
   ) => Promise<QueryObserverResult>;
 }
 
-function reducer(state: { quantity: number; }, action: { type: string | number }) {
+function reducer(state: { quantity: number; }, action: { type: string }) {
   switch(action.type) {
     case "increment_qty": {
       return {
