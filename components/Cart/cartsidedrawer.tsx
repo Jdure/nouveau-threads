@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge } from "../../types/cart-get";
 import { getUserCart, formatPrice } from "../../utils/helpers";
@@ -20,6 +20,13 @@ export default function CartSideDrawer({
   const { data, isError, error, refetch } = getUserCart(cartIDNum);
   const cartItem = data?.lines;
   const subTotal = data?.estimatedCost.totalAmount.amount;
+  //TODO: Create state for cart data
+  // set init state
+  // update state with user input
+
+  if (!cartItem) {
+    return null;
+  }
 
   if (isError)
     return (
@@ -80,31 +87,53 @@ export default function CartSideDrawer({
                         </button>
                       </div>
                     </div>
-
-                    <div className="mt-8">
-                      <div className="flow-root">
-                        <ul
-                          role="list"
-                          className="-my-6 divide-y divide-gray-200"
-                        >
-                          {cartItem?.edges.map(({ node: { id, quantity, merchandise: { product: {priceRange, handle, title, featuredImage}} }}: Edge) => {
-                            return (
-                              <CartItem
-                                key={handle}
-                                itemTitle={title}
-                                itemHandle={handle}
-                                itemId={id}
-                                itemImg={featuredImage.url}
-                                itemPrice={priceRange.minVariantPrice.amount}
-                                itemQty={quantity}
-                                cartID={cartIDNum}
-                                refetchItem={refetch}
-                              />
-                            );
-                          })}
-                        </ul>
+                    {cartItem?.edges.length <= 0 ? (
+                      <div className="flex justify-center items-center h-full text-2xl text-neutral">
+                        <p>Cart is empty!</p>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="mt-8">
+                        <div className="flow-root">
+                          <ul
+                            role="list"
+                            className="-my-6 divide-y divide-gray-200"
+                          >
+                            {cartItem?.edges.map(
+                              ({
+                                node: {
+                                  id,
+                                  quantity,
+                                  merchandise: {
+                                    product: {
+                                      priceRange,
+                                      handle,
+                                      title,
+                                      featuredImage,
+                                    },
+                                  },
+                                },
+                              }: Edge) => {
+                                return (
+                                  <CartItem
+                                    key={handle}
+                                    itemTitle={title}
+                                    itemHandle={handle}
+                                    itemId={id}
+                                    itemImg={featuredImage.url}
+                                    itemPrice={
+                                      priceRange.minVariantPrice.amount
+                                    }
+                                    itemQty={quantity}
+                                    cartID={cartIDNum}
+                                    refetchItem={refetch}
+                                  />
+                                );
+                              }
+                            )}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">

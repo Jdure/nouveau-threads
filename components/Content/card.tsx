@@ -1,9 +1,10 @@
 import React from "react";
-import { formatPrice } from "../../utils/helpers";
+import { formatPrice, getUserCart } from "../../utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../context/AppContext";
 import { addItem } from "../Cart/cart-api";
+import { useQueryClient } from "react-query";
 
 export default function Card(props: {
   featuredImage: string;
@@ -14,8 +15,9 @@ export default function Card(props: {
   idx: React.Key;
 }) {
   const router = useRouter();
-  const {id} = useAppContext();
-
+  const cartContext = useAppContext();
+  const cartID = cartContext?.id;
+  const queryClient = useQueryClient();
 
   return (
     <div
@@ -40,7 +42,8 @@ export default function Card(props: {
           <button
             onClick={(e) => {
               e.preventDefault();
-              addItem(id, props.handle!, props.variant!, 1);
+              addItem(cartID, props.handle!, props.variant!, 1);
+              // queryClient.invalidateQueries(["cart-items", cartID]);
             }}
             className={`btn btn-primary rounded-md btn-sm hover:animate-pulse ${
               router.asPath != "/" ? "hidden" : ""

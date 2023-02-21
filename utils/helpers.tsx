@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useQueryClient, useMutation, useQuery } from "react-query";
 import axios from "axios";
 import {
   retrieveCart,
@@ -6,6 +6,7 @@ import {
   deleteItem,
   updateItemQty,
 } from "../components/Cart/cart-api";
+import { GetCart } from "../types/cart-get";
 
 export const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 export const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -30,14 +31,17 @@ export function formatPrice(num: number) {
 }
 
 export const getStoreProducts = async (queries: string, variable?: object) => {
-    try {
-      const response = await shopifyCartInstance.post(storefrontApi, {query: queries, variables: variable});
-      return response.data
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
-  }; 
+  try {
+    const response = await shopifyCartInstance.post(storefrontApi, {
+      query: queries,
+      variables: variable,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
@@ -55,12 +59,27 @@ export const addCartItems = (
   quantity: number
 ) => useMutation(async () => await addItem(id, handle, variantId, quantity));
 
-export const updateCartItem = (
-  id?: string | undefined,
-  variantId?: string,
-  quantity?: number
-) =>
-  useMutation(
-    async ({ id, variantId, quantity }) =>
-      await updateItemQty(id, variantId, quantity)
+// export const updateCartItem = (
+//   id?: string | undefined,
+//   variantId?: string,
+//   quantity?: number
+// ) =>
+//   useMutation(
+//     async ({ id, variantId, quantity }) =>
+//       await updateItemQty(id, variantId, quantity)
+//   );
+
+export const useUpdateCartItem = () => {
+  const mutation = useMutation(
+    async (params: {
+      id: string | undefined;
+      variantId: string;
+      quantity: number;
+    }) => {
+      const { id, variantId, quantity } = params;
+      await updateItemQty(id, variantId, quantity);
+    }
   );
+
+  return mutation.mutate;
+};

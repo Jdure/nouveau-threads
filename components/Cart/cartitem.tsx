@@ -5,7 +5,11 @@ import {
   RefetchOptions,
   RefetchQueryFilters,
 } from "react-query";
-import { delCartItem, formatPrice, updateCartItem } from "../../utils/helpers";
+import {
+  delCartItem,
+  formatPrice,
+  useUpdateCartItem,
+} from "../../utils/helpers";
 import { deleteItem, updateItemQty } from "./cart-api";
 
 interface CartItemProps {
@@ -32,7 +36,22 @@ export default function CartItem({
   refetchItem,
 }: CartItemProps) {
   const delProduct = delCartItem();
-  const updateProduct = updateCartItem();
+  const updateCartItem = useUpdateCartItem();
+  // TODO: Add useReducer hook to increment and decrement quantity
+
+  const handleClick = () => {
+    updateCartItem(
+      {
+        id: cartID,
+        variantId: itemId,
+        quantity: itemQty + 1,
+      },
+      {
+        onSuccess: () => refetchItem(),
+      }
+    );
+  };
+
   return (
     <li key={itemHandle} className="flex py-6">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -61,7 +80,8 @@ export default function CartItem({
               className="text-gray-500 font-bold py-0 px-4 rounded-l"
               onClick={(e) => {
                 e.preventDefault();
-                updateItemQty(cartID, itemId, itemQty + 1)
+                handleClick();
+                // updateItemQty(cartID, itemId, itemQty + 1);
                 // updateProduct.mutate(
                 //   {
                 //     id: cartID,
@@ -81,7 +101,7 @@ export default function CartItem({
               className="text-gray-500 font-bold py-0 px-4 rounded-r"
               onClick={(e) => {
                 e.preventDefault();
-                updateItemQty(cartID, itemId, itemQty - 1)
+                updateItemQty(cartID, itemId, itemQty - 1);
                 // updateProduct.mutate(
                 //   {
                 //     id: cartID,
@@ -101,7 +121,7 @@ export default function CartItem({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                deleteItem(cartID, itemId)
+                deleteItem(cartID, itemId);
                 // delProduct.mutate(
                 //   {
                 //     id: cartID,
