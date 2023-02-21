@@ -6,7 +6,6 @@ import { productsQuery } from "../utils/shopify-queries";
 import { Edge, Storefront } from "../types/storefront";
 import { Key } from "react";
 import Card from "../components/Content/card";
-import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
   const { data: data, isError } = useQuery<Storefront>(
