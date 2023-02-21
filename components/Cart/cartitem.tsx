@@ -6,9 +6,9 @@ import {
   RefetchQueryFilters,
 } from "react-query";
 import {
-  delCartItem,
   formatPrice,
   useUpdateCartItem,
+  useDeleteCartItem
 } from "../../utils/helpers";
 import { deleteItem } from "./cart-api";
 
@@ -25,7 +25,7 @@ interface CartItemProps {
   ) => Promise<QueryObserverResult>;
 }
 
-function reducer(state: { quantity: number; }, action: { type: string }) {
+const reducer = (state: { quantity: number; }, action: { type: string }) => {
   switch(action.type) {
     case "increment_qty": {
       return {
@@ -41,7 +41,7 @@ function reducer(state: { quantity: number; }, action: { type: string }) {
   throw Error("Unknown action: " + action.type)
 }
 
-export default function CartItem({
+export const CartItem = ({
   itemTitle,
   itemHandle,
   itemImg,
@@ -50,12 +50,12 @@ export default function CartItem({
   itemQty,
   cartID,
   refetchItem,
-}: CartItemProps) {
-  const delProduct = delCartItem();
+}: CartItemProps) => {
+  const deleteCartItem = useDeleteCartItem();
   const updateCartItem = useUpdateCartItem();
   const [state, dispatch] = useReducer(reducer, {quantity: itemQty})
 
-  const handleClick = () => {
+  const handleUpdate = () => {
     updateCartItem(
       {
         id: cartID,
@@ -66,6 +66,18 @@ export default function CartItem({
         onSuccess: () => refetchItem(),
       }
     );
+  };
+
+  const handleDelete = () => {
+      deleteCartItem(
+        {
+          id: cartID,
+          variantId: itemId
+        }, 
+        {
+          onSuccess: () => refetchItem(),
+        }
+      );
   };
 
   return (
@@ -93,21 +105,21 @@ export default function CartItem({
         <div className="flex flex-1 items-end justify-between text-sm">
           <div className="inline-flex">
             <button
-              className="text-gray-500 font-bold py-0 px-4 rounded-l"
+              className="btn btn-outline btn-neutral btn-sm"
               onClick={(e) => {
                 e.preventDefault();
-                handleClick();
+                handleUpdate();
                 dispatch({type: "increment_qty"})
               }}
             >
               +
             </button>
-            <p className="text-gray-500">Qty {itemQty}</p>
+            <p className="text-neutral">Qty {itemQty}</p>
             <button
-              className="text-gray-500 font-bold py-0 px-4 rounded-r"
+              className="btn btn-outline btn-neutral btn-sm"
               onClick={(e) => {
                 e.preventDefault();
-                handleClick()
+                handleUpdate()
                 dispatch({type: "decrement_qty"})
               }}
             >
@@ -118,19 +130,10 @@ export default function CartItem({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                deleteItem(cartID, itemId);
-                // delProduct.mutate(
-                //   {
-                //     id: cartID,
-                //     variantId: itemId,
-                //   },
-                //   {
-                //     onSuccess: () => refetchItem(),
-                //   }
-                // );
+                handleDelete()
               }}
               type="button"
-              className="font-medium text-primary hover:text-hover"
+              className=" btn btn-outline btn-primary btn-sm"
             >
               Remove
             </button>
