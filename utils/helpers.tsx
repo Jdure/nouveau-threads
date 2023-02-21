@@ -46,6 +46,7 @@ export const getStoreProducts = async (queries: string, variable?: object) => {
 export const getUserCart = (id: string | undefined) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     refetchIntervalInBackground: true,
+    refetchOnMount: "always",
     select: (data) => data.data.cart,
   });
 

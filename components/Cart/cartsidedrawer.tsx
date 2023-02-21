@@ -20,7 +20,9 @@ export default function CartSideDrawer({
   const { data, isError, error, refetch } = getUserCart(cartIDNum);
   const cartItem = data?.lines;
   const subTotal = data?.estimatedCost.totalAmount.amount;
-  
+  //TODO: Create state for cart data
+  // set init state
+  // update state with user input
 
   if (!cartItem) {
     return null;
