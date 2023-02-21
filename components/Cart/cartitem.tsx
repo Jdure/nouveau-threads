@@ -41,7 +41,7 @@ const reducer = (state: { quantity: number; }, action: { type: string }) => {
   throw Error("Unknown action: " + action.type)
 }
 
-export const CartItem = ({
+export default function CartItem({
   itemTitle,
   itemHandle,
   itemImg,
@@ -50,7 +50,7 @@ export const CartItem = ({
   itemQty,
   cartID,
   refetchItem,
-}: CartItemProps) => {
+}: CartItemProps) {
   const deleteCartItem = useDeleteCartItem();
   const updateCartItem = useUpdateCartItem();
   const [state, dispatch] = useReducer(reducer, {quantity: itemQty})
@@ -80,6 +80,7 @@ export const CartItem = ({
       );
   };
 
+  // TODO: Redesign cart items 
   return (
     <li key={itemHandle} className="flex py-6">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -102,10 +103,10 @@ export const CartItem = ({
           </div>
           <p className="mt-1 text-sm text-gray-500">Product Colour</p>
         </div>
-        <div className="flex flex-1 items-end justify-between text-sm">
+        <div className="flex flex-row items-end justify-between text-sm">
           <div className="inline-flex">
             <button
-              className="btn btn-outline btn-neutral btn-sm"
+              className="btn btn-outline btn-neutral btn-xs"
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate();
@@ -116,7 +117,7 @@ export const CartItem = ({
             </button>
             <p className="text-neutral">Qty {itemQty}</p>
             <button
-              className="btn btn-outline btn-neutral btn-sm"
+              className="btn btn-outline btn-neutral btn-xs"
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate()
@@ -133,7 +134,7 @@ export const CartItem = ({
                 handleDelete()
               }}
               type="button"
-              className=" btn btn-outline btn-primary btn-sm"
+              className=" btn btn-outline btn-primary btn-xs"
             >
               Remove
             </button>
