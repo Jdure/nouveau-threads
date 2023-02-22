@@ -91,10 +91,13 @@ export default function Home() {
             }
           )}
       </div>
-      <h1 id="about" className="text-neutral text-2xl pl-8 pt-14">
+      <h1
+        id="about"
+        className="text-neutral text-center sm:text-justify text-2xl sm:pl-8 sm:pt-14"
+      >
         About Us
       </h1>
-      <div className="flex flex-row justify-evenly items-center text-center">
+      <div className="flex flex-col sm:flex-row sm:justify-evenly items-center text-center space-y-8">
         <div className="basis-1/2 flex flex-col items-center justify-between space-y-6">
           <h2 className="text-3xl">Our Mission</h2>
           <p className="w-2/3 text-lg font-light leading-loose">
@@ -102,7 +105,7 @@ export default function Home() {
             quas ut quod corporis dicta minima, ipsum ratione maiores
           </p>
         </div>
-        <div className="basis-1/2 ">
+        <div className="w-72 sm:w-full sm:basis-1/2 ">
           <Image
             className="rounded-md object-cover object-center"
             src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
@@ -111,7 +114,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg mx-1 justify-evenly items-center mt-16 py-12">
+      <div className="flex flex-col-reverse sm:flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg sm:mx-1 justify-center sm:justify-evenly items-center mt-16 py-12">
         <div className="flex flex-col text-base-100 space-y-4 font-bold">
           <h2 id="contact" className="text-2xl">
             Contact Us
@@ -121,7 +124,7 @@ export default function Home() {
           <p className="text-xl ">Canada 🇨🇦</p>
           <p className="text-base ">1-800-555-1234</p>
         </div>
-        <div className="flex flex-col w-1/4 justify-evenly space-y-4 font-bold">
+        <div className="flex flex-col text-center sm:text-justify sm:w-1/4 justify-evenly space-y-4 font-bold  pb-12 sm:pb-0">
           <h2 className="text-base-100 text-2xl">Subscribe</h2>
           <p className="text-base-100 text-xl ">Catch the latest releases</p>
           <div className="relative">
