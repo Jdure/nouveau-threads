@@ -8,25 +8,24 @@ onCartToggle: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => void;
 export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
   const cartContext = useAppContext();
   const cartID = cartContext?.id;
-
-  const { data, isError } = getUserCart(cartID);
+  const initialCartData = { data: { lines: { edges: Array(0) } } };
+  const { data, isError, isLoading } = getUserCart(cartID, initialCartData);
 
   if (isError) {
     console.log("Couldn't load cart");
     return (
-      <div className="text-2xl text-center text-error">
-        Oops, we couldn't load the cart
-      </div>
+      <div className="text-xs text-center text-error">Cart Unavailable</div>
     );
   }
 
-  if (!data) {
-    return null;
+  if (isLoading || !data) {
+    console.log("Loading cart");
+    return <div className="text-xs text-center text-info">Loading Cart</div>;
   }
 
   return (
     <div className="indicator">
-      {data.lines.edges.length > 0 ? (
+      {data.lines?.edges.length > 0 ? (
         <span className="indicator-item badge badge-xs badge-secondary"></span>
       ) : null}
       <button

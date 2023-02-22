@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import {
   retrieveCart,
@@ -6,7 +6,7 @@ import {
   deleteItem,
   updateItemQty,
 } from "../components/Cart/cart-api";
-
+import { GetCart, Node } from "../types/cart-get";
 
 export const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 export const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -43,43 +43,48 @@ export const getStoreProducts = async (queries: string, variable?: object) => {
   }
 };
 
-export const getUserCart = (id: string | undefined) =>
+export const getUserCart = (id: string | undefined, initialCartData: any) =>
   useQuery(["cart-items", id], () => retrieveCart(id), {
     refetchIntervalInBackground: true,
     refetchOnMount: "always",
-    select: (data) => data.data.cart,
+    select: (data: GetCart) => data?.data?.cart || [],
+    initialData: initialCartData,
   });
 
-
-export const useDeleteCartItem = () =>  {
-  const mutation = useMutation(async (params: {
-    id: string | undefined;
-    variantId: string;
-  }) => {
-    const {id, variantId} = params;
-    await deleteItem(id, variantId);
-  }
-  )
-  return mutation.mutate
-}
+export const useDeleteCartItem = () => {
+  const mutation = useMutation(
+    async (params: { id: string | undefined; variantId: string }) => {
+      const { id, variantId } = params;
+      await deleteItem(id, variantId);
+    }
+  );
+  return mutation.mutate;
+};
 
 export const useAddCartItem = () => {
+  const qc = useQueryClient();
   const mutation = useMutation(
     async (params: {
-      id: string | undefined,
-      handle: string,
-      variantId: string,
-      quantity: number
+      id: string | undefined;
+      handle: string;
+      variantId: string;
+      quantity: number;
     }) => {
-      const {id, variantId, quantity, handle} = params;
-      await addItem(id, handle, variantId, quantity)
+      const { id, variantId, quantity, handle } = params;
+      await addItem(id, handle, variantId, quantity);
+    },
+    {
+      onSuccess: (_data, variables, _context) => {
+        const { id } = variables;
+        qc.invalidateQueries(["cart-items", id]);
+      },
     }
-  )
-  return mutation.mutate
-}
-
+  );
+  return mutation.mutate;
+};
 
 export const useUpdateCartItem = () => {
+  const qc = useQueryClient();
   const mutation = useMutation(
     async (params: {
       id: string | undefined;
@@ -88,6 +93,12 @@ export const useUpdateCartItem = () => {
     }) => {
       const { id, variantId, quantity } = params;
       await updateItemQty(id, variantId, quantity);
+    },
+    {
+      onSuccess: (_data, variables) => {
+        const { id } = variables;
+        qc.invalidateQueries(["cart-items", id]);
+      },
     }
   );
 

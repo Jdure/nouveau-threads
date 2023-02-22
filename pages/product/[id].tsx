@@ -4,9 +4,9 @@ import Head from 'next/head'
 import { Data} from '../../types/storefront'
 import {ProductData } from '../../types/detail'
 import {
-  addCartItems,
   formatPrice,
   getStoreProducts,
+  useAddCartItem,
 } from "../../utils/helpers";
 import { productsQuery, productDetailQuery } from "../../utils/shopify-queries";
 import { useState } from "react";
@@ -18,21 +18,26 @@ interface IParams extends ParsedUrlQuery {
 }
 
 // TODO: Fix layout of item detail
+//FIXME: when you add more than one quantity of an item they duplicate in the cart
 
 export default function ProductDetail({ product }: ProductData) {
   const cartData = useAppContext();
   const cartID = cartData?.id;
-  const { priceRange, featuredImage, variants } = product;
+  const { priceRange, featuredImage, variants, handle } = product;
   const image = featuredImage.url;
   const price = priceRange.minVariantPrice;
   const [quantity, setQuantity] = useState(1);
   const variantID = variants.edges[0].node.id;
-  const addItemMutation = addCartItems(
-    cartID,
-    product.handle,
-    variantID,
-    quantity
-  );
+  const addItemToCart = useAddCartItem();
+
+  const handleAdd = () => {
+    addItemToCart({
+      id: cartID,
+      variantId: variantID,
+      handle: handle,
+      quantity: quantity,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -64,7 +69,7 @@ export default function ProductDetail({ product }: ProductData) {
                   <div className="w-auto">
                     <span className="m-auto pr-2 text-xl">Quantity</span>
                   </div>
-                  <div className="w-auto flex flex-row">
+                  <div className="w-auto flex flex-row-reverse">
                     <button
                       onClick={() =>
                         quantity > 1 ? setQuantity(quantity - 1) : quantity
@@ -91,7 +96,7 @@ export default function ProductDetail({ product }: ProductData) {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      addItemMutation.mutate();
+                      handleAdd();
                     }}
                     className="flex ml-auto text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-hover rounded"
                   >
@@ -110,7 +115,7 @@ export default function ProductDetail({ product }: ProductData) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await getStoreProducts(productsQuery);
 
-  const {products} : Data = await response.data;
+  const { products }: Data = await response.data;
   const paths = products.edges.map((value) => {
     return {
       params: { id: value.node.handle },
@@ -125,7 +130,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
-  const response = await getStoreProducts(productDetailQuery,{handle: params.id});
+  const response = await getStoreProducts(productDetailQuery, {
+    handle: params.id,
+  });
   const { product } = await response.data;
 
   return {
@@ -134,3 +141,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   };
 };
+
+

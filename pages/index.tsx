@@ -75,18 +75,15 @@ export default function Home() {
         {products?.edges
           .slice(0, 3)
           .map(
-            (
-              {
-                node: { title, featuredImage, priceRange, handle, variants },
-              }: Edge,
-              idx: Key
-            ) => {
+            ({
+              node: { title, featuredImage, priceRange, handle, variants },
+            }: Edge) => {
               return (
                 <Card
                   featuredImage={featuredImage.url}
                   title={title}
                   price={priceRange.minVariantPrice.amount}
-                  idx={idx}
+                  idx={handle}
                   handle={handle}
                   variant={variants.edges[0].node.id}
                 />

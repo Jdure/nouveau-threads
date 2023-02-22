@@ -17,13 +17,24 @@ export default function CartSideDrawer({
   cartOpenFunc,
   cartOpenBool,
 }: CartProps) {
-  const { data, isError, error, refetch } = getUserCart(cartIDNum);
+  const initialCartData = { data: { lines: { edges: Array(0) } } };
+  const { data, isError, error, isLoading } = getUserCart(
+    cartIDNum,
+    initialCartData
+  );
   const cartItem = data?.lines;
-  const subTotal = data?.estimatedCost.totalAmount.amount;
+  const subTotal = data?.estimatedCost?.totalAmount.amount;
 
-  if (!cartItem) {
-    return null;
-  }
+  if (isLoading || !cartItem)
+    return (
+      <div className="relative h-full w-full ">
+        <div className="absolute top-0 right-0">
+          <div className="container bg-white rounded h-auto w-96 shadow-xl">
+            Loading Cart...
+          </div>
+        </div>
+      </div>
+    );
 
   if (isError)
     return (
@@ -122,7 +133,6 @@ export default function CartSideDrawer({
                                     }
                                     itemQty={quantity}
                                     cartID={cartIDNum}
-                                    refetchItem={refetch}
                                   />
                                 );
                               }

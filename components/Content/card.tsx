@@ -1,9 +1,8 @@
 import React from "react";
-import { formatPrice, getUserCart, useAddCartItem } from "../../utils/helpers";
+import { formatPrice, useAddCartItem } from "../../utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../context/AppContext";
-import { useQueryClient } from "react-query";
 
 export default function Card(props: {
   featuredImage: string;
@@ -16,22 +15,16 @@ export default function Card(props: {
   const router = useRouter();
   const cartContext = useAppContext();
   const cartID = cartContext?.id;
-  const queryClient = useQueryClient();
-  const addItemToCart = useAddCartItem()
+  const addItemToCart = useAddCartItem();
 
   const handleAdd = () => {
-    addItemToCart(
-      {
-        id: cartID,
-        variantId: props.variant, 
-        handle: props.handle,
-        quantity: 1
-      }, 
-      {
-        onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
-      }
-    );
-};
+    addItemToCart({
+      id: cartID,
+      variantId: props.variant,
+      handle: props.handle,
+      quantity: 1,
+    });
+  };
 
   return (
     <div
@@ -56,7 +49,7 @@ export default function Card(props: {
           <button
             onClick={(e) => {
               e.preventDefault();
-              handleAdd()
+              handleAdd();
             }}
             className={`btn btn-primary rounded-md btn-sm hover:animate-pulse ${
               router.asPath != "/" ? "hidden" : ""
