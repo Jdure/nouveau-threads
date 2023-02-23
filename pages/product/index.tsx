@@ -19,20 +19,27 @@ export default function StoreProducts() {
         Products
       </h1>
       <div className="flex flex-row flex-wrap justify-evenly items-center mx-6 py-6">
-        {products?.edges.map(({node: {handle, featuredImage, priceRange, title}}: Edge, idx: Key) => {
-          return (
-            <Link key={handle} href={`/product/${handle}`}>
-              <a>
-                <Card
-                  featuredImage={featuredImage.url}
-                  title={title}
-                  price={priceRange.minVariantPrice.amount}
-                  idx={idx}
-                />
-              </a>
-            </Link>
-          );
-        })}
+        {products?.edges.map(
+          (
+            { node: { handle, featuredImage, priceRange, title, id } }: Edge,
+            idx: Key
+          ) => {
+            return (
+              <Link href={`/product/${handle}`}>
+                <a>
+                  <Card
+                    featuredImage={featuredImage.url}
+                    title={title}
+                    price={priceRange.minVariantPrice.amount}
+                    key={handle}
+                    handle={handle}
+                    variant={id}
+                  />
+                </a>
+              </Link>
+            );
+          }
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
 import { useQuery } from "react-query";
 import { getStoreProducts } from "../utils/helpers";
 import Link from "next/link";
-import Image from "next/image";
 import { productsQuery } from "../utils/shopify-queries";
 import { Edge, Storefront } from "../types/storefront";
-import { Key } from "react";
 import Card from "../components/Content/card";
+import { Contact } from "../components/Content/contact";
+import { About } from "../components/Content/about";
+import { Hero } from "../components/Content/hero";
 
 export default function Home() {
   const { data: data, isError } = useQuery<Storefront>(
@@ -41,28 +42,7 @@ export default function Home() {
 
   return (
     <main>
-      <div
-        className="hero h-96"
-        style={{
-          backgroundImage: `url("https://source.unsplash.com/7YwWjgS7aJs/1280x720")`,
-        }}
-      >
-        <div className="hero-overlay bg-opacity-30"></div>
-        <div className="hero-content flex flex-col text-center">
-          <h1 className=" mb-2 text-4xl font-bold text-base-100">
-            Nouveau Threads
-          </h1>
-          <p className="text-xl text-base-100">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit!
-          </p>
-        </div>
-      </div>
-      <div id="about" className="flex flex-col pt-16 pb-6 items-center">
-        <p className="text-2xl font-light text-center text-neutral w-4/5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente sit
-          quaerat.
-        </p>
-      </div>
+      <Hero />
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
         <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
@@ -91,54 +71,8 @@ export default function Home() {
             }
           )}
       </div>
-      <h1
-        id="about"
-        className="text-neutral text-center sm:text-justify text-2xl sm:pl-8 sm:pt-14"
-      >
-        About Us
-      </h1>
-      <div className="flex flex-col sm:flex-row sm:justify-evenly items-center text-center space-y-8">
-        <div className="basis-1/2 flex flex-col items-center justify-between space-y-6">
-          <h2 className="text-3xl">Our Mission</h2>
-          <p className="w-2/3 text-lg font-light leading-loose">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni saepe
-            quas ut quod corporis dicta minima, ipsum ratione maiores
-          </p>
-        </div>
-        <div className="w-72 sm:w-full sm:basis-1/2 ">
-          <Image
-            className="rounded-md object-cover object-center"
-            src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
-            width={400}
-            height={400}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col-reverse sm:flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg sm:mx-1 justify-center sm:justify-evenly items-center mt-16 py-12">
-        <div className="flex flex-col text-base-100 space-y-4 font-bold">
-          <h2 id="contact" className="text-2xl">
-            Contact Us
-          </h2>
-          <p className="text-xl ">23 Thread Avenue</p>
-          <p className="text-xl ">Ottawa, Ontario</p>
-          <p className="text-xl ">Canada 🇨🇦</p>
-          <p className="text-base ">1-800-555-1234</p>
-        </div>
-        <div className="flex flex-col text-center sm:text-justify sm:w-1/4 justify-evenly space-y-4 font-bold  pb-12 sm:pb-0">
-          <h2 className="text-base-100 text-2xl">Subscribe</h2>
-          <p className="text-base-100 text-xl ">Catch the latest releases</p>
-          <div className="relative">
-            <input
-              type="email"
-              placeholder="name@example.com"
-              className="input input-bordered w-full pr-16 rounded-md"
-            />
-            <button className="btn btn-primary absolute top-0 right-0 rounded-r-md rounded-l-md">
-              Send
-            </button>
-          </div>
-        </div>
-      </div>
+      <About />
+      <Contact />
     </main>
   );
 }

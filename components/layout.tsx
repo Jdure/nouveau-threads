@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Transition } from "@headlessui/react";
 import CartSideDrawer from "./Cart/cartsidedrawer";
-import { ReactQueryDevtools } from "react-query/devtools";
 import Navbar from "./Navbar/navbar";
-import { getUserCart } from "../utils/helpers";
 import { useAppContext } from "../context/AppContext";
 import Footer from "./Footer/footer";
 import Head from "next/head";
@@ -42,7 +40,6 @@ export default function Layout({ children }: LayoutProps) {
       </Head>
       <main>{children}</main>
       <Footer />
-      <ReactQueryDevtools initialIsOpen={false} />
     </>
   );
 }

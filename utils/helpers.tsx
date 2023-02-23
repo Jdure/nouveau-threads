@@ -52,10 +52,17 @@ export const getUserCart = (id: string | undefined, initialCartData: any) =>
   });
 
 export const useDeleteCartItem = () => {
+  const qc = useQueryClient();
   const mutation = useMutation(
     async (params: { id: string | undefined; variantId: string }) => {
       const { id, variantId } = params;
       await deleteItem(id, variantId);
+    },
+    {
+      onSuccess: (_data, variables, _context) => {
+        const { id } = variables;
+        qc.invalidateQueries(["cart-items", id]);
+      },
     }
   );
   return mutation.mutate;
@@ -71,6 +78,16 @@ export const useAddCartItem = () => {
       quantity: number;
     }) => {
       const { id, variantId, quantity, handle } = params;
+      const data = qc.getQueryData<GetCart>(["cart-items", id]);
+      const duplicates = data?.data.cart.lines.edges.find(
+        (item) => item.node.merchandise.product.handle === handle
+      );
+
+      // Don't allow users to add same item in the cart
+      // They can edit inside the cart
+      if (duplicates) {
+        return null;
+      }
 
       await addItem(id, handle, variantId, quantity);
     },

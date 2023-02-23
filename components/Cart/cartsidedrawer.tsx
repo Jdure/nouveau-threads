@@ -97,7 +97,7 @@ export default function CartSideDrawer({
                     </div>
                     {cartItem?.edges.length <= 0 ? (
                       <div className="flex justify-center items-center h-full text-2xl text-neutral">
-                        <p>Cart is empty!</p>
+                        <p>Your cart is empty</p>
                       </div>
                     ) : (
                       <div className="mt-8">

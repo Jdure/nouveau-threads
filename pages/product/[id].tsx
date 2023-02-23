@@ -17,9 +17,6 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-// TODO: Fix layout of item detail
-//FIXME: when you add more than one quantity of an item they duplicate in the cart
-
 export default function ProductDetail({ product }: ProductData) {
   const cartData = useAppContext();
   const cartID = cartData?.id;
@@ -46,68 +43,70 @@ export default function ProductDetail({ product }: ProductData) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <section className="text-neutral overflow-hidden">
-          <div className="container px-1 py-52 mx-auto bg-slate-50 rounded-xl">
-            <div className="lg:w-4/5 mx-auto flex flex-nowrap">
+      <section className="text-neutral body-font overflow-hidden">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-col justify-center items-center sm:flex-row ">
+            <div className="w-72 sm:w-full sm:basis-1/2">
               <Image
                 alt={product.title}
-                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded shadow-2xl"
+                className="object-cover object-center rounded transition ease-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
                 src={image}
-                width={500}
-                height={500}
+                height={1080}
+                width={1080}
               />
-              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 className="text-md title-font text-gray-500 tracking-widest">
-                  COLLECTION
-                </h2>
-                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                  {product.title}
-                </h1>
-                <p className="leading-relaxed text-xl">{product.description}</p>
-                <div className="flex justify-center mt-6 items-center pb-5 border-b-2 border-gray-300 mb-5">
-                  <div className="w-auto">
-                    <span className="m-auto pr-2 text-xl">Quantity</span>
-                  </div>
-                  <div className="w-auto flex flex-row-reverse">
-                    <button
-                      onClick={() =>
-                        quantity > 1 ? setQuantity(quantity - 1) : quantity
-                      }
-                      className="bg-primary text-white hover:bg-hover mx-1 my-1 px-4 rounded-lg"
-                    >
-                      <span className="m-auto text-xl">-</span>
-                    </button>
-                    <p className="text-center text-xl py-2 px-4">{quantity}</p>
-                    <button
-                      onClick={() =>
-                        quantity < 20 ? setQuantity(quantity + 1) : quantity
-                      }
-                      className="bg-primary text-white hover:bg-hover mx-1 my-1 px-4 rounded-lg"
-                    >
-                      <span className="m-auto text-xl">+</span>
-                    </button>
-                  </div>
+            </div>
+
+            <div className="text-center sm:text-justify lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                Nouveau Threads
+              </h2>
+              <h1 className="text-neutral text-3xl title-font font-medium mb-1">
+                {product.title}
+              </h1>
+              <p className="leading-loose text-lg">{product.description}</p>
+              <div className="flex justify-center mt-6 items-center pb-5 border-b-2 mb-5">
+                <div className="w-auto">
+                  <span className="m-auto pr-2 text-xl">Quantity</span>
                 </div>
-                <div className="flex">
-                  <span className="title-font font-medium text-2xl text-black">
-                    {formatPrice(parseInt(price.amount))}
-                  </span>
+                <div className="w-auto flex flex-row-reverse">
                   <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleAdd();
-                    }}
-                    className="flex ml-auto text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-hover rounded"
+                    onClick={() =>
+                      quantity > 1 ? setQuantity(quantity - 1) : quantity
+                    }
+                    className="btn-primary btn-outline text-base-100 mx-1 my-1 px-4 rounded-lg"
                   >
-                    Add To Cart
+                    <span className="m-auto text-xl">-</span>
+                  </button>
+                  <p className="text-center text-xl py-2 px-4">{quantity}</p>
+                  <button
+                    onClick={() =>
+                      quantity < 20 ? setQuantity(quantity + 1) : quantity
+                    }
+                    className="btn-primary btn-outline text-base-100 mx-1 my-1 px-4 rounded-lg"
+                  >
+                    <span className="m-auto text-xl">+</span>
                   </button>
                 </div>
               </div>
+              <div className="flex">
+                <span className="title-font font-medium text-2xl text-neutral">
+                  {formatPrice(parseInt(price.amount))}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAdd();
+                    setQuantity(1);
+                  }}
+                  className="flex ml-auto btn btn-primary rounded-md border-0 py-2 px-6"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 }

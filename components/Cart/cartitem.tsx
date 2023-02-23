@@ -42,15 +42,10 @@ export default function CartItem({
   };
 
   const handleDelete = () => {
-    deleteCartItem(
-      {
-        id: cartID,
-        variantId: itemId,
-      },
-      {
-        onSuccess: () => queryClient.invalidateQueries(["cart-items", cartID]),
-      }
-    );
+    deleteCartItem({
+      id: cartID,
+      variantId: itemId,
+    });
   };
   return (
     <li className="flex py-6">
@@ -76,7 +71,7 @@ export default function CartItem({
         <div className="flex flex-row items-center justify-between text-sm">
           <div className="inline-flex space-x-3">
             <button
-              className="btn rounded-md btn-outline btn-xs "
+              className="btn rounded-md btn-ghost btn-xs "
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate(updatedQuantity + 1);
@@ -84,9 +79,9 @@ export default function CartItem({
             >
               +
             </button>
-            <p className="text-neutral text-base">{itemQty}</p>
+            <p className="text-neutral text-base">{itemQty} Qty</p>
             <button
-              className="btn rounded-md btn-outline btn-xs "
+              className="btn rounded-md btn-ghost btn-xs "
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate(updatedQuantity - 1);
