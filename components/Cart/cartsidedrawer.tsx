@@ -51,7 +51,7 @@ export default function CartSideDrawer({
     <Transition.Root show={cartOpenBool} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 overflow-hidden"
+        className="fixed inset-0 overflow-hidden z-10"
         onClose={cartOpenFunc}
       >
         <div className="absolute inset-0 overflow-hidden">
@@ -123,7 +123,7 @@ export default function CartSideDrawer({
                               }: Edge) => {
                                 return (
                                   <CartItem
-                                    key={handle}
+                                    key={id}
                                     itemTitle={title}
                                     itemHandle={handle}
                                     itemId={id}

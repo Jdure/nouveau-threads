@@ -31,9 +31,10 @@ export interface Edge {
 }
 
 export interface Node {
-    id:          string;
-    quantity:    number;
-    merchandise: Merchandise;
+  length: number;
+  id: string;
+  quantity: number;
+  merchandise: Merchandise;
 }
 
 export interface Merchandise {

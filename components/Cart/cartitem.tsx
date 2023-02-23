@@ -1,12 +1,7 @@
 import Link from "next/link";
 import Image from "next/image"
 import { useReducer, useState } from "react";
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  RefetchQueryFilters,
-  useQueryClient,
-} from "react-query";
+import { useQueryClient } from "react-query";
 import {
   formatPrice,
   useUpdateCartItem,
@@ -58,7 +53,7 @@ export default function CartItem({
     );
   };
   return (
-    <li key={itemHandle} className="flex py-6">
+    <li className="flex py-6">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <Image
           src={itemImg}
@@ -71,7 +66,7 @@ export default function CartItem({
 
       <div className="mx-2 flex flex-1 flex-col justify-around">
         <div className="flex justify-between text-base text-neutral">
-          <Link key={itemHandle} href={`/product/${itemHandle}`}>
+          <Link href={`/product/${itemHandle}`}>
             <h3>
               <a href="#">{itemTitle}</a>
             </h3>

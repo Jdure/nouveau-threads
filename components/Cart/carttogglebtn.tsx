@@ -26,7 +26,9 @@ export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
   return (
     <div className="indicator">
       {data.lines?.edges.length > 0 ? (
-        <span className="indicator-item badge badge-xs badge-secondary"></span>
+        <span className="indicator-item badge badge-xs badge-secondary">
+          {data.lines?.edges.length}
+        </span>
       ) : null}
       <button
         onClick={onCartToggle}

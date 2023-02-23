@@ -10,7 +10,6 @@ export default function Card(props: {
   price: string;
   handle: string;
   variant: string;
-  idx: React.Key;
 }) {
   const router = useRouter();
   const cartContext = useAppContext();
@@ -27,10 +26,7 @@ export default function Card(props: {
   };
 
   return (
-    <div
-      key={props.idx}
-      className="card card-compact rounded-md w-60 bg-base-100 my-2 "
-    >
+    <div className="card card-compact rounded-md w-60 bg-base-100 my-2 ">
       <figure>
         <Image
           className="rounded-md object-cover object-center transition ease-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"

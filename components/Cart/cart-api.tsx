@@ -36,7 +36,6 @@ export const retrieveCart = async (
       query: retrieveCartQuery,
       variables: { cartId: cartID },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

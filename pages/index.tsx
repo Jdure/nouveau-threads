@@ -83,9 +83,9 @@ export default function Home() {
                   featuredImage={featuredImage.url}
                   title={title}
                   price={priceRange.minVariantPrice.amount}
-                  idx={handle}
                   handle={handle}
                   variant={variants.edges[0].node.id}
+                  key={handle}
                 />
               );
             }

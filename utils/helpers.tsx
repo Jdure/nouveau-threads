@@ -6,7 +6,7 @@ import {
   deleteItem,
   updateItemQty,
 } from "../components/Cart/cart-api";
-import { GetCart, Node } from "../types/cart-get";
+import { GetCart } from "../types/cart-get";
 
 export const storefrontDomain = process.env.SHOPIFY_STORE_DOMAIN || "";
 export const storefrontApi = process.env.SHOPIFY_STORE_API_URL || "";
@@ -71,6 +71,7 @@ export const useAddCartItem = () => {
       quantity: number;
     }) => {
       const { id, variantId, quantity, handle } = params;
+
       await addItem(id, handle, variantId, quantity);
     },
     {
