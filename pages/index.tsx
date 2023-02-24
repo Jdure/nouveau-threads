@@ -4,9 +4,26 @@ import Link from "next/link";
 import { productsQuery } from "../utils/shopify-queries";
 import { Edge, Storefront } from "../types/storefront";
 import Card from "../components/Content/card";
-import { Contact } from "../components/Content/contact";
-import { About } from "../components/Content/about";
-import { Hero } from "../components/Content/hero";
+import dynamic from "next/dynamic";
+
+const Hero = dynamic(
+  () => import("../components/Content/hero").then((mod) => mod.Hero),
+  {
+    ssr: false,
+  }
+);
+const About = dynamic(
+  () => import("../components/Content/about").then((mod) => mod.About),
+  {
+    ssr: false,
+  }
+);
+const Contact = dynamic(
+  () => import("../components/Content/contact").then((mod) => mod.Contact),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   const { data: data, isError } = useQuery<Storefront>(
@@ -46,7 +63,7 @@ export default function Home() {
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
         <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
-          <a className="btn btn-accent btn-xs rounded-md hover:animate-pulse">
+          <a className="btn btn-accent text-base btn-xs rounded-md hover:animate-pulse">
             View Products
           </a>
         </Link>
