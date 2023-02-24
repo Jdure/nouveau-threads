@@ -31,6 +31,7 @@ export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
         </span>
       ) : null}
       <button
+        name="cart button"
         onClick={onCartToggle}
         className="btn btn-ghost rounded-sm hover:bg-base-200"
       >
