@@ -32,6 +32,9 @@ export default function Card(props: {
           className="rounded-md object-cover object-center transition ease-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
           src={props.featuredImage}
           alt={props.title}
+          sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
           width={1080}
           height={1080}
         />
