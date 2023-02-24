@@ -2,7 +2,7 @@ import React from "react";
 
 export const Contact = () => {
   return (
-    <div className="flex flex-col-reverse sm:flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 rounded-lg sm:mx-1 justify-center sm:justify-evenly items-center mt-16 py-12">
+    <div className="flex flex-col-reverse sm:flex-row bg-gradient-to-r from-gray-900 via-purple-900 to-violet-600 sm:rounded-lg sm:mx-1 justify-center sm:justify-evenly items-center mt-16 py-12">
       <div className="flex flex-col text-base-100 space-y-4 font-bold">
         <h2 id="contact" className="text-2xl">
           Contact Us
