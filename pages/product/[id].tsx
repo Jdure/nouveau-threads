@@ -49,7 +49,10 @@ export default function ProductDetail({ product }: ProductData) {
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <Head>
           <title>{product.title}</title>
-          <link rel="icon" href="/favicon.ico" />
+          <meta
+            name="description"
+            content="Demo Shopify site - Nouveau Threads eco-friendly clothing store"
+          />
         </Head>
 
         <section className="text-neutral body-font overflow-hidden">

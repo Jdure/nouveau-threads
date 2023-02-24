@@ -36,7 +36,10 @@ export default function Layout({ children }: LayoutProps) {
       </Transition>
       <Head>
         <title>Nouveau Threads</title>
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Demo Shopify site - Nouveau Threads eco-friendly clothing store"
+        />
       </Head>
       <main>{children}</main>
       <Footer />
