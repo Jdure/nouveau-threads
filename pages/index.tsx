@@ -46,7 +46,7 @@ export default function Home() {
       <div className="flex flex-row justify-around sm:justify-between sm:mx-8">
         <h2 className="text-neutral text-2xl">Top Sellers</h2>
         <Link href={"/product"}>
-          <a className="btn btn-outline btn-accent btn-xs rounded-md hover:animate-pulse">
+          <a className="btn btn-accent btn-xs rounded-md hover:animate-pulse">
             View Products
           </a>
         </Link>

@@ -4,6 +4,10 @@ module.exports = {
   images: {
     domains: ["cdn.shopify.com", "source.unsplash.com"],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   env: {
     BASE_URL: process.env.BASE_URL,
     SHOPIFY_STOREFRONT_ACCESS_TOKEN:

@@ -12,16 +12,20 @@ export const Contact = () => {
         <p className="text-xl ">Canada 🇨🇦</p>
         <p className="text-base ">1-800-555-1234</p>
       </div>
-      <div className="flex flex-col text-center sm:text-justify sm:w-1/4 justify-evenly space-y-4 font-bold  pb-12 sm:pb-0">
+      <div className="flex flex-col text-center sm:text-justify sm:w-1/3 justify-evenly space-y-4 font-bold  pb-12 sm:pb-0">
         <h2 className="text-base-100 text-2xl">Subscribe</h2>
         <p className="text-base-100 text-xl ">Catch the latest releases</p>
         <div className="relative">
+          <label htmlFor="email" className="hidden">
+            Enter e-mail address
+          </label>
           <input
+            name="email"
             type="email"
             placeholder="name@example.com"
             className="input input-bordered w-full pr-16 rounded-md"
           />
-          <button className="btn btn-primary absolute top-0 right-0 rounded-r-md rounded-l-md">
+          <button className="btn btn-primary text-base absolute top-0 right-0 rounded-r-md rounded-l-md">
             Send
           </button>
         </div>
