@@ -31,11 +31,12 @@ export default function CartToggleBtn ({onCartToggle} : CartToggleProps){
         </span>
       ) : null}
       <button
-        value="cart toggle button"
-        name="cart toggle button"
+        value="cart button"
+        name="cart button"
         onClick={onCartToggle}
         className="btn btn-ghost rounded-sm hover:bg-base-200"
       >
+        <span className="hidden">Cart button</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"

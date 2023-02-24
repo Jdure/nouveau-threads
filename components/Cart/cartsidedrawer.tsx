@@ -153,7 +153,7 @@ export default function CartSideDrawer({
                       Shipping and taxes calculated at checkout
                     </p>
                     <div className="mt-6">
-                      <button className="flex items-center font-bold justify-center rounded-md btn-primary px-6 py-3 font-medium text-base-100">
+                      <button className="flex items-center font-bold justify-center rounded-md btn btn-success px-6 py-3 text-base-100">
                         <Link href={cartCheckout || ""}>Checkout</Link>
                       </button>
                     </div>
@@ -163,7 +163,7 @@ export default function CartSideDrawer({
                         <button
                           name="continue shopping"
                           type="button"
-                          className="btn-primary btn-link text-sm rounded-none"
+                          className="text-neutral btn-link text-sm rounded-none"
                           onClick={cartOpenFunc}
                         >
                           Continue Shopping
