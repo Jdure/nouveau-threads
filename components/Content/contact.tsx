@@ -25,7 +25,7 @@ export const Contact = () => {
             placeholder="name@example.com"
             className="input input-bordered w-full pr-16 rounded-md"
           />
-          <button className="btn btn-primary text-base absolute top-0 right-0 rounded-r-md rounded-l-md">
+          <button className="btn btn-success text-base absolute top-0 right-0 rounded-r-md rounded-l-md">
             Send
           </button>
         </div>
