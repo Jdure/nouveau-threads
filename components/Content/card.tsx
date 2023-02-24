@@ -43,6 +43,7 @@ export default function Card(props: {
             {formatPrice(parseInt(props.price))}
           </p>
           <button
+            name="add to cart"
             onClick={(e) => {
               e.preventDefault();
               handleAdd();
@@ -51,7 +52,7 @@ export default function Card(props: {
               router.asPath != "/" ? "hidden" : ""
             }`}
           >
-            Add to Cart
+            Add to cart
           </button>
         </div>
       </div>

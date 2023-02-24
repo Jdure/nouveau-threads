@@ -15,14 +15,13 @@ export const Hero = () => {
             Nouveau Threads
           </h1>
           <p className="text-xl text-base-100">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit!
+            Eco-friendly clothing company  
           </p>
         </div>
       </div>
       <div id="about" className="flex flex-col pt-16 pb-6 items-center">
         <p className="text-2xl font-light text-center text-neutral w-4/5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente sit
-          quaerat.
+          Our clothes are made from 100% sustainable fabrics 
         </p>
       </div>
     </>

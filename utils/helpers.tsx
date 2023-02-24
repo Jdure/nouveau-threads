@@ -83,8 +83,6 @@ export const useAddCartItem = () => {
         (item) => item.node.merchandise.product.handle === handle
       );
 
-      // Don't allow users to add same item in the cart
-      // They can edit inside the cart
       if (duplicates) {
         return null;
       }

@@ -52,7 +52,7 @@ export default function CartItem({
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
         <Image
           src={itemImg}
-          alt={itemHandle}
+          alt={itemTitle}
           height={500}
           width={500}
           className="h-full w-full object-cover object-center"
@@ -63,7 +63,7 @@ export default function CartItem({
         <div className="flex justify-between text-base text-neutral">
           <Link href={`/product/${itemHandle}`}>
             <h3>
-              <a href="#">{itemTitle}</a>
+              {itemTitle}
             </h3>
           </Link>
           <p>{formatPrice(parseInt(itemPrice))}</p>
@@ -71,7 +71,8 @@ export default function CartItem({
         <div className="flex flex-row items-center justify-between text-sm">
           <div className="inline-flex space-x-3">
             <button
-              className="btn rounded-md btn-ghost btn-xs "
+              name="increase quantity"
+              className="btn rounded-md btn-ghost btn-xs"
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate(updatedQuantity + 1);
@@ -81,7 +82,8 @@ export default function CartItem({
             </button>
             <p className="text-neutral text-base">{itemQty} Qty</p>
             <button
-              className="btn rounded-md btn-ghost btn-xs "
+              name="decrease quantity"
+              className="btn rounded-md btn-ghost btn-xs"
               onClick={(e) => {
                 e.preventDefault();
                 handleUpdate(updatedQuantity - 1);
@@ -92,12 +94,13 @@ export default function CartItem({
           </div>
           <div className="flex">
             <button
+              name="remove item"
               onClick={(e) => {
                 e.preventDefault();
                 handleDelete();
               }}
               type="button"
-              className=" btn rounded-md btn-outline btn-primary btn-xs"
+              className="btn rounded-md btn-outline btn-primary btn-xs"
             >
               Remove
             </button>

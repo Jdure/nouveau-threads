@@ -1,5 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from "react";
+import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 import { Edge } from "../../types/cart-get";
 import { getUserCart, formatPrice } from "../../utils/helpers";
@@ -152,19 +153,20 @@ export default function CartSideDrawer({
                       Shipping and taxes calculated at checkout
                     </p>
                     <div className="mt-6">
-                      <a
+                      <Link
                         href={cartCheckout}
                         className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-hover"
                       >
                         Checkout
-                      </a>
+                      </Link>
                     </div>
                     <div className="mt-6 flex justify-center text-center text-sm text-neutral">
                       <p>
                         or{" "}
                         <button
+                          name="conitnue shopping"
                           type="button"
-                          className="font-medium text-primary hover:text-hover"
+                          className="btn-primary btn-ghost rounded-none"
                           onClick={cartOpenFunc}
                         >
                           Continue Shopping

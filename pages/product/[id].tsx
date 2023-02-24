@@ -93,6 +93,7 @@ export default function ProductDetail({ product }: ProductData) {
                   {formatPrice(parseInt(price.amount))}
                 </span>
                 <button
+                  name="add to cart"
                   onClick={(e) => {
                     e.preventDefault();
                     handleAdd();
