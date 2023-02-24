@@ -6,19 +6,19 @@ import { Edge, Storefront } from "../types/storefront";
 import Card from "../components/Content/card";
 import dynamic from "next/dynamic";
 
-const Hero = dynamic(
+const Hero = dynamic<{}>(
   () => import("../components/Content/hero").then((mod) => mod.Hero),
   {
     ssr: false,
   }
 );
-const About = dynamic(
+const About = dynamic<{}>(
   () => import("../components/Content/about").then((mod) => mod.About),
   {
     ssr: false,
   }
 );
-const Contact = dynamic(
+const Contact = dynamic<{}>(
   () => import("../components/Content/contact").then((mod) => mod.Contact),
   {
     ssr: false,

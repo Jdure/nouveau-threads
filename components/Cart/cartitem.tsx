@@ -62,9 +62,7 @@ export default function CartItem({
       <div className="mx-2 flex flex-1 flex-col justify-around">
         <div className="flex justify-between text-base text-neutral">
           <Link href={`/product/${itemHandle}`}>
-            <h3>
-              {itemTitle}
-            </h3>
+            <h3>{itemTitle}</h3>
           </Link>
           <p>{formatPrice(parseInt(itemPrice))}</p>
         </div>
@@ -100,7 +98,7 @@ export default function CartItem({
                 handleDelete();
               }}
               type="button"
-              className="btn rounded-md btn-outline btn-primary btn-xs"
+              className="btn rounded-md btn-primary btn-xs"
             >
               Remove
             </button>

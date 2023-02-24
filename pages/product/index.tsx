@@ -5,12 +5,15 @@ import { Edge, Storefront } from "../../types/storefront";
 import { getStoreProducts } from "../../utils/helpers";
 import { productsQuery } from "../../utils/shopify-queries";
 import Card from "../../components/Content/card";
-import { Key } from "react";
 
 export default function StoreProducts() {
-  const { data: data } = useQuery<Storefront>("products", () => getStoreProducts(productsQuery), {
-    staleTime: Infinity,
-  });
+  const { data: data } = useQuery<Storefront>(
+    "products",
+    () => getStoreProducts(productsQuery),
+    {
+      staleTime: Infinity,
+    }
+  );
   const products = data?.data.products;
 
   return (
@@ -24,7 +27,7 @@ export default function StoreProducts() {
             node: { handle, featuredImage, priceRange, title, id },
           }: Edge) => {
             return (
-              <Link href={`/product/${handle}`}>
+              <Link key={handle} href={`/product/${handle}`}>
                 <a>
                   <Card
                     featuredImage={featuredImage.url}
