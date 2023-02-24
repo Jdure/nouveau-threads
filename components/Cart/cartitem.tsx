@@ -101,7 +101,7 @@ export default function CartItem({
                 handleDelete();
               }}
               type="button"
-              className="btn rounded-md btn-primary btn-xs"
+              className="btn rounded-md btn-outline text-cyan-800 hover:bg-cyan-900 btn-xs"
             >
               Remove
             </button>
