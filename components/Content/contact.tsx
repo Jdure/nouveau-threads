@@ -25,7 +25,10 @@ export const Contact = () => {
             placeholder="name@example.com"
             className="input input-bordered w-full pr-16 rounded-md"
           />
-          <button className="btn bg-pink-800 hover:bg-pink-900 absolute top-0 right-0 rounded-r-md rounded-l-md">
+          <button
+            aria-label="add to cart"
+            className="btn bg-pink-800 hover:bg-pink-900 absolute top-0 right-0 rounded-r-md rounded-l-md"
+          >
             Send
           </button>
         </div>

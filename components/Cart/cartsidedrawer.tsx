@@ -88,6 +88,7 @@ export default function CartSideDrawer({
                       </Dialog.Title>
                       <div className="ml-3 flex h-7 items-center">
                         <button
+                          aria-label="Close panel"
                           type="button"
                           className="-m-2 p-2 text-gray-400 hover:text-gray-500"
                           onClick={cartOpenFunc}
@@ -153,7 +154,10 @@ export default function CartSideDrawer({
                       Shipping and taxes calculated at checkout
                     </p>
                     <div className="mt-6">
-                      <button className="flex items-center justify-center rounded-md btn bg-cyan-800 hover:bg-cyan-900 px-6 py-3 text-base-100">
+                      <button
+                        aria-label="Checkout"
+                        className="flex items-center justify-center rounded-md btn bg-cyan-800 hover:bg-cyan-900 px-6 py-3 text-base-100"
+                      >
                         <Link href={cartCheckout || ""}>Checkout</Link>
                       </button>
                     </div>
@@ -161,6 +165,7 @@ export default function CartSideDrawer({
                       <p>
                         or{" "}
                         <button
+                          aria-label="continue shopping"
                           name="continue shopping"
                           type="button"
                           className="text-neutral btn-link text-sm rounded-none"

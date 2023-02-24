@@ -69,6 +69,7 @@ export default function CartItem({
         <div className="flex flex-row items-center justify-between text-sm">
           <div className="inline-flex space-x-3">
             <button
+              aria-label="increase quantity"
               name="increase quantity"
               className="btn rounded-md btn-ghost btn-xs"
               onClick={(e) => {
@@ -80,6 +81,7 @@ export default function CartItem({
             </button>
             <p className="text-neutral text-base">{itemQty} Qty</p>
             <button
+              aria-label="decrease quantity"
               name="decrease quantity"
               className="btn rounded-md btn-ghost btn-xs"
               onClick={(e) => {
@@ -92,6 +94,7 @@ export default function CartItem({
           </div>
           <div className="flex">
             <button
+              aria-label="remove item"
               name="remove item"
               onClick={(e) => {
                 e.preventDefault();

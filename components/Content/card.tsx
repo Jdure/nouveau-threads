@@ -43,6 +43,7 @@ export default function Card(props: {
             {formatPrice(parseInt(props.price))}
           </p>
           <button
+            aria-label="add to cart"
             name="add to cart"
             onClick={(e) => {
               e.preventDefault();
