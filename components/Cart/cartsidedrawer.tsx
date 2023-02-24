@@ -153,7 +153,7 @@ export default function CartSideDrawer({
                       Shipping and taxes calculated at checkout
                     </p>
                     <div className="mt-6">
-                      <button className="flex items-center font-bold justify-center rounded-md btn btn-success px-6 py-3 text-base-100">
+                      <button className="flex items-center justify-center rounded-md btn bg-cyan-800 hover:bg-cyan-900 px-6 py-3 text-base-100">
                         <Link href={cartCheckout || ""}>Checkout</Link>
                       </button>
                     </div>
