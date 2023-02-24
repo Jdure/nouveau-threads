@@ -77,23 +77,23 @@ export default function ProductDetail({ product }: ProductData) {
                   <div className="w-auto">
                     <span className="m-auto pr-2 text-xl">Quantity</span>
                   </div>
-                  <div className="w-auto flex flex-row-reverse">
+                  <div className="w-auto flex flex-row-reverse items-center">
                     <button
                       onClick={() =>
                         quantity > 1 ? setQuantity(quantity - 1) : quantity
                       }
-                      className="btn-primary btn-outline text-base-100 mx-1 my-1 px-4 rounded-lg"
+                      className="btn btn-ghost border-none mx-1 my-1 px-4 rounded-lg"
                     >
-                      <span className="m-auto text-xl">-</span>
+                      <span className="m-auto text-xl text-neutral">-</span>
                     </button>
                     <p className="text-center text-xl py-2 px-4">{quantity}</p>
                     <button
                       onClick={() =>
                         quantity < 20 ? setQuantity(quantity + 1) : quantity
                       }
-                      className="btn-primary btn-outline text-base-100 mx-1 my-1 px-4 rounded-lg"
+                      className="btn btn-ghost border-none mx-1 my-1 px-4 rounded-lg"
                     >
-                      <span className="m-auto text-xl">+</span>
+                      <span className="m-auto text-xl text-neutral">+</span>
                     </button>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export default function ProductDetail({ product }: ProductData) {
                       handleAdd();
                       setQuantity(1);
                     }}
-                    className="flex ml-auto btn btn-primary rounded-md border-0 py-2 px-6"
+                    className="flex ml-auto btn bg-cyan-800 hover:bg-cyan-900 rounded-md border-0 py-2 px-6"
                   >
                     Add to Cart
                   </button>

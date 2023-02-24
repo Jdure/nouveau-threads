@@ -48,7 +48,7 @@ export default function Card(props: {
               e.preventDefault();
               handleAdd();
             }}
-            className={`btn btn-outline btn-neutral text-base rounded-md btn-sm hover:animate-pulse ${
+            className={`btn bg-cyan-800 hover:bg-cyan-900 text-base-100 rounded-md btn-sm hover:animate-pulse ${
               router.asPath != "/" ? "hidden" : ""
             }`}
           >
