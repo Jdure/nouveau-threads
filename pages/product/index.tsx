@@ -18,12 +18,11 @@ export default function StoreProducts() {
       <h1 className="text-4xl font-bold text-neutral text-center py-4">
         Products
       </h1>
-      <div className="flex flex-row flex-wrap justify-evenly items-center mx-6 py-6">
+      <div className="flex flex-wrap sm:w-5/6 justify-evenly items-center py-6 mx-auto">
         {products?.edges.map(
-          (
-            { node: { handle, featuredImage, priceRange, title, id } }: Edge,
-            idx: Key
-          ) => {
+          ({
+            node: { handle, featuredImage, priceRange, title, id },
+          }: Edge) => {
             return (
               <Link href={`/product/${handle}`}>
                 <a>

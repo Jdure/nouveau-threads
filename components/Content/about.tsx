@@ -14,7 +14,8 @@ export const About = () => {
         <div className="basis-1/2 flex flex-col items-center justify-between space-y-6">
           <h2 className="text-3xl">Our Mission</h2>
           <p className="w-2/3 text-lg font-light leading-loose">
-            We are proud to produce fashionable clothes that come from 100% recycled materials
+            We are proud to produce fashionable clothes that come from recycled
+            materials
           </p>
         </div>
         <div className="w-72 sm:w-full sm:basis-1/2 ">
