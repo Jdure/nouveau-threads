@@ -38,7 +38,7 @@ SHOPIFY_STORE_DOMAIN=your-shopify-domain
 SHOPIFY_STORE_API_URL=your-api-url
 ```
 
-NOTE: **You will need to create your own content to display data from the Shopify**
+NOTE: **You will need to create your own content to display data from Shopify**
 
 ## Usage
 
