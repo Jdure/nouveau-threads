@@ -38,7 +38,21 @@ SHOPIFY_STORE_DOMAIN=your-shopify-domain
 SHOPIFY_STORE_API_URL=your-api-url
 ```
 
+In the terminal cd into the root of the repo enter npm install to install the dependencies
+
+```bash
+npm instal
+```
+
+Then npm run build, followed by npm run start to lunch the application
+
+```bash
+npm run build
+npm run start
+```
+
 NOTE: **You will need to create your own content to display data from Shopify**
+
 
 ## Usage
 
