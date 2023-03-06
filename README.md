@@ -1,27 +1,54 @@
-# Next.js + Tailwind CSS Example
+![Nouveau Threads](https://res.cloudinary.com/dhfp2qscl/image/upload/v1678120378/portfolio/Nouveau_Threads_dn7hhe.png)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# Nouveau Threads
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jdure/nouveau-threads)
+![GitHub issues](https://img.shields.io/github/issues/Jdure/nouveau-threads)
 
-## Preview
+An accessible custom e-commerce store template.
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## Description
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+Nouveau threads is an e-commerce site I built with Next.js, Tailwind, and Shopify’s Storefront API. 
 
-## Deploy your own
+### Technologies
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+The website was built with the following tech stack
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+![Next.js](	https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+With [Shopify's Storefront API](https://shopify.dev/docs/api/storefront) as the data layer for inventory management.
+
+## Installation
+
+Follow the instructions on [Getting started with the Storefront API](https://shopify.dev/docs/custom-storefronts/building-with-the-storefront-api/getting-started)
+
+Clone the repository
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+git clone https://github.com/Jdure/nouveau-threads.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Inside the root of the project create a env.local file, add the following Shopify API tokens
+
+```bash
+SHOPIFY_STOREFRONT_ACCESS_TOKEN=your-access-token
+SHOPIFY_STORE_DOMAIN=your-shopify-domain
+SHOPIFY_STORE_API_URL=your-api-url
+```
+
+NOTE: **You will need to create your own content to display data from the Shopify**
+
+## Usage
+
+To view the website visit [Nouveau Threads](https://nouveau-threads.vercel.app/)
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
