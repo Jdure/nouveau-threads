@@ -22,7 +22,7 @@ export const About = () => {
           <Image
             alt={"Clothes on a rack"}
             className="rounded-md object-cover object-center"
-            src={"https://source.unsplash.com/WF0LSThlRmw/400x400"}
+            src={"/clothes_two.jpg"}
             width={400}
             height={400}
           />
