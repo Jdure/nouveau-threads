@@ -6,7 +6,7 @@ export const Hero = () => {
       <div
         className="hero h-96"
         style={{
-          backgroundImage: `url("https://source.unsplash.com/7YwWjgS7aJs/1280x720")`,
+          backgroundImage: `url("clothes_banner.jpg")`,
         }}
       >
         <div className="hero-overlay bg-opacity-30"></div>
